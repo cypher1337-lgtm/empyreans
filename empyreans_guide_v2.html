@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMPYREANS · Where Winds Meet · Mo Blade / Stormbreaker Gildenhandbuch v2</title>
+<style>
+:root{
+  --bg:#0e0c14;--bg-2:#15121d;--panel:#1b1726;--panel-2:#221c30;
+  --ink:#e9e4d8;--ink-soft:#bdb6a8;
+  --gold:#d4af52;--gold-soft:#e8d49a;
+  --violet:#9b6bd6;--violet-soft:#c4a3ef;
+  --red:#d9534f;--red-bg:#2a1416;
+  --green:#5ca86b;--green-bg:#13241a;
+  --line:#33293f;--shadow:0 8px 28px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(155,107,214,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(212,175,82,.07), transparent 55%),
+    var(--bg);
+  color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  line-height:1.65;font-size:17px;
+}
+.wrap{max-width:1020px;margin:0 auto;padding:0 22px 90px;}
+
+header.hero{text-align:center;padding:70px 20px 46px;border-bottom:1px solid var(--line);margin-bottom:38px;}
+header.hero .crest{font-family:"Optima","Gill Sans",sans-serif;letter-spacing:.42em;color:var(--violet-soft);font-size:14px;text-transform:uppercase;margin-bottom:18px;}
+header.hero h1{font-family:"Optima",Georgia,serif;font-size:clamp(34px,6vw,62px);margin:0;letter-spacing:.06em;
+  background:linear-gradient(180deg,var(--gold-soft),var(--gold) 70%,#9a7c30);-webkit-background-clip:text;background-clip:text;color:transparent;}
+header.hero .sub{color:var(--ink-soft);font-style:italic;margin-top:14px;font-size:19px;}
+header.hero .ver{margin-top:20px;display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:5px 16px;border-radius:999px;font-family:sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;}
+.rule{height:1px;width:100%;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:6px 0 0;}
+
+h2{font-family:"Optima",Georgia,serif;font-size:28px;margin:54px 0 6px;color:var(--gold-soft);letter-spacing:.03em;scroll-margin-top:18px;}
+h2 .num{color:var(--violet);font-size:18px;margin-right:12px;font-family:sans-serif;}
+h2 + .rule{margin-bottom:22px;}
+h3{font-size:21px;color:var(--violet-soft);margin:30px 0 8px;}
+h4{font-size:16px;color:var(--gold);margin:20px 0 4px;font-family:sans-serif;letter-spacing:.04em;text-transform:uppercase;}
+p{margin:10px 0;}a{color:var(--gold-soft);}
+.lead{color:var(--ink-soft);font-style:italic;}
+strong{color:var(--gold-soft);}.en{color:var(--ink-soft);font-style:italic;font-weight:normal;}
+
+nav.toc{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:12px;padding:26px 30px;box-shadow:var(--shadow);}
+nav.toc h2{margin:0 0 14px;font-size:22px;}
+nav.toc ol{margin:0;padding-left:0;list-style:none;counter-reset:toc;columns:2;column-gap:42px;}
+nav.toc li{counter-increment:toc;padding:4px 0;break-inside:avoid;}
+nav.toc li::before{content:counter(toc,decimal-leading-zero);color:var(--violet);font-family:sans-serif;font-size:12px;margin-right:10px;}
+nav.toc a{color:var(--ink);text-decoration:none;}nav.toc a:hover{color:var(--gold-soft);}
+
+.box{border-radius:10px;padding:16px 20px;margin:18px 0;border:1px solid var(--line);}
+.warn{background:var(--red-bg);border-color:#5b2a2a;}
+.warn::before{content:"⚠ Häufiger Fehler";display:block;color:var(--red);font-family:sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.tip{background:#181f29;border-color:#2c3b4d;}
+.tip::before{content:"➤ Tipp";display:block;color:#7fb4e6;font-family:sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.rec{background:var(--green-bg);border-color:#2c4d36;}
+.rec::before{content:"✓ Empfehlung";display:block;color:var(--green);font-family:sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.check{background:#241c2e;border-color:#46365b;}
+.check::before{content:"❓ Im Spiel prüfen";display:block;color:var(--violet-soft);font-family:sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.fix{background:#2a2410;border-color:#5b4f1f;}
+.fix::before{content:"✎ Korrekturhinweis";display:block;color:var(--gold);font-family:sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px;background:var(--panel);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+caption{caption-side:top;text-align:left;color:var(--ink-soft);font-style:italic;font-size:14px;margin-bottom:6px;}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+th{background:var(--panel-2);color:var(--gold);font-family:sans-serif;font-size:12px;letter-spacing:.05em;text-transform:uppercase;}
+tr:last-child td{border-bottom:none;}
+td:first-child{color:var(--gold-soft);font-weight:bold;}
+.tw{overflow-x:auto;}
+.tier{font-family:sans-serif;font-weight:bold;border-radius:6px;padding:2px 8px;font-size:12px;white-space:nowrap;}
+.t-s{background:#3a2c12;color:var(--gold-soft);}
+.t-a{background:#23304a;color:#9cc4f0;}
+.t-b{background:#2a2433;color:var(--violet-soft);}
+.t-c{background:#2c2024;color:#d99;}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:20px;margin:22px 0;}
+.card{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow);border-top:3px solid var(--violet);}
+.card.pve{border-top-color:var(--gold);}
+.card.gvg{border-top-color:var(--violet);}
+.card.arena{border-top-color:#7fb4e6;}
+.card.anti{border-top-color:var(--red);}
+.card.std{border-top-color:var(--green);}
+.card h3{margin:0 0 2px;color:var(--gold-soft);}
+.card .role{font-family:sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--violet-soft);margin-bottom:12px;}
+.card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:14.5px;}
+.card dt{color:var(--ink-soft);font-family:sans-serif;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding-top:3px;}
+.card dd{margin:0;color:var(--ink);}
+.card .sw{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:13.5px;}
+.card .sw .s{color:var(--green);}.card .sw .w{color:var(--red);}
+.card .why{margin-top:8px;font-size:13.5px;color:var(--ink-soft);font-style:italic;}
+
+ul.clean{margin:8px 0;padding-left:22px;}ul.clean li{margin:5px 0;}
+ol.clean{margin:8px 0;padding-left:22px;}ol.clean li{margin:5px 0;}
+.flow{font-family:sans-serif;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;line-height:2;}
+.flow .step{color:var(--gold-soft);}.flow .arrow{color:var(--violet);margin:0 4px;}
+.checklist{list-style:none;padding-left:0;}
+.checklist li{padding:7px 0 7px 30px;position:relative;border-bottom:1px solid var(--line);}
+.checklist li::before{content:"☐";position:absolute;left:4px;color:var(--gold);font-size:18px;}
+
+footer{text-align:center;margin-top:70px;padding-top:26px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:14px;font-style:italic;}
+
+@media print{
+  body{background:#fff;color:#1a1a1a;font-size:10.5pt;}
+  header.hero h1{color:#7a5e18;-webkit-text-fill-color:#7a5e18;}
+  nav.toc,.card,table,.box,.flow{box-shadow:none;break-inside:avoid;}
+  h2{color:#7a5e18;page-break-after:avoid;}.cards{grid-template-columns:1fr 1fr;}a{color:#1a1a1a;}.en,.lead{color:#555;}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+@media (max-width:600px){nav.toc ol{columns:1;}body{font-size:16px;}.card dl{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="crest">⟡ Empyreans ⟡</div>
+  <h1>Where Winds Meet</h1>
+  <div class="sub">Mo Blade &amp; Stormbreaker Spear — Gildenhandbuch für PvE · PvP · GvG</div>
+  <div class="ver">Gilden-Edition · v2.0 · korrigiert &amp; erweitert</div>
+</header>
+
+<div class="wrap">
+
+<div class="box check">
+Dieses Handbuch fasst die internen EMPYREANS-Notizen zusammen, korrigiert sie und erweitert sie um Werte-Prioritäten, Tabellen und Matchups. <em>Where Winds Meet</em> (燕云十六声) balanciert Set-Effekte, Cooldowns und Tier-Einstufungen regelmäßig um, und viele deutsche Begriffe sind Arbeitsbezeichnungen der Gilde, keine offiziellen Übersetzungen. Statt erfundener Zahlen arbeiten wir bewusst mit <strong>Prioritäten</strong>. Markierte Stellen bitte im Spiel gegenprüfen.
+</div>
+
+<nav class="toc" id="top">
+  <h2>Inhalt</h2>
+  <ol>
+    <li><a href="#klassen">Klassenübersicht</a></li>
+    <li><a href="#mechanik">Build-Mechanik</a></li>
+    <li><a href="#werte">Werte &amp; Prioritäten</a></li>
+    <li><a href="#gear">Gear / Ausrüstung</a></li>
+    <li><a href="#innerways">Innerways</a></li>
+    <li><a href="#mystics">Mystische Fähigkeiten</a></li>
+    <li><a href="#buffs">Buffs &amp; Debuffs</a></li>
+    <li><a href="#rotationen">Rotationen</a></li>
+    <li><a href="#matchups">PvP-Matchups</a></li>
+    <li><a href="#gvg">GvG-Kapitel</a></li>
+    <li><a href="#events">Jungle · Löwengebrüll · Flöte · Turm</a></li>
+    <li><a href="#dps">Wie erhöhe ich meinen DPS?</a></li>
+    <li><a href="#meta">Meta-Build-Karten</a></li>
+  </ol>
+</nav>
+
+<!-- 1 -->
+<h2 id="klassen"><span class="num">01</span>Klassenübersicht</h2>
+<div class="rule"></div>
+<p class="lead">Interne EMPYREANS-Einschätzung der aktuellen Meta. Eine Tier-Liste ist immer eine Momentaufnahme.</p>
+<div class="box check">Tier-Einstufungen schwanken zwischen Patches und Server-Regionen (CN / Global). Als Orientierung verstehen, nicht als feste Wahrheit.</div>
+<div class="tw"><table>
+<caption>Waffen / Klassen und Eignung pro Modus</caption>
+<tr><th>Klasse</th><th>PvE</th><th>PvP</th><th>GvG</th><th>Kurzcharakter</th></tr>
+<tr><td>Mo Blade</td><td><span class="tier t-s">S</span></td><td><span class="tier t-a">A+</span></td><td><span class="tier t-s">S</span></td><td>Frontline-Tank, Bruiser, Kontrolle, Raid-Tank</td></tr>
+<tr><td>Spear <span class="en">(Stormbreaker)</span></td><td><span class="tier t-a">A+</span></td><td><span class="tier t-s">S</span></td><td><span class="tier t-s">S</span></td><td>Buffs, Debuffs, Schilde, Kontrolle</td></tr>
+<tr><td>Sword</td><td><span class="tier t-s">S+</span></td><td><span class="tier t-s">S</span></td><td><span class="tier t-a">A</span></td><td>Mobiler Burst-Duellant</td></tr>
+<tr><td>Umbrella</td><td><span class="tier t-a">A</span></td><td><span class="tier t-s">S</span></td><td><span class="tier t-s">S</span></td><td>Defensiv, Konter, sehr zäh</td></tr>
+<tr><td>Fan</td><td><span class="tier t-a">A</span></td><td><span class="tier t-a">A+</span></td><td><span class="tier t-s">S</span></td><td>Range, Poke, Kontrolle</td></tr>
+<tr><td>Twin Blade</td><td><span class="tier t-s">S</span></td><td><span class="tier t-s">S</span></td><td><span class="tier t-a">A</span></td><td>Hoher Nahkampf-Burst</td></tr>
+</table></div>
+
+<!-- 2 -->
+<h2 id="mechanik"><span class="num">02</span>Build-Mechanik</h2>
+<div class="rule"></div>
+<h3>Warum Mo Blade + Stormbreaker Spear funktioniert</h3>
+<p>Der Kern ist ein <strong>Zwei-Waffen-Loop</strong>: Die <strong>Stormbreaker Spear</strong> richtet das Spielfeld ein — Buffs auf dich, Debuffs und Kontrolle auf den Gegner, dazu Schilde. Die <strong>Mo Blade</strong> erntet dieses Fenster ab — hoher anhaltender Schaden, gute Zähigkeit, starke Konter. Die Spear baut auf, die Klinge zahlt aus.</p>
+<div class="tw"><table>
+<tr><th>Modus</th><th>Rolle des Builds</th></tr>
+<tr><td>PvE</td><td>Aggro halten, Boss positionieren, Gruppen-Debuffs setzen; im Bruiser-Setup zusätzlich Schaden.</td></tr>
+<tr><td>PvP</td><td>Burst überleben, gegnerische Cooldowns abwarten, mit Kontrolle + Konter zurückschlagen.</td></tr>
+<tr><td>GvG</td><td>Frontline brechen/halten, Gegner binden, Debuffs verteilen, Backline schützen — keine Kills jagen.</td></tr>
+</table></div>
+
+<h3>Tank vs. Bruiser vs. DPS</h3>
+<div class="tw"><table>
+<tr><th>Ausrichtung</th><th>Ziel</th><th>Worauf tunen</th></tr>
+<tr><td>Tank</td><td>Maximales Überleben, Aggro, Kontrolle</td><td>HP, Verteidigung, Resilience zuerst</td></tr>
+<tr><td>Bruiser</td><td>Balance aus Überleben &amp; Schaden</td><td>HP-Basis sichern, Rest in Crit &amp; Angriff</td></tr>
+<tr><td>DPS</td><td>Maximaler Schaden, Survival nachrangig</td><td>Charged Damage, Crit-Rate, Crit-Schaden</td></tr>
+</table></div>
+
+<h3>Warum Uptime oft wichtiger ist als die perfekte Rotation</h3>
+<p>Eine durchgehend gehaltene Buff- und Debuff-Uptime multipliziert <em>jeden</em> Schlag. Ein perfekt getimter Charged Hit ohne aktive Buffs bringt weniger als eine etwas unsaubere Rotation, bei der Moralgesang (Morale Chant) und die Stormbreaker-Debuffs nie auslaufen. Über die Länge eines Bosskampfs gewinnt Konstanz gegen Spikes.</p>
+
+<div class="box tip"><strong>Aggressiv</strong> spielst du, wenn deine Buffs stehen, deine Mystics bereit sind und der Gegner seine Mobilitäts-/Burst-Cooldowns verbraucht hat. <strong>Defensiv</strong> spielst du, wenn deine Buffs auslaufen, dein defensiver Mystic auf Cooldown ist oder der Gegner offensiv bereit ist — dann zuerst überleben, Tempo herausnehmen, neu aufbauen.</p></div>
+
+<!-- 3 -->
+<h2 id="werte"><span class="num">03</span>Werte &amp; Prioritäten</h2>
+<div class="rule"></div>
+<p class="lead">Reihenfolge = Priorität (oben zuerst auffüllen). Bewusst ohne erfundene Prozentwerte — Schwellen am Trainingsdummy gegentesten.</p>
+
+<h4>PvE Tank</h4>
+<div class="tw"><table>
+<tr><th>#</th><th>Wert</th><th>Begründung</th></tr>
+<tr><td>1</td><td>HP / Überleben</td><td>Der Tank darf nicht fallen — alles andere ist wertlos, wenn du tot bist.</td></tr>
+<tr><td>2</td><td>Verteidigung / Schadensreduktion</td><td>Macht eingehende Boss-Hits planbar und entlastet den Heiler.</td></tr>
+<tr><td>3</td><td>Charged Damage</td><td>Wichtigste Schadensquelle, sobald Überleben gesichert ist.</td></tr>
+<tr><td>4</td><td>Crit Rate</td><td>Erhöht die Konstanz des Schadens.</td></tr>
+<tr><td>5</td><td>Crit Damage</td><td>Skaliert erst sinnvoll, wenn Crit-Rate ausreichend hoch ist.</td></tr>
+<tr><td>6</td><td>Angriff</td><td>Solide Basis, aber zuletzt.</td></tr>
+</table></div>
+
+<h4>PvE DPS Bruiser</h4>
+<div class="tw"><table>
+<tr><th>#</th><th>Wert</th><th>Begründung</th></tr>
+<tr><td>1</td><td>Charged Damage</td><td>Hauptschadensquelle des Builds.</td></tr>
+<tr><td>2</td><td>Crit Rate</td><td>Stabilisiert den Schaden, bevor Crit-Schaden lohnt.</td></tr>
+<tr><td>3</td><td>Crit Damage</td><td>Multipliziert erst bei hoher Crit-Rate.</td></tr>
+<tr><td>4</td><td>Angriff</td><td>Solide Grundskalierung.</td></tr>
+<tr><td>5</td><td>Körperkraft <span class="en">(Body)</span></td><td>Stützt Angriff &amp; Burst.</td></tr>
+<tr><td>6</td><td>HP (Mindestabsicherung)</td><td>Nur so viel, dass du Boss-Mechaniken überlebst.</td></tr>
+</table></div>
+
+<h4>PvP / Arena</h4>
+<div class="tw"><table>
+<tr><th>#</th><th>Wert</th><th>Begründung</th></tr>
+<tr><td>1</td><td>HP</td><td>Überleben schlägt Burst — tote Spieler machen keinen Schaden.</td></tr>
+<tr><td>2</td><td>Defense / Schadensreduktion</td><td>Reduziert eingehenden Burst direkt.</td></tr>
+<tr><td>3</td><td>Resilience / Kontrolle überleben</td><td>CC-Ketten sind im PvP oft tödlicher als reiner Schaden.</td></tr>
+<tr><td>4</td><td>Crit Rate</td><td>Konterschaden zuverlässig machen.</td></tr>
+<tr><td>5</td><td>Crit Damage</td><td>Belohnt das Konterfenster.</td></tr>
+<tr><td>6</td><td>Charged Damage</td><td>Nachrangig, da Charged Hits im PvP schwerer landen.</td></tr>
+</table></div>
+
+<h4>GvG Frontline</h4>
+<div class="tw"><table>
+<tr><th>#</th><th>Wert</th><th>Begründung</th></tr>
+<tr><td>1</td><td>HP</td><td>Du stehst zuerst im Fokusfeuer.</td></tr>
+<tr><td>2</td><td>Defense</td><td>Hält dich unter Bündelschaden am Leben.</td></tr>
+<tr><td>3</td><td>Resilience</td><td>Überlebt gegnerische CC-Ketten.</td></tr>
+<tr><td>4</td><td>Cooldown Reduction</td><td>Schilde, Kontrolle und Buffs schneller wieder verfügbar.</td></tr>
+<tr><td>5</td><td>Buff Duration</td><td>Hält Gruppen-Buffs/Debuffs durchgehend aktiv.</td></tr>
+<tr><td>6</td><td>Crit (sekundär)</td><td>Schaden ist in der Frontline Nebensache.</td></tr>
+</table></div>
+
+<h4>Max-DPS</h4>
+<div class="tw"><table>
+<tr><th>#</th><th>Wert</th><th>Begründung</th></tr>
+<tr><td>1</td><td>Charged Damage</td><td>Stärkster Multiplikator des Builds.</td></tr>
+<tr><td>2</td><td>Crit Rate</td><td>Bis zu einem stabilen Wert, dann erst Crit-Schaden.</td></tr>
+<tr><td>3</td><td>Crit Damage</td><td>Skaliert auf hoher Crit-Rate.</td></tr>
+<tr><td>4</td><td>Angriff</td><td>Grundskalierung.</td></tr>
+<tr><td>5</td><td>Körperkraft</td><td>Stützt Angriff.</td></tr>
+<tr><td>6</td><td>Buff-Uptime</td><td>Kein Stat-Slot, aber direkter DPS-Multiplikator.</td></tr>
+<tr><td>7</td><td>Debuff-Uptime</td><td>Erhöht den Schaden der ganzen Gruppe.</td></tr>
+</table></div>
+<div class="box tip">Faustregel über alle Tabellen: <strong>Crit-Rate bis zu einem stabilen Wert, danach Crit-Schaden.</strong> Viel Crit-Schaden bei niedriger Crit-Rate verpufft.</div>
+
+<!-- 4 -->
+<h2 id="gear"><span class="num">04</span>Gear / Ausrüstung</h2>
+<div class="rule"></div>
+<div class="tw"><table>
+<caption>Set-Empfehlungen</caption>
+<tr><th>Deutsch</th><th>Englisch</th><th>Einsatz</th><th>Stärke</th><th>Schwäche</th><th>Empfehlung</th></tr>
+<tr><td>Formerzwinger</td><td><span class="en">Formbend</span></td><td>PvE</td><td>Höchster Schaden, beste Boss-/Raidleistung</td><td>Weniger Mobilität/Survival gegen Fokus</td><td>Standard für Raid &amp; DPS</td></tr>
+<tr><td>Mondflackern</td><td><span class="en">Moonflare</span></td><td>GvG / PvP</td><td>Mehr Mobilität, Überleben, besser gegen Fokusfeuer</td><td>Geringerer reiner Schaden</td><td>Standard für Frontline &amp; Arena</td></tr>
+</table></div>
+<div class="box fix">Der deutsche Name sollte im Spiel geprüft werden. Aktuell verwendet: <strong>Formerzwinger (Formbend)</strong> und <strong>Mondflackern (Moonflare)</strong> — beides Arbeitsbezeichnungen der Gilde, keine bestätigten offiziellen Übersetzungen.</div>
+<div class="box check">Weitere sinnvolle Alternativ-Sets sind nicht zuverlässig belegt. Bitte im Spiel prüfen, welche Sets im aktuellen Patch für Tank- bzw. DPS-Linien verfügbar sind, bevor ihr Material investiert.</div>
+
+<h3>Wann welches Set?</h3>
+<ul class="clean">
+<li><strong>Formerzwinger (Formbend)</strong> ist besser, wenn dein Überleben anderweitig gesichert ist — fester Bosskampf, Pocket-Heiler, planbare Mechaniken. Maximaler Schadensoutput.</li>
+<li><strong>Mondflackern (Moonflare)</strong> ist besser, wenn du im Fokusfeuer stehst und Mobilität/Überleben über Schaden gehen — GvG-Frontline, Arena, chaotische Kämpfe.</li>
+<li><strong>Warum GvG andere Werte braucht als PvE:</strong> Im PvE ist der Schaden kalkulierbar und kommt aus einer Richtung; im GvG wirst du von mehreren Gegnern gleichzeitig fokussiert, weshalb HP/Defense/Resilience und Mobilität wichtiger werden als roher DPS.</li>
+<li><strong>Wechsel von Tank- auf DPS-Gear</strong> ist erst sinnvoll, wenn dein Survival gesichert ist (Heiler, sichere Position, planbarer Schaden). In der GvG-Frontline gilt das fast nie — tot machst du null Schaden.</li>
+</ul>
+
+<!-- 5 -->
+<h2 id="innerways"><span class="num">05</span>Innerways</h2>
+<div class="rule"></div>
+<div class="tw"><table>
+<caption>Empfohlene Innerways · D = defensiv, O = offensiv, H = hybrid</caption>
+<tr><th>Deutsch</th><th>Englisch</th><th>Typ</th><th>Wirkung (vermutet)</th><th>PvE</th><th>PvP</th><th>GvG</th><th>Kommentar</th></tr>
+<tr><td>Moralgesang</td><td><span class="en">Morale Chant</span></td><td>H</td><td>Grund-/Gruppenbuff, hält Kampfkraft oben</td><td><span class="tier t-s">Pflicht</span></td><td><span class="tier t-s">Pflicht</span></td><td><span class="tier t-s">Pflicht</span></td><td>Fester Slot in allen Builds.</td></tr>
+<tr><td>Erlesene Landschaft</td><td><span class="en">Exquisite Scenery</span></td><td>H</td><td>Stärkt Grundwerte / Ressourcenfluss</td><td><span class="tier t-s">Pflicht</span></td><td><span class="tier t-s">Pflicht</span></td><td><span class="tier t-s">Pflicht</span></td><td>Zweiter fester Slot.</td></tr>
+<tr><td>Kampfhymne</td><td><span class="en">Battle Anthem</span></td><td>O</td><td>Offensiver Dauerbuff für Sustained Damage</td><td><span class="tier t-s">Hoch</span></td><td><span class="tier t-b">Situativ</span></td><td><span class="tier t-b">Situativ</span></td><td>Kern des PvE-DPS-Setups.</td></tr>
+<tr><td>Anpassungsstahl</td><td><span class="en">Adaptive Steel</span></td><td>H</td><td>Skaliert über die Kampfdauer</td><td><span class="tier t-s">Hoch</span></td><td><span class="tier t-b">Situativ</span></td><td><span class="tier t-a">Mittel</span></td><td>Stark in langen Bosskämpfen.</td></tr>
+<tr><td>Lebensraub</td><td><span class="en">Vital Leech</span></td><td>H</td><td>Lebensentzug anteilig am Schaden</td><td><span class="tier t-a">Mittel</span></td><td><span class="tier t-s">Hoch</span></td><td><span class="tier t-s">Hoch</span></td><td>Pflicht in Frontline &amp; gegen Heiler.</td></tr>
+<tr><td>Kunst des Widerstands</td><td><span class="en">Art of Resistance</span></td><td>D</td><td>Mehr Widerstand gegen Kontrolle/Schaden</td><td><span class="tier t-b">Situativ</span></td><td><span class="tier t-s">Hoch</span></td><td><span class="tier t-s">Hoch</span></td><td>Pflicht gegen Fokusfeuer &amp; CC.</td></tr>
+<tr><td>Eingeschlossenes Tier</td><td><span class="en">Trapped Beast</span></td><td>O</td><td>Stärkt dich, wenn du bedrängt/kontrolliert wirst</td><td><span class="tier t-c">Niedrig</span></td><td><span class="tier t-a">Mittel</span></td><td><span class="tier t-b">Situativ</span></td><td>Gut als bewusster Köder im Fokus.</td></tr>
+</table></div>
+<div class="box check">Die Wirkungen sind aus Namen und Gildennutzung abgeleitet. Genaue Effekte, Stufen und Caps bitte im Spiel prüfen.</div>
+<div class="box tip">Erst die zwei Pflicht-Innerways fixieren (Moralgesang, Erlesene Landschaft), dann die freien Slots an den Modus anpassen. So stellt ihr vor einem Event nur zwei Slots um.</div>
+
+<!-- 6 -->
+<h2 id="mystics"><span class="num">06</span>Mystische Fähigkeiten</h2>
+<div class="rule"></div>
+<div class="tw"><table>
+<caption>Empfohlene Mystics</caption>
+<tr><th>Deutsch</th><th>Englisch</th><th>Typ</th><th>Wirkung (vermutet)</th><th>PvE</th><th>PvP</th><th>GvG</th><th>Empfehlung</th></tr>
+<tr><td>Goldener Körper</td><td><span class="en">Golden Body</span></td><td>Defensiv</td><td>Starke Schadensreduktion / kurze Unverwundbarkeit</td><td><span class="tier t-s">Hoch</span></td><td><span class="tier t-s">Hoch</span></td><td><span class="tier t-s">Hoch</span></td><td>Für Boss-Casts &amp; Burst-Fenster aufheben.</td></tr>
+<tr><td>Drachenatem</td><td><span class="en">Dragon's Breath</span></td><td>Offensiv</td><td>Großer Flächen-/Burstschaden</td><td><span class="tier t-s">Hoch</span></td><td><span class="tier t-a">Mittel</span></td><td><span class="tier t-s">Hoch</span></td><td>Add-Phasen &amp; gebündelte Gegner.</td></tr>
+<tr><td>Freie Verwandlung</td><td><span class="en">Free Morph</span></td><td>Utility</td><td>Flexibler Wechsel/Reset von Form oder Stance</td><td><span class="tier t-a">Mittel</span></td><td><span class="tier t-a">Mittel</span></td><td><span class="tier t-a">Mittel</span></td><td>Kontert gegnerische Pattern.</td></tr>
+<tr><td>Himmlische Brise</td><td><span class="en">Serene Breeze</span></td><td>Utility / Defensiv</td><td>Reinigung / Mobilität / kurze Erholung</td><td><span class="tier t-a">Mittel</span></td><td><span class="tier t-s">Pflicht</span></td><td><span class="tier t-s">Hoch</span></td><td>Kontrolle abschütteln, neu positionieren.</td></tr>
+</table></div>
+<ul class="clean">
+<li><strong>Warum Himmlische Brise (Serene Breeze) im PvP Pflicht ist:</strong> CC-Ketten töten im Duell zuverlässiger als roher Burst. Wer sich aus Kontrolle befreien und neu positionieren kann, überlebt das Burst-Fenster und dreht den Kampf.</li>
+<li><strong>Wann Goldener Körper (Golden Body):</strong> als Reaktion auf den gegnerischen Burst oder einen großen Boss-Cast — nicht blind zünden, sondern für genau dieses Fenster aufheben.</li>
+<li><strong>Offensiv:</strong> Drachenatem. <strong>Defensiv:</strong> Goldener Körper, Himmlische Brise. <strong>Utility:</strong> Freie Verwandlung, Himmlische Brise.</li>
+</ul>
+<div class="box warn">Defensive Mystics zu früh oder blind zünden, statt sie für den gegnerischen Burst aufzuheben — der häufigste Mystic-Fehler.</div>
+<div class="box check">Ob diese Mystics fest an Mo Blade / Stormbreaker gebunden sind und wie ihre Cooldowns aussehen, bitte im Spiel prüfen.</div>
+
+<!-- 7 -->
+<h2 id="buffs"><span class="num">07</span>Buffs &amp; Debuffs</h2>
+<div class="rule"></div>
+<p>Buffs hältst du auf dir und der Gruppe aktiv, Debuffs setzt du breit auf Gegner. <strong>Buff Duration</strong> verlängert die Wirkdauer und schließt Lücken zwischen den Anwendungen; <strong>Cooldown Reduction</strong> macht Schilde, Kontrolle und Buffs schneller wieder verfügbar — beides erhöht die Uptime, auf die der ganze Build ausgelegt ist.</p>
+<p><strong>Warum Debuffs im GvG wichtiger sind als persönlicher Schaden:</strong> Ein Debuff auf einer fokussierten Gegnergruppe verstärkt den Schaden des <em>gesamten</em> Teams, dein eigener Schaden trifft nur ein Ziel. Frontline-Wert entsteht durch Multiplikation, nicht durch eigene Kills.</p>
+<div class="tw"><table>
+<caption>Buff-/Debuff-Übersicht · ! = Pflicht, ~ = situativ</caption>
+<tr><th>Effekt</th><th>Quelle</th><th>Wirkung</th><th>PvE</th><th>PvP</th><th>GvG</th><th>Kommentar</th></tr>
+<tr><td>Moralgesang <span class="en">(Morale Chant)</span></td><td>Innerway</td><td>Hält Kampfkraft oben</td><td>!</td><td>!</td><td>!</td><td>Darf nie auslaufen.</td></tr>
+<tr><td>Stormbreaker-Buffs</td><td>Spear</td><td>Eigene Werte erhöhen</td><td>!</td><td>~</td><td>! (vor Engage)</td><td>Vor dem GvG-Push hochfahren.</td></tr>
+<tr><td>Schild</td><td>Spear</td><td>Absorbiert Schaden</td><td>~</td><td>~</td><td>!</td><td>Beim Brechen/Halten der Linie.</td></tr>
+<tr><td>Stormbreaker-Debuff</td><td>Spear</td><td>Senkt Verteidigung/Widerstand</td><td>!</td><td>~</td><td>!</td><td>Breit verteilen, nicht stapeln.</td></tr>
+<tr><td>Lebensraub <span class="en">(Vital Leech)</span></td><td>Innerway</td><td>Heilt anteilig am Schaden</td><td>~</td><td>!</td><td>!</td><td>Gegen Heilung &amp; im Dauerdruck.</td></tr>
+</table></div>
+<div class="box check">Konkrete Werte (z. B. „−X % Verteidigung") sind nicht belegt. An der In-Game-Debuff-Anzeige prüfen.</div>
+
+<!-- 8 -->
+<h2 id="rotationen"><span class="num">08</span>Rotationen</h2>
+<div class="rule"></div>
+
+<h3>Einsteiger PvE — stabil, wenig Fehler</h3>
+<div class="flow"><span class="step">Stormbreaker: Buff</span><span class="arrow">→</span><span class="step">Debuff</span><span class="arrow">→</span><span class="step">Wechsel Mo Blade</span><span class="arrow">→</span><span class="step">Schaden im Buff-Fenster</span><span class="arrow">→</span><span class="step">Buffs erneuern</span><span class="arrow">→</span> wiederholen</div>
+<p><em>Ziel:</em> Loop sauber lernen. <em>Fehler:</em> mit leeren Buffs starten. <em>Abbrechen:</em> bei Boss-Mechanik ausweichen, dann Loop fortsetzen.</p>
+
+<h3>Fortgeschritten PvE — mehr DPS über Uptime</h3>
+<div class="flow"><span class="step">Stormbreaker</span><span class="arrow">→</span><span class="step">Buff</span><span class="arrow">→</span><span class="step">Debuff</span><span class="arrow">→</span><span class="step">Mo Blade</span><span class="arrow">→</span><span class="step">Charged Heavy</span><span class="arrow">→</span><span class="step">Mountain Shaker</span><span class="arrow">→</span><span class="step">Charged Heavy</span><span class="arrow">→</span><span class="step">Stormbreaker (Buffs erneuern)</span><span class="arrow">→</span> wiederholen</div>
+<div class="box check">Skillnamen „Mountain Shaker" und „Charged Heavy" sowie Cooldowns im Spiel verifizieren.</div>
+<p><em>Ziel:</em> Buff-/Debuff-Uptime maximieren. <em>Fehler:</em> Charged Heavies abbrechen; Buffs zu spät erneuern.</p>
+
+<h3>PvE Boss — Debuffs aktiv halten, Charged Hits sauber setzen</h3>
+<p>Debuff-Uptime hat Priorität vor einzelnen großen Hits. Charged Hits nur setzen, wenn die Boss-Mechanik es zulässt — ein abgebrochener Charged Hit ist verschenkter Schaden. <em>Aggressiv:</em> in sicheren Phasen. <em>Defensiv:</em> während Boss-Casts (ggf. Goldener Körper).</p>
+
+<h3>PvP 1v1 — defensiv lesen, Konter erzwingen</h3>
+<ul class="clean">
+<li>Nicht blind eröffnen: gegnerische Mobilitäts-/Burst-Cooldowns abwarten.</li>
+<li>Burst mit Himmlische Brise / Goldener Körper überleben.</li>
+<li>Erst dann Kontrolle setzen und im Konterfenster Schaden auspacken.</li>
+</ul>
+<p><em>Fehler:</em> defensive Cooldowns zu früh verbrennen. <em>Aggressiv:</em> nach gegnerischem Commit. <em>Defensiv:</em> solange er offensiv bereit ist.</p>
+
+<h3>Arena 3v3 — Burst vorbereiten, nicht overextenden</h3>
+<p>Heiler/Support stören und vom Team trennen, Burst gebündelt vorbereiten, eigene Backline peelen. <em>Fehler:</em> overextenden und isoliert sterben. <em>Abbrechen:</em> wenn deine Defensiv-Cooldowns leer sind, zurückfallen.</p>
+
+<h3>GvG Frontline — buffen, debuffen, Druck, überleben</h3>
+<div class="flow"><span class="step">Buffs vor Engage</span><span class="arrow">→</span><span class="step">Schild</span><span class="arrow">→</span><span class="step">Engage</span><span class="arrow">→</span><span class="step">Debuffs breit</span><span class="arrow">→</span><span class="step">Fokus markieren</span><span class="arrow">→</span><span class="step">bei leeren CDs zurückfallen</span><span class="arrow">→</span><span class="step">neu pushen</span></div>
+<p><em>Fehler:</em> Kills jagen statt Linie halten. <em>Abbrechen:</em> wenn Schild/Mystics leer sind, kontrolliert zurückfallen.</p>
+
+<h3>GvG Anti-Healer — Support isolieren</h3>
+<p>Support vom Team trennen, Casts mit Kontrolle unterbrechen, mit Lebensraub (Vital Leech) Dauerdruck halten, bis die Heilung nicht mehr gegenkommt. <em>Aggressiv:</em> sobald der Heiler isoliert ist. <em>Defensiv:</em> wenn sein Team peelt — dann nicht 1-gegen-3 sterben.</p>
+
+<!-- 9 -->
+<h2 id="matchups"><span class="num">09</span>Wie spiele ich gegen andere Klassen?</h2>
+<div class="rule"></div>
+<div class="tw"><table>
+<caption>Matchups aus Sicht des Mo-Blade-Bruisers</caption>
+<tr><th>Gegner</th><th>Gefahr</th><th>Gefährlich, weil…</th><th>Strategie</th><th>Offensives / defensives Fenster</th></tr>
+<tr><td>Sword</td><td><span class="tier t-s">Hoch</span></td><td>Sehr mobil, hoher Burst</td><td>Nicht hinterherrennen, Mobility baiten, nach seinem Commit punishen, mit Kontrolle fixieren.</td><td>Off: nach leerem Dash. Def: solange Mobility bereit.</td></tr>
+<tr><td>Spear</td><td><span class="tier t-a">Mittel</span></td><td>Reichweite, Kontrolle, eigene Schilde</td><td>Abstand kontrollieren, in Buff-Lücken pushen.</td><td>Off: nach seiner Kontrolle. Def: solange CC bereit.</td></tr>
+<tr><td>Umbrella</td><td><span class="tier t-a">Mittel-Hoch</span></td><td>Sehr defensiv, starke Konter, zäh</td><td>Heilfenster stören, Druck halten, Support nicht frei casten lassen — nicht in offene Konter rennen.</td><td>Off: dauerhaft kontrolliert. Def: vor seinem Konter.</td></tr>
+<tr><td>Fan</td><td><span class="tier t-a">Mittel</span></td><td>Range-Poke &amp; Kite</td><td>Nicht endlos chasen, Terrain/Deckung nutzen, Gapcloser-Lücke abpassen.</td><td>Off: mit Kontrolle in der Hand. Def: im offenen Feld.</td></tr>
+<tr><td>Twin Blades</td><td><span class="tier t-s">Hoch</span></td><td>Extremer Nahkampf-Burst</td><td>Burst überleben, Defensiv-CDs nicht zu früh verschwenden, danach kontern.</td><td>Off: nach Burst-Fenster. Def: im Burst-Fenster.</td></tr>
+<tr><td>Mo Blade Mirror</td><td><span class="tier t-a">Mittel</span></td><td>Gleiche Konter &amp; Zähigkeit</td><td>Nicht als Erster sinnlos Charged Attack committen, Konter baiten — Geduld &amp; Uptime gewinnen.</td><td>Off: nach seinem leeren Konter. Def: bei eigenem Vorteil-Mangel.</td></tr>
+<tr><td>Healer / Support</td><td><span class="tier t-b">Niedrig-Mittel</span></td><td>Zieht Kämpfe in die Länge</td><td>Kontrolle + Lebensraub, isolieren, Casts brechen.</td><td>Off: sobald isoliert. Def: wenn sein Team peelt.</td></tr>
+<tr><td>Burst-DPS</td><td><span class="tier t-s">Hoch</span></td><td>Will dich in einem Fenster zerlegen</td><td>Defensiv-Mystic für genau dieses Fenster aufheben, dann kontern.</td><td>Off: nach dem Burst. Def: im Burst.</td></tr>
+<tr><td>Tank / Bruiser</td><td><span class="tier t-b">Niedrig</span></td><td>Tötet kaum, kann aber binden</td><td>Kein Zeit-Duell erzwingen, im GvG binden/verzögern statt killen.</td><td>Off: nur mit Vorteil. Def: bei Unentschieden abdrehen.</td></tr>
+</table></div>
+
+<!-- 10 -->
+<h2 id="gvg"><span class="num">10</span>GvG-Kapitel</h2>
+<div class="rule"></div>
+<h3>Rollen</h3>
+<div class="tw"><table>
+<tr><th>Rolle</th><th>Aufgabe</th></tr>
+<tr><td>Frontline Tank</td><td>Linie brechen/halten, Fokusfeuer auf sich ziehen, Backline schützen.</td></tr>
+<tr><td>Bruiser</td><td>Druck &amp; Kontrolle auf Schlüsselziele, dabei zäh genug zum Bleiben.</td></tr>
+<tr><td>Anti-Healer</td><td>Gegnerischen Support isolieren, Casts brechen, Heilung aushebeln.</td></tr>
+<tr><td>Raid Tank</td><td>Objektive/Engstellen halten, Gegner binden, Re-Engage anführen.</td></tr>
+</table></div>
+<h3>Calls &amp; Timing</h3>
+<ul class="clean">
+<li><strong>Push-Call:</strong> wenn Buffs stehen, Schild bereit ist und der Gegner gerade Cooldowns verbraucht hat.</li>
+<li><strong>Rückzugs-Call:</strong> wenn Schild/Mystics leer sind oder die Frontline zu zerfasern droht — geordnet, nicht panisch.</li>
+<li><strong>Schild aktivieren:</strong> beim Engage und beim Auffangen eines gegnerischen Pushes.</li>
+<li><strong>Debuffen:</strong> sobald Gegner gebündelt stehen — breit verteilen.</li>
+<li><strong>Auf den Heiler gehen:</strong> wenn er isolierbar ist oder den Kampf allein am Leben hält.</li>
+<li><strong>Zurück zur Backline:</strong> sobald deine eigene Backline fokussiert wird — Peel geht vor Kill.</li>
+</ul>
+<div class="box warn">Killjagd ist im GvG schädlich: Du verlässt die Linie, öffnest die Backline und stirbst isoliert. <strong>Positionierung schlägt Schaden</strong> — ein gehaltener Chokepoint gewinnt mehr Kämpfe als eine einzelne Kill-Statistik.</div>
+
+<!-- 11 -->
+<h2 id="events"><span class="num">11</span>Jungle · Löwengebrüll · Flöte · Turm</h2>
+<div class="rule"></div>
+<h3>Vorbereitung (ca. 30 Min vorher)</h3>
+<ul class="clean">
+<li>Food aktiv, Ausrüstung repariert, Buffs &amp; Innerways geprüft.</li>
+<li>Rollen verteilt, Gruppen aufgeteilt, Voice-Kommunikation steht.</li>
+</ul>
+<h3>Löwengebrüll <span class="en">(Lion's Roar)</span></h3>
+<div class="box fix">Korrekturhinweis: Löwengebrüll bezieht sich auf eine <strong>Glocke</strong> als Objektiv — nicht auf ein Tier oder einen normalen Schrei. Bezeichnung im Spiel prüfen.</div>
+<p>Ein verantwortlicher Spieler: Glocke aktivieren, Timing ansagen, Gegnerbewegungen melden, Push oder Rückzug koordinieren.</p>
+<h3>Flöte</h3>
+<p>Ein verantwortlicher Spieler: Flöte sichern und verteidigen, Nutzung ansagen, Cooldown kommunizieren.</p>
+<h3>Turm</h3>
+<div class="tw"><table>
+<tr><th>Angriff</th><th>Verteidigung</th></tr>
+<tr><td>1. Spear-Buff<br>2. Debuff<br>3. Schild<br>4. Push<br>5. Fokusziel<br>6. Rückzug, wenn CDs leer</td>
+<td>1. Heiler schützen<br>2. Engstellen halten<br>3. Gegnerische Pushes abfangen<br>4. Rückzug ansagen<br>5. Re-Engage vorbereiten</td></tr>
+</table></div>
+<div class="box check">Event-Mechaniken (Löwengebrüll, Flöte, Turm) im aktuellen Spielstand prüfen — Objektive werden häufig angepasst.</div>
+
+<!-- 12 -->
+<h2 id="dps"><span class="num">12</span>Wie erhöhe ich meinen DPS?</h2>
+<div class="rule"></div>
+<ul class="clean">
+<li><strong>Charged Damage</strong> priorisieren — der stärkste Multiplikator des Builds.</li>
+<li><strong>Crit-Rate</strong> bis zu einem stabilen Wert aufbauen, <em>dann</em> Crit-Schaden stark gewichten.</li>
+<li><strong>Angriff/Körperkraft</strong> als solide Basis, aber nach den Crit-Werten.</li>
+<li><strong>Buff- &amp; Debuff-Uptime</strong> sind oft wichtiger als ein einzelner großer Crit — sie multiplizieren jeden Schlag.</li>
+<li>Weniger unnötige Ausweichbewegungen, mehr sichere Charged Hits.</li>
+<li>Bossmechaniken kennen, damit du in sicheren Phasen voll committen kannst.</li>
+<li>Defensive nicht komplett opfern — tot machst du null DPS.</li>
+</ul>
+<div class="box tip"><strong>PvE-DPS vs. PvP-Burst:</strong> PvE belohnt anhaltenden Schaden über Zeit (Uptime, Konstanz). PvP belohnt maximalen Schaden in einem kurzen Fenster (Setup, Timing, Überleben bis zum Fenster).</div>
+<h3>DPS-Checkliste</h3>
+<ul class="checklist">
+<li>Sind meine Buffs aktiv?</li>
+<li>Ist mein Debuff auf dem Ziel?</li>
+<li>Nutze ich Charged Hits sauber (nicht abgebrochen)?</li>
+<li>Breche ich meine Rotation zu oft ab?</li>
+<li>Stehe ich zu defensiv?</li>
+<li>Sterbe ich zu oft?</li>
+<li>Habe ich zu viel Tank-Gear für meine Rolle?</li>
+<li>Habe ich genug Crit-Rate, bevor ich Crit-Schaden stacke?</li>
+<li>Nutze ich Food?</li>
+<li>Nutze ich meine Mystics sinnvoll und im richtigen Fenster?</li>
+</ul>
+
+<!-- 13 -->
+<h2 id="meta"><span class="num">13</span>Meta-Build-Karten</h2>
+<div class="rule"></div>
+<div class="cards">
+
+  <div class="card pve">
+    <h3>1 · PvE Raid Tank</h3><div class="role">Aggro · Survival · Debuffs</div>
+    <dl><dt>Einsatz</dt><dd>Raid, Bosskampf</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Formerzwinger (Formbend)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Anpassungsstahl · Kampfhymne</dd><dt>Mystics</dt><dd>Goldener Körper · Drachenatem</dd><dt>Tuning</dt><dd>HP → Defense → Charged Damage</dd><dt>Spielweise</dt><dd>Boss positionieren, Aggro halten, Debuffs setzen.</dd></dl>
+    <div class="sw"><span class="s">+ sehr zäh, gruppendienlich</span><br><span class="w">− geringer Eigen-DPS</span></div>
+  </div>
+
+  <div class="card pve">
+    <h3>2 · PvE DPS Bruiser</h3><div class="role">Schaden mit Eigenschutz</div>
+    <dl><dt>Einsatz</dt><dd>Raid-DPS, Farmen</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Formerzwinger (Formbend)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Kampfhymne · Anpassungsstahl</dd><dt>Mystics</dt><dd>Drachenatem · Goldener Körper</dd><dt>Tuning</dt><dd>Charged Damage → Crit Rate → Crit Damage → Angriff</dd><dt>Spielweise</dt><dd>Uptime halten, in sicheren Phasen voll committen.</dd></dl>
+    <div class="sw"><span class="s">+ hoher Schaden, überlebt ohne Dauer-Heilung</span><br><span class="w">− stirbt bei Fehlern in Mechaniken</span></div>
+  </div>
+
+  <div class="card arena">
+    <h3>3 · PvP Arena 1v1</h3><div class="role">Duell · Konter</div>
+    <dl><dt>Einsatz</dt><dd>1v1-Arena</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Mondflackern (Moonflare)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Lebensraub · Eingeschlossenes Tier</dd><dt>Mystics</dt><dd>Himmlische Brise (Pflicht) · Goldener Körper</dd><dt>Tuning</dt><dd>HP → Defense → Resilience → Crit</dd><dt>Spielweise</dt><dd>Defensiv lesen, CDs baiten, im Konter gewinnen.</dd></dl>
+    <div class="sw"><span class="s">+ sehr überlebensfähig</span><br><span class="w">− verliert gegen reine Kite-Klassen auf Zeit</span></div>
+  </div>
+
+  <div class="card arena">
+    <h3>4 · PvP Arena 3v3</h3><div class="role">Frontline im Team</div>
+    <dl><dt>Einsatz</dt><dd>3v3-Arena</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Mondflackern (Moonflare)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Kunst des Widerstands · Lebensraub</dd><dt>Mystics</dt><dd>Himmlische Brise · Goldener Körper</dd><dt>Tuning</dt><dd>HP → Defense → Resilience → Crit</dd><dt>Spielweise</dt><dd>Backline peelen, Support stören, nicht overextenden.</dd></dl>
+    <div class="sw"><span class="s">+ starkes Peel &amp; Kontrolle</span><br><span class="w">− niedriger Solo-Killdruck</span></div>
+  </div>
+
+  <div class="card gvg">
+    <h3>5 · GvG Frontline Tank</h3><div class="role">Linie brechen &amp; halten</div>
+    <dl><dt>Einsatz</dt><dd>GvG, Turm, Jungle</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Mondflackern (Moonflare)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Kunst des Widerstands · Lebensraub</dd><dt>Mystics</dt><dd>Goldener Körper · Himmlische Brise</dd><dt>Tuning</dt><dd>HP → Defense → Resilience → CDR</dd><dt>Spielweise</dt><dd>Fokusfeuer ziehen, Debuffs breit, Backline schützen.</dd></dl>
+    <div class="sw"><span class="s">+ übersteht Fokusfeuer</span><br><span class="w">− kaum Eigen-Kills (gewollt)</span></div>
+  </div>
+
+  <div class="card gvg">
+    <h3>6 · GvG Bruiser</h3><div class="role">Druck &amp; Kontrolle</div>
+    <dl><dt>Einsatz</dt><dd>GvG-Skirmish</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Mondflackern (Moonflare)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Lebensraub · Kunst des Widerstands</dd><dt>Mystics</dt><dd>Drachenatem · Himmlische Brise</dd><dt>Tuning</dt><dd>HP-Basis, Rest Crit &amp; Angriff</dd><dt>Spielweise</dt><dd>Schlüsselziele binden, in der Linie bleiben.</dd></dl>
+    <div class="sw"><span class="s">+ Druck bei guter Zähigkeit</span><br><span class="w">− anfälliger als der reine Tank</span></div>
+  </div>
+
+  <div class="card anti">
+    <h3>7 · Anti-Healer</h3><div class="role">Heilung brechen</div>
+    <dl><dt>Einsatz</dt><dd>GvG, 3v3</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Mondflackern (Moonflare)</dd><dt>Innerways</dt><dd>Lebensraub · Moralgesang · Erlesene Landschaft · Kunst des Widerstands</dd><dt>Mystics</dt><dd>Himmlische Brise · Goldener Körper</dd><dt>Tuning</dt><dd>HP → Defense → Crit</dd><dt>Fokus</dt><dd>Umbrella · Fan · Support</dd><dt>Spielweise</dt><dd>Support isolieren, Casts brechen, Dauerdruck.</dd></dl>
+    <div class="sw"><span class="s">+ hebelt Heilung aus</span><br><span class="w">− verwundbar, wenn das Team peelt</span></div>
+  </div>
+
+  <div class="card">
+    <h3>8 · Max-DPS Mo Blade</h3><div class="role">Reiner Schaden</div>
+    <dl><dt>Einsatz</dt><dd>PvE-Speedrun</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Formerzwinger (Formbend), DPS-Tuning</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Kampfhymne · Anpassungsstahl</dd><dt>Mystics</dt><dd>Drachenatem · Goldener Körper</dd><dt>Tuning</dt><dd>Charged Damage → Crit Rate → Crit Damage → Angriff</dd><dt>Spielweise</dt><dd>Nur mit gesichertem Survival (Heiler/Position).</dd></dl>
+    <div class="sw"><span class="s">+ höchster Schaden</span><br><span class="w">− sehr fragil</span></div>
+  </div>
+
+  <div class="card std">
+    <h3>9 · EMPYREANS Standard</h3><div class="role">Allround-Gildenbuild</div>
+    <dl><dt>Einsatz</dt><dd>PvE → Jungle → GvG mit kleinem Umbau</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Formbend (PvE) / Moonflare (GvG)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft + 2 modusabhängig</dd><dt>Mystics</dt><dd>Goldener Körper · Himmlische Brise</dd><dt>Tuning</dt><dd>Bruiser-Basis, je Modus angepasst</dd><dt>Spielweise</dt><dd>Eine Grundausbildung, flexibel umstellbar.</dd></dl>
+    <div class="sw"><span class="s">+ vielseitig, leicht zu lehren</span><br><span class="w">− in keiner Rolle absolutes Maximum</span></div>
+  </div>
+
+  <div class="card std">
+    <h3>10 · EMPYREANS Anfänger</h3><div class="role">Einstieg, fehlerverzeihend</div>
+    <dl><dt>Einsatz</dt><dd>Neue Mitglieder</dd><dt>Waffen</dt><dd>Mo Blade + Stormbreaker</dd><dt>Gear</dt><dd>Moonflare (verzeihender)</dd><dt>Innerways</dt><dd>Moralgesang · Erlesene Landschaft · Lebensraub · Kunst des Widerstands</dd><dt>Mystics</dt><dd>Goldener Körper · Himmlische Brise</dd><dt>Tuning</dt><dd>HP → Defense, dann Crit</dd><dt>Spielweise</dt><dd>Loop lernen, überleben, Uptime halten.</dd></dl>
+    <div class="sw"><span class="s">+ robust, leicht zu spielen</span><br><span class="w">− niedrigerer Schaden bis zum Umstieg</span></div>
+  </div>
+
+</div>
+
+<footer>
+EMPYREANS · Where Winds Meet Gildenhandbuch · v2.0 · Interne Edition<br>
+Spielrelevante Werte, Namen und Set-Effekte vor dem Einsatz im Spiel gegenprüfen.
+</footer>
+
+</div>
+</body>
+</html>
