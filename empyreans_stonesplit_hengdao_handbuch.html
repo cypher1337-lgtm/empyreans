@@ -375,17 +375,17 @@
         </ul>
       </div>
       <div class="warn">
-        <strong>Wichtige Caps (gegen Spieler/Monster ab Stufe 81):</strong>
+        <strong>Wichtige Caps — im Spiel belegt (gegen Gegner gleicher/höherer Stufe):</strong>
         <ul>
-          <li>Effektive <strong>Crit-Rate</strong> wird durch Widerstand reduziert und ist auf <strong>max. 80 %</strong> begrenzt.</li>
-          <li>Effektive <strong>Affinitätsrate</strong> ist auf <strong>max. 40 %</strong> begrenzt.</li>
-          <li>Überschüssige Präzisionsrate über der Grundrate wird ab Stufe 81 durch Widerstand reduziert.</li>
+          <li><strong>Präzisionsrate:</strong> effektiv auf <strong>100 %</strong> gedeckelt. Beispiel-Charakter: 118,6 % angezeigt → 100,0 % effektiv. Alles über 100 % effektiver Präzision ist verschwendet.</li>
+          <li><strong>Kritische Trefferrate:</strong> effektiv auf <strong>80 %</strong> gedeckelt. Beispiel: 119,6 % angezeigt → 80,0 % effektiv.</li>
+          <li><strong>Affinitätsrate:</strong> effektiv auf max. 40 % gedeckelt; gegen gleichstufige Gegner ohnehin reduziert (Beispiel: 18,4 % → 12,7 %).</li>
         </ul>
-        Das heißt: über ~80 % effektive Crit-Rate hinaus zu stapeln bringt gegen High-Level-Ziele nichts mehr — dann lohnen Crit-Damage und Angriff.
+        Heißt konkret: Sobald die <em>effektive</em> Präzision bei 100 % und die effektive Crit-Rate bei 80 % sitzen, bringt weiteres Stapeln dieser beiden nichts mehr — dann lohnen Crit-Damage und Angriff.
       </div>
       <div class="checkbox">
         <strong>„Finale Effektive Crit-Rate" (Patch 1.7 relevant)</strong>
-        <p style="margin-top:6px">Das Spiel rechnet eine <em>finale effektive Crit-Rate</em>, die Präzisionsrate, Crit Rate und Direkte Crit Rate kombiniert. Ab Patch 1.7 nutzt <strong>Standhafte Hingabe</strong> genau diesen Wert: erreicht er <strong>70 %</strong>, sind Burning Heart und Anxi-Soldaten-Assists garantierte Crits. Das ist ein konkretes Build-Ziel — die finale effektive Rate (nicht die angezeigte) auf mindestens 70 % bringen.</p>
+        <p style="margin-top:6px">Das Spiel rechnet eine <em>finale effektive Crit-Rate</em>, die Präzisionsrate, Crit Rate und Direkte Crit Rate kombiniert. Ab Patch 1.7 nutzt <strong>Standhafte Hingabe</strong> genau diesen Wert: erreicht er <strong>70 %</strong>, sind Burning Heart und Anxi-Soldaten-Assists garantierte Crits. Ein sauber gebauter Charakter erreicht hier bis zu <strong>100 %</strong> (100 % eff. Präzision × 80 % eff. Crit + Direkte Crit) — also deutlich über der Garantie-Schwelle.</p>
       </div>
       <div class="warn">
         <strong>Einordnung für den Heng Dao:</strong> Der Build ist ein <em>Crit-Build</em>, kein Affinitäts-Build. Er braucht genug Präzision, damit Treffer critten statt in Abnutzung zu verpuffen. Affinitäts-Builds (z. B. Strategisches Schwert) wollen umgekehrt niedrige Präzision — das gilt für uns ausdrücklich <strong>nicht</strong>.
@@ -422,11 +422,11 @@
     <div class="checkbox">
       <strong>Belegte Zielwerte (In-Game-Tooltips + Patch 1.7)</strong>
       <ul>
-        <li>Crit Rate: <strong>60 % Minimum</strong>, Ziel 70–80 %. Effektive Crit-Rate gegen Gegner ab Stufe 81 ist auf <strong>max. 80 %</strong> gedeckelt.</li>
-        <li><strong>Finale Effektive Crit-Rate ≥ 70 %</strong> als konkretes Ziel — schaltet ab Patch 1.7 über Standhafte Hingabe garantierte Crits auf Burning Heart &amp; Anxi-Assists frei.</li>
-        <li>Crit Damage: Richtwert <strong>~120 %+</strong> bzw. grob 2:1 zur Crit Rate, erst <em>nach</em> dem Crit-Rate-Ziel.</li>
+        <li><strong>Effektive Präzision auf 100 %</strong> bringen — das ist der Cap. Angezeigte Präzision darf höher sein (Puffer gegen Widerstand höherstufiger Gegner), aber über 100 % effektiv ist verschenkt.</li>
+        <li><strong>Effektive Crit Rate auf 80 %</strong> (der Cap). Darunter weiter Crit Rate, am Cap dann Crit Damage &amp; Angriff.</li>
+        <li><strong>Finale Effektive Crit-Rate ≥ 70 %</strong> als Pflichtziel — schaltet ab Patch 1.7 über Standhafte Hingabe garantierte Crits auf Burning Heart &amp; Anxi-Assists frei; ein sauberer Build erreicht hier bis 100 %.</li>
+        <li>Crit Damage: Richtwert <strong>~120 %+</strong> bzw. grob 2:1 zur Crit Rate, erst <em>nach</em> den Crit-/Präzisions-Zielen.</li>
         <li>Beweglichkeit (Agility): Crit-Rate-Bonus <strong>cappt bei 225 Beweglichkeit</strong> — bis dahin priorisieren, danach stoppen.</li>
-        <li>Präzision: hoch genug halten, dass Treffer zuverlässig critten — gegen High-Level-Ziele zählt die effektive, nicht die angezeigte Rate.</li>
       </ul>
     </div>
 
@@ -1053,7 +1053,8 @@
     <div class="checkbox">
       <strong>Recherche-Stand: Version 1.7 (Path-Balance-Anpassung 28. Mai 2026, Bug-Fixes 5. Juni 2026), abgeglichen Juni 2026 — inkl. In-Game-Verifikation.</strong>
       <p style="margin-top:8px">Dieses Handbuch wurde gegen die <em>offiziellen Patch Notes der Version 1.7</em>, gegen aktuelle Heng-Blade-Guides <em>und gegen In-Game-Screenshots des deutschen Clients (EMPYREANS-Account, Stufe 95)</em> abgeglichen. In 1.7 bestätigt/aktualisiert: Shattered-Ridge-Umbau (Deflect → max. Stacks), Frostverhangene-Nacht-Buff (20 % → 36 %), Throat-Piercing 12 → 15 s, Standhafte Hingabe mit 70 %-Crit-Garantie-Schwelle, „Finale Effektive Crit-Rate" (Präzision + Crit + Direkte Crit), Boss-Dummy mit Min/Max/Durchschnitt.</p>
-      <p style="margin-top:8px">In-Game (Bilder) belegt: Crit-Mechanik (+50 % Crit / +35 % Affinität, Affinität präzisionsunabhängig), Caps (Crit eff. 80 %, Affinität 40 % ab Stufe 81), <strong>Beweglichkeits-Cap 225</strong>, deutsche Waffen-/Talent-/Inner-Way-Namen, Moblade-/Hengblade-Focus-Aufteilung. Aus Community-Guides ergänzt: Belebter Krieger T6 (+8 %), Heng+Mo-Pflicht (~35–40 % Verlust), „erst Deflect, dann Frostverhangene Nacht" — mit <span class="check-tag">„prüfen“</span> markiert.</p>
+      <p style="margin-top:8px">In-Game (Bilder) belegt: Crit-Mechanik (+50 % Crit / +35 % Affinität, Affinität präzisionsunabhängig), die <strong>Caps mit echten Zahlen — Präzision effektiv 100 %, Crit effektiv 80 %, Affinität max. 40 %</strong>, <strong>Beweglichkeits-Cap 225</strong>, deutsche Waffen-/Talent-/Inner-Way-Namen, Moblade-/Hengblade-Focus-Aufteilung. Aus Community-Guides ergänzt: Belebter Krieger T6 (+8 %), Heng+Mo-Pflicht (~35–40 % Verlust), „erst Deflect, dann Frostverhangene Nacht" — mit <span class="check-tag">„prüfen“</span> markiert.</p>
+      <p style="margin-top:8px;color:var(--gold-soft)"><strong>Dank an NerfectX</strong> für die Unterstützung beim Verifizieren der Build-Mechanik und der In-Game-Cap-Werte (Präzision, Crit, Affinität).</p>
       <p style="margin-top:8px;color:var(--text-faint);font-size:.85rem">Quellen u. a.: offizielle Patch Notes (wherewindsmeetgame.com), In-Game-Tooltips (deutscher Client), game8, allthings.how, bittopup, lootbar, Steam-Community. Spätere Hotfixes können Werte ändern.</p>
     </div>
   </section>
@@ -1064,6 +1065,7 @@
   <div class="fcrest">⟡ EMPYREANS ⟡</div>
   <div>EMPYREANS · Where Winds Meet Gildenhandbuch · Stonesplit HengDao · Interne Edition</div>
   <div style="margin-top:6px;color:var(--gold-soft)">Spielrelevante Werte, Namen und Set-Effekte vor dem Einsatz im Spiel gegenprüfen.</div>
+  <div style="margin-top:10px">Mit Dank an <strong>NerfectX</strong> für Unterstützung &amp; Verifikation · Stand: Version 1.7</div>
 </footer>
 
 <button id="toTop" aria-label="Nach oben">↑</button>
