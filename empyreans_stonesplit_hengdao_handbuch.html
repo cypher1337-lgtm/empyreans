@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMPYREANS · Stonesplit HengDao — Gildenhandbuch</title>
+<style>
+  :root{
+    --bg:#0a0710;
+    --bg2:#120a1c;
+    --card:#160e22;
+    --card2:#1d1330;
+    --border:#3a2a52;
+    --border-glow:#6b4ba8;
+    --gold:#e8c66a;
+    --gold-soft:#c9a955;
+    --violet:#a06bff;
+    --red:#d2455e;
+    --text:#e9e2f2;
+    --text-dim:#b3a8c6;
+    --text-faint:#8a7da3;
+    --warn-bg:#2a131c;
+    --warn-border:#d2455e;
+    --check-bg:#231a0e;
+    --check-border:#c9a955;
+    --pve:#5fb98e;
+    --pvp:#e0a14f;
+    --gvg:#c66bd6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 70% -10%, rgba(120,70,200,0.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 20%, rgba(210,69,94,0.08), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    line-height:1.65;
+    font-size:16px;
+    padding-bottom:60px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+
+  /* HERO */
+  header.hero{
+    text-align:center;
+    padding:60px 18px 40px;
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg, rgba(160,107,255,0.10), transparent);
+  }
+  .crest{
+    font-size:.8rem;letter-spacing:.5em;text-transform:uppercase;
+    color:var(--gold);font-weight:700;margin-bottom:14px;
+  }
+  header.hero h1{
+    font-size:2.5rem;line-height:1.15;font-weight:800;
+    background:linear-gradient(90deg,var(--gold),#fff5d8,var(--gold-soft));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:6px;
+  }
+  header.hero .sub{
+    font-size:1.15rem;color:var(--violet);font-weight:600;margin-bottom:18px;
+  }
+  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .badge{
+    font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:5px 14px;border-radius:999px;border:1px solid var(--border-glow);
+    background:rgba(107,75,168,0.15);color:var(--text-dim);
+  }
+  .badge.gold{border-color:var(--gold-soft);color:var(--gold)}
+
+  /* INTRO */
+  .intro{
+    margin-top:34px;padding:26px;border-radius:16px;
+    background:linear-gradient(180deg,var(--card2),var(--card));
+    border:1px solid var(--border);
+    box-shadow:0 0 40px rgba(120,70,200,0.10), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .intro p{margin-bottom:12px;color:var(--text-dim)}
+  .intro p:last-child{margin-bottom:0}
+
+  /* TOC */
+  nav.toc{
+    margin-top:30px;padding:24px;border-radius:16px;
+    background:var(--card);border:1px solid var(--border);
+  }
+  nav.toc h2{
+    color:var(--gold);font-size:1.05rem;letter-spacing:.12em;text-transform:uppercase;
+    margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:10px;
+  }
+  .toc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 22px}
+  nav.toc a{
+    display:flex;gap:12px;align-items:baseline;text-decoration:none;
+    color:var(--text);padding:7px 10px;border-radius:8px;transition:.18s;
+  }
+  nav.toc a:hover{background:rgba(160,107,255,0.12);color:#fff}
+  nav.toc .num{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums;min-width:24px}
+
+  /* SECTIONS */
+  section{margin-top:46px;scroll-margin-top:20px}
+  .chap-head{display:flex;align-items:baseline;gap:16px;margin-bottom:18px}
+  .chap-num{
+    font-size:2.2rem;font-weight:800;line-height:1;
+    color:transparent;-webkit-text-stroke:1.5px var(--gold-soft);
+    font-variant-numeric:tabular-nums;
+  }
+  .chap-head h2{font-size:1.6rem;font-weight:800;color:#fff}
+  section > p{color:var(--text-dim);margin-bottom:14px}
+  section h3{
+    color:var(--gold);font-size:1.15rem;margin:24px 0 10px;
+    padding-left:12px;border-left:3px solid var(--violet);
+  }
+  section h4{color:var(--violet);font-size:1rem;margin:16px 0 8px}
+  ul,ol{margin:10px 0 14px 26px;color:var(--text-dim)}
+  li{margin-bottom:6px}
+  strong{color:var(--text)}
+  em{color:var(--gold-soft);font-style:normal;font-weight:600}
+
+  /* CARDS */
+  .card{
+    background:linear-gradient(180deg,var(--card2),var(--card));
+    border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0;
+    box-shadow:0 0 26px rgba(120,70,200,0.08);
+  }
+  .card h3{margin-top:0;border-left:3px solid var(--gold)}
+
+  /* TABLES */
+  .table-wrap{overflow-x:auto;margin:14px 0;border-radius:12px;border:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;min-width:620px;font-size:.92rem}
+  thead th{
+    background:linear-gradient(180deg,#241634,#1a1028);
+    color:var(--gold);text-align:left;padding:11px 12px;font-weight:700;
+    letter-spacing:.03em;border-bottom:1px solid var(--border-glow);white-space:nowrap;
+  }
+  tbody td{padding:10px 12px;border-bottom:1px solid rgba(58,42,82,0.5);color:var(--text-dim);vertical-align:top}
+  tbody tr:nth-child(even){background:rgba(160,107,255,0.04)}
+  tbody tr:hover{background:rgba(160,107,255,0.09)}
+  td strong{color:var(--text)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap}
+  .p-pflicht{background:rgba(95,185,142,0.16);color:var(--pve);border:1px solid rgba(95,185,142,0.4)}
+  .p-hoch{background:rgba(224,161,79,0.15);color:var(--pvp);border:1px solid rgba(224,161,79,0.4)}
+  .p-sit{background:rgba(160,107,255,0.15);color:var(--violet);border:1px solid rgba(160,107,255,0.4)}
+  .p-no{background:rgba(210,69,94,0.13);color:var(--red);border:1px solid rgba(210,69,94,0.35)}
+  .check-tag{color:var(--gold);font-weight:600;font-size:.85rem}
+
+  /* WARN / CHECK BOXES */
+  .warn,.checkbox{border-radius:12px;padding:16px 18px;margin:16px 0;position:relative;padding-left:50px}
+  .warn{background:var(--warn-bg);border:1px solid var(--warn-border)}
+  .checkbox{background:var(--check-bg);border:1px solid var(--check-border)}
+  .warn::before,.checkbox::before{
+    position:absolute;left:16px;top:15px;font-size:1.1rem;font-weight:800;
+  }
+  .warn::before{content:"!";color:var(--red);
+    width:22px;height:22px;border-radius:50%;border:2px solid var(--red);
+    text-align:center;line-height:18px;font-size:.9rem}
+  .checkbox::before{content:"✓";color:var(--gold)}
+  .warn strong{color:#ff9aab}
+  .checkbox strong{color:var(--gold)}
+  .warn ul,.checkbox ul{margin-bottom:0}
+
+  /* MERKSATZ */
+  .merk{
+    border-left:4px solid var(--gold);background:rgba(232,198,106,0.07);
+    padding:12px 16px;margin:14px 0;border-radius:0 10px 10px 0;
+    font-style:italic;color:var(--gold-soft);font-weight:600;
+  }
+  .merk::before{content:"„ ";color:var(--gold)}
+  .merk::after{content:" “";color:var(--gold)}
+
+  /* BUILD CARD GRID */
+  .build-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:18px}
+  .build-card{
+    background:linear-gradient(160deg,var(--card2),#130b1f);
+    border:1px solid var(--border-glow);border-radius:16px;padding:20px;
+    box-shadow:0 0 30px rgba(120,70,200,0.12);display:flex;flex-direction:column;
+  }
+  .build-card .bc-tag{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);font-weight:700}
+  .build-card h3{
+    border:none;padding:0;margin:6px 0 12px;color:#fff;font-size:1.2rem;
+  }
+  .bc-row{display:flex;gap:8px;margin-bottom:7px;font-size:.9rem}
+  .bc-row .k{color:var(--gold);font-weight:700;min-width:78px;flex-shrink:0}
+  .bc-row .v{color:var(--text-dim)}
+  .bc-pm{margin-top:auto;padding-top:12px;display:flex;flex-direction:column;gap:5px}
+  .bc-plus{color:var(--pve);font-size:.86rem}
+  .bc-minus{color:var(--red);font-size:.86rem}
+  .bc-plus::before{content:"+ ";font-weight:800}
+  .bc-minus::before{content:"– ";font-weight:800}
+
+  /* legend */
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 4px;font-size:.82rem;color:var(--text-faint)}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot.pve{background:var(--pve)}.dot.pvp{background:var(--pvp)}.dot.gvg{background:var(--gvg)}
+
+  /* footer */
+  footer{
+    margin-top:60px;padding:30px 18px;text-align:center;
+    border-top:1px solid var(--border);color:var(--text-faint);font-size:.9rem;
+  }
+  footer .fcrest{color:var(--gold);letter-spacing:.3em;font-weight:700;margin-bottom:8px}
+
+  /* back to top */
+  #toTop{
+    position:fixed;right:20px;bottom:20px;z-index:50;
+    width:46px;height:46px;border-radius:50%;cursor:pointer;
+    background:linear-gradient(180deg,#2a1a40,#160e22);
+    border:1px solid var(--gold-soft);color:var(--gold);font-size:1.3rem;
+    display:none;align-items:center;justify-content:center;
+    box-shadow:0 0 20px rgba(120,70,200,0.4);transition:.2s;
+  }
+  #toTop:hover{background:#3a2456;transform:translateY(-2px)}
+
+  @media(max-width:720px){
+    header.hero h1{font-size:1.7rem}
+    .toc-grid,.build-grid{grid-template-columns:1fr}
+    .chap-num{font-size:1.7rem}
+    .chap-head h2{font-size:1.25rem}
+    body{font-size:15px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="crest">⟡ EMPYREANS · Where Winds Meet ⟡</div>
+  <h1>Stonesplit HengDao</h1>
+  <div class="sub">Gildenhandbuch für PvE · PvP · GvG</div>
+  <div class="badges">
+    <span class="badge gold">Gilden-Edition</span>
+    <span class="badge">v1.0</span>
+    <span class="badge">Build-Guide</span>
+    <span class="badge">Snowparting Blade × Phalanxbane Blade</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <p>Dieses Handbuch fasst den <strong>Stonesplit-HengDao-Build</strong> für EMPYREANS-Mitglieder zusammen. Es ist als interne Grundausbildung gedacht: vom stabilen PvE-Loop für neue Mitglieder bis zum Bruiser-Spiel im GvG. Der Build dreht sich um schnellen Nahkampf-Schaden mit <em>Burst</em>, <em>Mobility</em>, <em>Deflect-Fenstern</em> und <em>Follow-up-Druck</em>.</p>
+    <p><strong>Wichtiger Hinweis:</strong> Where Winds Meet wird regelmäßig angepasst. Viele deutsche Begriffe in diesem Handbuch sind Gilden-Arbeitsbezeichnungen. Wir verwenden bewusst <em>keine erfundenen Prozentwerte oder exakten Caps</em>. Wo Namen, Werte oder Set-Effekte nicht sicher belegt sind, steht <span class="check-tag">„im Spiel prüfen“</span>. Bitte gegen den aktuellen Patch gegenprüfen, bevor du etwas fest einplanst.</p>
+    <p class="merk">Follow-up liegen lassen ist verlorener Schaden.</p>
+  </div>
+
+  <nav class="toc">
+    <h2>Inhaltsverzeichnis</h2>
+    <div class="toc-grid">
+      <a href="#k01"><span class="num">01</span><span>Klassenübersicht</span></a>
+      <a href="#k02"><span class="num">02</span><span>Build-Mechanik</span></a>
+      <a href="#k03"><span class="num">03</span><span>Werte &amp; Prioritäten</span></a>
+      <a href="#k04"><span class="num">04</span><span>Gear / Ausrüstung</span></a>
+      <a href="#k05"><span class="num">05</span><span>Innerways</span></a>
+      <a href="#k06"><span class="num">06</span><span>Mystische Fähigkeiten</span></a>
+      <a href="#k07"><span class="num">07</span><span>Buffs, Momentum &amp; Deflects</span></a>
+      <a href="#k08"><span class="num">08</span><span>Rotationen</span></a>
+      <a href="#k09"><span class="num">09</span><span>Wie spiele ich gegen andere Klassen?</span></a>
+      <a href="#k10"><span class="num">10</span><span>GvG-Kapitel</span></a>
+      <a href="#k11"><span class="num">11</span><span>Jungle · Löwengebrüll · Flöte · Turm</span></a>
+      <a href="#k12"><span class="num">12</span><span>Wie erhöhe ich meinen DPS?</span></a>
+      <a href="#k13"><span class="num">13</span><span>Meta-Build-Karten</span></a>
+    </div>
+  </nav>
+
+  <!-- 01 -->
+  <section id="k01">
+    <div class="chap-head"><span class="chap-num">01</span><h2>Klassenübersicht</h2></div>
+    <p>Der Stonesplit HengDao ist ein <strong>schneller Nahkampf-DPS</strong> auf Stärke-/Stonesplit-Basis. Er lebt von Tempo: Buffs vorbereiten, Waffenwechsel nutzen, Follow-ups ausspielen, Deflects aktiv verwerten und das Momentum halten. In sicheren Fenstern burstet er stark — overcommittet er, geht er schnell selbst zu Boden.</p>
+
+    <div class="card">
+      <h3>Build-Kern auf einen Blick</h3>
+      <div class="bc-row"><span class="k">Pfad</span><span class="v">Stonesplit / Stärke-orientierter Nahkampf-DPS</span></div>
+      <div class="bc-row"><span class="k">Hauptwaffe</span><span class="v">Snowparting Blade / Heng Blade / HengDao</span></div>
+      <div class="bc-row"><span class="k">Zweitwaffe</span><span class="v">Phalanxbane Blade / Mo Blade</span></div>
+      <div class="bc-row"><span class="k">Rolle</span><span class="v">Nahkampf-DPS mit Burst, Mobility, Parry/Deflect-Fenstern und Follow-up-Druck</span></div>
+      <div class="bc-row"><span class="k">Spielstil</span><span class="v">Buff vorbereiten → Waffenwechsel → Follow-ups ausspielen → Deflects verwerten → Momentum halten → in sicheren Fenstern burstet man stark</span></div>
+    </div>
+
+    <h3>Stärken &amp; Schwächen</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Stärken</th><th>Schwächen</th></tr></thead>
+        <tbody>
+          <tr><td>Hohe Mobilität und schnelle Re-Engages</td><td>Belohnt nur sauberes Deflect-/Follow-up-Timing</td></tr>
+          <tr><td>Starke Burst-Fenster nach Buff-Vorbereitung</td><td>Squishy bei Overcommit, besonders im PvP/GvG</td></tr>
+          <tr><td>Druck auf Frontline und Support gleichzeitig</td><td>Buff-Management über zwei Waffen ist fehleranfällig</td></tr>
+          <tr><td>Flexibel über alle Modi (PvE/PvP/GvG)</td><td>Kein Solo-Held im GvG — braucht Push-Fenster</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="merk">Deflect ist kein Notknopf, sondern ein Schadensfenster.</p>
+  </section>
+
+  <!-- 02 -->
+  <section id="k02">
+    <div class="chap-head"><span class="chap-num">02</span><h2>Build-Mechanik</h2></div>
+    <p>Der Build arbeitet mit zwei Waffen, die unterschiedliche Aufgaben haben. Snowparting/HengDao ist der Hauptdruck, Phalanxbane/Mo Blade ist das Buff- und Burst-Werkzeug. Wer beide Seiten sauber verzahnt, hält durchgehend Momentum.</p>
+
+    <div class="card">
+      <h3>① Snowparting Blade / HengDao — Hauptschaden</h3>
+      <ul>
+        <li>Hauptschadenswaffe, schneller Nahkampf, gute Mobilität</li>
+        <li>Profitiert stark von <em>Deflects</em>, <em>Follow-ups</em>, <em>Varied Combos</em> und <em>Momentum</em></li>
+      </ul>
+      <h4>Wichtige Skills / Begriffe</h4>
+      <ul>
+        <li><strong>General's Bane</strong> — Kern-Druckskill</li>
+        <li><strong>Swans Treading on Snow</strong> — Kombo-Baustein</li>
+        <li><strong>Grave Frost</strong> — Schadensfenster, sauber timen</li>
+        <li><strong>Charged Light / Heavy</strong> — geladene Angriffe</li>
+        <li><strong>Deflect Follow-up</strong> — Schadens- &amp; Momentum-Fenster nach Deflect</li>
+        <li><strong>Finding Spring / Varied Combo</strong> — falls passend <span class="check-tag">(im Spiel prüfen)</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>② Phalanxbane Blade / Mo Blade — Buff &amp; Burst</h3>
+      <ul>
+        <li>Buff- und Burst-Werkzeug, bereitet Fenster vor</li>
+        <li>Bringt <em>Anxi-Soldaten / Legion Summoner</em>, <em>Soul Burning</em> und <em>Burning Heart</em> ein</li>
+        <li>Nicht dauerhaft stumpf durchspielen — gezielt für Buffs, Burst und Wechsel-Fenster nutzen</li>
+      </ul>
+      <div class="warn">
+        <strong>Prüfhinweis:</strong> Zu lange in Phalanxbane zu bleiben, wenn Snowparting der eigentliche Druck ist, kostet DPS. Die Zweitwaffe öffnet Fenster — sie ersetzt nicht den Hauptdruck.
+      </div>
+    </div>
+    <p class="merk">Tote DPS machen keinen Schaden.</p>
+  </section>
+
+  <!-- 03 -->
+  <section id="k03">
+    <div class="chap-head"><span class="chap-num">03</span><h2>Werte &amp; Prioritäten</h2></div>
+    <p>Die folgenden Prioritäten sind Richtwerte für die Verteilung von Tuning, Substats und Gear-Fokus. Exakte Werte und Caps bitte <span class="check-tag">im Spiel prüfen</span>.</p>
+
+    <h3>PvE Boss-DPS</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Wert</th><th>Begründung</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Agility / Beweglichkeit</strong></td><td>Tempo, Uptime und Follow-up-Flow</td></tr>
+        <tr><td>2</td><td><strong>Min Stonesplit Attack</strong></td><td>Skaliert den Kernschaden des Builds</td></tr>
+        <tr><td>3</td><td><strong>Critical Rate</strong></td><td>Macht Crit-Damage erst wirksam</td></tr>
+        <tr><td>4</td><td>Physical Attack</td><td>Grund-Schadensbasis</td></tr>
+        <tr><td>5</td><td>Power</td><td>Allgemeine Skalierung</td></tr>
+        <tr><td>6</td><td>Critical Damage</td><td>Erst sobald Crit-Rate stabil ist</td></tr>
+        <tr><td>7</td><td>Boss Dmg / All Weapon Bonus / Stonesplit Penetration</td><td>Falls als Tuning verfügbar <span class="check-tag">(prüfen)</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>PvP</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Wert</th><th>Begründung</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>HP-Mindestbasis</strong></td><td>Burst überleben kommt zuerst</td></tr>
+        <tr><td>2</td><td><strong>Defense / Schadensreduktion</strong></td><td>Reduziert eingehenden Druck</td></tr>
+        <tr><td>3</td><td><strong>Resilience</strong></td><td>Kontrolle überleben, nicht im CC sterben</td></tr>
+        <tr><td>4</td><td>Agility</td><td>Mobilität für Engage/Disengage</td></tr>
+        <tr><td>5</td><td>Crit Rate</td><td>Verlässlicher Punish-Schaden</td></tr>
+        <tr><td>6</td><td>Physical Attack</td><td>Schadensbasis</td></tr>
+        <tr><td>7</td><td>Crit Damage</td><td>Erst nach stabiler Crit-Rate</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>GvG Bruiser</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Wert</th><th>Begründung</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>HP</strong></td><td>Linie halten, im Fokusfeuer bestehen</td></tr>
+        <tr><td>2</td><td><strong>Defense</strong></td><td>Eingehenden Gruppenschaden abfedern</td></tr>
+        <tr><td>3</td><td><strong>Resilience</strong></td><td>CC-Ketten überleben</td></tr>
+        <tr><td>4</td><td>Mobility / CDR</td><td>Falls verfügbar <span class="check-tag">(prüfen)</span></td></tr>
+        <tr><td>5</td><td>Agility</td><td>Druck und Reposition</td></tr>
+        <tr><td>6</td><td>Crit Rate</td><td>Verlässlicher Schaden</td></tr>
+        <tr><td>7</td><td>Physical Attack</td><td>Schadensbasis</td></tr>
+        <tr><td>8</td><td>Crit Damage</td><td>Zuletzt</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Max-DPS (nur mit sicherem Survival)</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Wert</th><th>Begründung</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Min Stonesplit Attack</strong></td><td>Höchste Schadensskalierung</td></tr>
+        <tr><td>2</td><td><strong>Agility</strong></td><td>Uptime und Rotationstempo</td></tr>
+        <tr><td>3</td><td>Crit Rate</td><td>Bis stabil</td></tr>
+        <tr><td>4</td><td>Crit Damage</td><td>Danach</td></tr>
+        <tr><td>5</td><td>Physical Attack</td><td>Schadensbasis</td></tr>
+        <tr><td>6</td><td>Stonesplit Penetration</td><td>Falls verfügbar <span class="check-tag">(prüfen)</span></td></tr>
+        <tr><td>7</td><td>Boss Dmg / All Weapon Bonus</td><td>Tuning-Feinschliff</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="checkbox">
+      <strong>Merksätze zu den Werten</strong>
+      <ul>
+        <li>Crit Damage ohne Crit Rate verpufft — erst Rate stabil, dann Damage.</li>
+        <li>Zu wenig Überleben bedeutet null DPS.</li>
+        <li>Im GvG zählt Überleben und Zielbindung mehr als reine Kill-Zahlen.</li>
+        <li>Deflect- und Follow-up-Uptime ist beim HengDao wichtiger als eine theoretisch perfekte Dummy-Rotation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="k04">
+    <div class="chap-head"><span class="chap-num">04</span><h2>Gear / Ausrüstung</h2></div>
+    <p>Die Gear-Wahl steuert die Balance zwischen Schaden und Überleben. Falls deutsche Setnamen nicht sicher sind, gilt der englische Name; deutsche Bezeichnungen mit <span class="check-tag">„im Spiel prüfen“</span> behandeln.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Set</th><th>Einsatz</th><th>Stärke</th><th>Schwäche</th><th>Empfehlung</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Shattered Ridge</strong><br><span class="check-tag">(Waffen/Schmuck/Charms)</span></td>
+          <td>PvE/PvP Schaden</td>
+          <td>Sehr stark über Deflects, Boss-Hits, Light/Heavy Varied Combos, Assist-Effekte</td>
+          <td>Wenig Eigenschutz — braucht sauberes Spiel</td>
+          <td>Standard-Schadensset für fast alle Modi</td>
+        </tr>
+        <tr>
+          <td><strong>Obsidian Armor</strong></td>
+          <td>PvE/PvP defensiv</td>
+          <td>Tenacity-Synergien, reduziert eingehenden Schaden / Crit-Gefahr</td>
+          <td>Weniger reiner Output</td>
+          <td>Anfänger, riskante Bosse, defensives PvP</td>
+        </tr>
+        <tr>
+          <td><strong>Agile Steps</strong></td>
+          <td>PvP/GvG Alternative</td>
+          <td>Belohnt sauberes Deflecten/Parieren, kurzfristige Schadensreduktion</td>
+          <td>Nur wirksam bei gutem Timing</td>
+          <td>Für Spieler, die ihre Deflect-Fenster sicher treffen</td>
+        </tr>
+      </tbody>
+    </table></div>
+    <div class="warn">
+      <strong>Achtung Gear-Fehler:</strong> Max-DPS-Gear im Fokusfeuer (z. B. GvG-Frontline) führt dazu, dass du stirbst, bevor dein Schaden ankommt. Lieber Survival-Set wählen, wo du Ziel des gegnerischen Bursts bist.
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="k05">
+    <div class="chap-head"><span class="chap-num">05</span><h2>Innerways</h2></div>
+    <p>Innerways tragen Grunddruck und Buff-Uptime. Namen und exakte Effekte bitte im aktuellen Patch <span class="check-tag">gegenprüfen</span>.</p>
+    <div class="legend">
+      <span><span class="dot pve"></span>PvE</span>
+      <span><span class="dot pvp"></span>PvP</span>
+      <span><span class="dot gvg"></span>GvG</span>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Deutsch</th><th>Englisch</th><th>Typ</th><th>Wirkung</th><th>PvE</th><th>PvP</th><th>GvG</th><th>Kommentar</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Moralgesang</strong></td><td>Morale Chant</td><td>Hybrid</td>
+          <td>Grunddruck, Buff-Uptime, Physical Penetration / Kampfkraft</td>
+          <td><span class="pill p-pflicht">Pflicht</span></td><td><span class="pill p-pflicht">Pflicht</span></td><td><span class="pill p-pflicht">Pflicht</span></td>
+          <td>Pflicht oder sehr hoch in allen Modi</td>
+        </tr>
+        <tr>
+          <td><strong>Frostverhangene Nacht</strong></td><td>Frost-Clad Night</td><td>Kern</td>
+          <td>Kern-Innerway für Snowparting/HengDao; unterstützt Deflects, Grave Frost, Follow-ups, HengDao-Flow</td>
+          <td><span class="pill p-pflicht">Pflicht</span></td><td><span class="pill p-pflicht">Pflicht</span></td><td><span class="pill p-pflicht">Pflicht</span></td>
+          <td>Das Herz des Builds</td>
+        </tr>
+        <tr>
+          <td><strong>Standhafte Hingabe</strong></td><td>Steadfast Devotion</td><td>Buff/Burst</td>
+          <td>Stärkt Phalanxbane/Mo-Blade-Seite, Burning Heart, Anxi-Soldaten, Burst-Fenster</td>
+          <td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-hoch">Hoch</span></td>
+          <td>Stärkt die Burst-Seite</td>
+        </tr>
+        <tr>
+          <td><strong>Kehlendurchstoßende Kunst</strong></td><td>Throat-Piercing Art</td><td>Offensiv</td>
+          <td>Sustained-DPS, Physical Resistance Ignore / Crit-Damage-Stapel über Varied Combos</td>
+          <td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-sit">Situativ</span></td>
+          <td>Sustained-Option fürs PvE</td>
+        </tr>
+        <tr>
+          <td><strong>Lebensraub</strong></td><td>Vital Leech</td><td>Sustain</td>
+          <td>Self-Sustain</td>
+          <td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-hoch">Hoch</span></td>
+          <td>PvP/GvG-Alternative fürs Überleben</td>
+        </tr>
+        <tr>
+          <td><strong>Göttliches Roulette</strong></td><td>Divine Roulette</td><td>Proc</td>
+          <td>Deflect/Burst-Procs</td>
+          <td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-sit">Situativ</span></td>
+          <td>PvP-Alternative</td>
+        </tr>
+        <tr>
+          <td><strong>Kampfhymne</strong></td><td>Battle Anthem</td><td>Offensiv</td>
+          <td>Offensive Alternative</td>
+          <td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-sit">Situativ</span></td>
+          <td>Falls Throat-Piercing nicht genutzt wird</td>
+        </tr>
+      </tbody>
+    </table></div>
+
+    <div class="card">
+      <h3>Empfohlene Setups</h3>
+      <div class="bc-row"><span class="k">PvE Std.</span><span class="v">Morale Chant · Frost-Clad Night · Steadfast Devotion · Throat-Piercing Art</span></div>
+      <div class="bc-row"><span class="k">PvP def.</span><span class="v">Morale Chant · Frost-Clad Night · Vital Leech · Divine Roulette <em>oder</em> Throat-Piercing Art</span></div>
+      <div class="bc-row"><span class="k">GvG Bruiser</span><span class="v">Morale Chant · Frost-Clad Night · Vital Leech · Steadfast Devotion <em>oder</em> Art of Resistance <span class="check-tag">(falls verfügbar/gewünscht — prüfen)</span></span></div>
+    </div>
+    <p style="color:var(--text-faint);font-size:.9rem">Namen und exakte Effekte im aktuellen Patch gegenprüfen.</p>
+  </section>
+
+  <!-- 06 -->
+  <section id="k06">
+    <div class="chap-head"><span class="chap-num">06</span><h2>Mystische Fähigkeiten</h2></div>
+    <p>Mystics setzen Akzente: Opener, Filler, CC-Breaker, Burst und Reposition. Effekte je nach Spielstand und Patch <span class="check-tag">prüfen</span>.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Deutsch</th><th>Englisch</th><th>Typ</th><th>Einsatz</th><th>PvE</th><th>PvP</th><th>GvG</th><th>Kommentar</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Flöte der Gezeiten</strong></td><td>Flute of the Tides</td><td>Opener/AoE</td><td>Starker PvE-Opener, läuft neben Rotation weiter</td><td><span class="pill p-pflicht">Hoch</span></td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-hoch">Hoch</span></td><td>AoE/Burst-Fenster</td></tr>
+        <tr><td><strong>Wirbelnder Aufstieg</strong></td><td>Soaring Spin</td><td>Filler</td><td>Mobility, zusätzlicher DPS</td><td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-sit">Situativ</span></td><td>Rotations-Filler</td></tr>
+        <tr><td><strong>Drachenatem</strong></td><td>Dragon's Breath</td><td>Hybrid</td><td>Offensiv/defensiver Nutzen, Damage Reduction/Fortitude je nach Stand <span class="check-tag">(prüfen)</span></td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-hoch">Hoch</span></td><td>Vielseitig im GvG</td></tr>
+        <tr><td><strong>Springende Kröte</strong></td><td>Leaping Toad</td><td>Rotation</td><td>Rotationsbaustein, Animation-Cancel möglich</td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-sit">Situativ</span></td><td>Falls du mit Cancels arbeitest</td></tr>
+        <tr><td><strong>Himmlische Brise</strong></td><td>Serene Breeze</td><td>CC-Break</td><td>Reset / Breakout gegen CC</td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-pflicht">Pflicht</span></td><td><span class="pill p-pflicht">Pflicht</span></td><td>PvP-Pflicht gegen CC/Burst</td></tr>
+        <tr><td><strong>Wolfsgleiche Raserei</strong></td><td>Wolflike Frenzy</td><td>Burst</td><td>Burst und Tenacity</td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-hoch">Hoch</span></td><td>PvP-Burst-Fenster</td></tr>
+        <tr><td><strong>Betrunkener Poet</strong></td><td>Drunken Poet</td><td>Engage</td><td>Engage-Vorbereitung, Tempo/Burst-Fenster</td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-hoch">Hoch</span></td><td><span class="pill p-hoch">Hoch</span></td><td>Setup vor dem Commit</td></tr>
+        <tr><td><strong>Wolkenschritte</strong></td><td>Cloud Steps</td><td>Mobility</td><td>Gap-Close, Reposition, Disengage</td><td><span class="pill p-sit">Situativ</span></td><td><span class="pill p-pflicht">Pflicht</span></td><td><span class="pill p-pflicht">Pflicht</span></td><td>Repositionieren statt sterben</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 07 -->
+  <section id="k07">
+    <div class="chap-head"><span class="chap-num">07</span><h2>Buffs, Momentum &amp; Deflects</h2></div>
+    <p>Dieser Build steht und fällt mit drei Dingen: laufende Buffs, durchgehendes Momentum und sauber verwertete Deflects. Wer eines davon liegen lässt, verschenkt einen großen Teil seines Schadens.</p>
+
+    <h3>Buffs (Phalanxbane-Seite)</h3>
+    <ul>
+      <li>Buffs von Phalanxbane (Soul Burning, Burning Heart, Anxi-Soldaten) <strong>nicht auslaufen lassen</strong>.</li>
+      <li>Buff-Fenster öffnen, dann zurück in den Snowparting-Druck wechseln.</li>
+      <li>Nicht stumpf in Phalanxbane verharren — die Buffs sind Vorbereitung, kein Daueraufenthalt.</li>
+    </ul>
+
+    <h3>Momentum (Snowparting-Seite)</h3>
+    <ul>
+      <li>Follow-ups <strong>immer nehmen</strong> — sie sind freier Schaden und halten den Flow.</li>
+      <li>Grave Frost / Charged Light sauber timen, nicht blind chargen.</li>
+      <li>Snowparting ist der Hauptdruck — die meiste Zeit verbringst du hier.</li>
+    </ul>
+
+    <h3>Deflects</h3>
+    <ul>
+      <li>Deflect ist ein <strong>Schadens- und Momentum-Fenster</strong>, kein reiner Verteidigungsknopf.</li>
+      <li>Nach einem Deflect direkt den Follow-up punishen.</li>
+      <li>Frost-Clad Night und Shattered Ridge belohnen genau dieses Spiel.</li>
+    </ul>
+    <p class="merk">Deflect ist kein Notknopf, sondern ein Schadensfenster.</p>
+  </section>
+
+  <!-- 08 -->
+  <section id="k08">
+    <div class="chap-head"><span class="chap-num">08</span><h2>Rotationen</h2></div>
+    <p>Die folgenden Loops sind Grundgerüste. Mechaniken haben immer Vorrang — bei Boss-Telegraphen oder gegnerischem Burst wird abgebrochen und repositioniert.</p>
+
+    <div class="card">
+      <h3>1 · Einsteiger PvE — stabiler Loop</h3>
+      <p><strong>Ablauf:</strong> Phalanxbane: Legion Summoner → Dual-Weapon/Tab zu Snowparting → General's Bane → Swans Treading on Snow → Grave Frost / Charged Light → Follow-up nehmen → zurück zu Phalanxbane → Soul Burning kurz antippen → wieder zu Snowparting → wiederholen.</p>
+      <p><strong>Ziel:</strong> Saubere Uptime ohne Fehler, Follow-ups lernen.<br>
+      <strong>Häufiger Fehler:</strong> Follow-ups liegen lassen, zu lange in Phalanxbane bleiben.<br>
+      <strong>Abbruch:</strong> Bei Bossmechanik sofort raus, Loop danach neu starten.</p>
+    </div>
+
+    <div class="card">
+      <h3>2 · Fortgeschritten PvE — Snowparting-fokussiert</h3>
+      <p><strong>Ablauf:</strong> Legion Summoner → Tab-Follow-up → General's Bane → Swans Treading on Snow → Grave Frost → Deflect/Follow-up nutzen → Varied Combo / Finding Spring <span class="check-tag">(falls verfügbar)</span> → Tab zurück → Burning Heart/Soul Burning vorbereiten → zurück in Snowparting-Burst.</p>
+      <p><strong>Kern:</strong> Follow-ups nie liegen lassen, Momentum halten. Snowparting-Uptime maximieren, Phalanxbane nur für Buff-Fenster.</p>
+    </div>
+
+    <div class="card">
+      <h3>3 · Phalanxbane-Burst-Variante</h3>
+      <p><strong>Ablauf:</strong> Legion Summoner → Soul Burning vollständig laden → Follow-up → Snowparting-Wechsel → General's Bane mehrfach für Druck → Swans Treading → zurück zu Phalanxbane → Burning Heart voll laden → Follow-ups nehmen → wiederholen.</p>
+      <p><strong>Hinweis:</strong> Nur gegen Ziele/Bosse, die Burst-Fenster zulassen. Gegen Mechanik-lastige Bosse lieber den stabilen Loop fahren.</p>
+    </div>
+
+    <div class="card">
+      <h3>4 · PvP 1v1</h3>
+      <p><strong>Ablauf:</strong> Nicht blind eröffnen → Gegner-Cooldowns lesen → mit Cloud Steps/General's Bane Druck machen → Deflect erzwingen → Follow-up punishen → Serene Breeze nur gegen CC/Burst → nicht overcommitten.</p>
+      <p><strong>Aggressives Fenster:</strong> Wenn der Gegner seine Mobility/Defensive verbraucht hat.<br>
+      <strong>Defensives Fenster:</strong> Bei gegnerischem Burst — Serene Breeze/Cloud Steps, Abstand, neu aufbauen.</p>
+    </div>
+
+    <div class="card">
+      <h3>5 · Arena 3v3</h3>
+      <p><strong>Ablauf:</strong> Nicht alleine deep gehen → gegnerischen Support stören → gegnerischen Burst überleben → nach Deflect oder gegnerischem Commit gemeinsam fokussieren → mit Cloud Steps repositionieren → Backline peelen.</p>
+      <p><strong>Kern:</strong> Du bist Druck und Peel, kein Solo-Carry. Timing mit dem Team schlägt Einzelaktion.</p>
+    </div>
+
+    <div class="card">
+      <h3>6 · GvG</h3>
+      <p><strong>Ablauf:</strong> Buffs vor dem Push → Gruppe nicht verlassen → mit HengDao Druck auf Frontline/Support → Deflect-Fenster verwerten → nicht Kills jagen → bei leeren Def-CDs zurückfallen → neu aufbauen.</p>
+      <p><strong>Wichtig:</strong> Der Build ist ein Bruiser/Assassin-Hybrid, aber <em>kein Solo-Held im GvG</em>. Du spielst Push-Fenster mit der Gruppe.</p>
+    </div>
+    <p class="merk">Im GvG gewinnt Positionierung, nicht die Killstatistik.</p>
+  </section>
+
+  <!-- 09 -->
+  <section id="k09">
+    <div class="chap-head"><span class="chap-num">09</span><h2>Wie spiele ich gegen andere Klassen?</h2></div>
+    <p>Matchup-Übersicht für PvP und GvG. Gefahrgrad und Fenster sind Erfahrungswerte — Patch-Änderungen <span class="check-tag">prüfen</span>.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Gegner</th><th>Gefahr</th><th>Gefährlich weil</th><th>Strategie</th><th>Offensives Fenster</th><th>Defensives Fenster</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sword</strong></td><td><span class="pill p-no">Hoch</span></td><td>Sehr mobil, Burst</td><td>Mobility baiten, nach Dash punishen</td><td>Nach verbrauchtem Dash</td><td>Während seines Burst-Fensters</td></tr>
+        <tr><td><strong>Spear</strong></td><td><span class="pill p-hoch">Mittel</span></td><td>Reichweite / Kontrolle</td><td>Buff-/CC-Lücken nutzen, in Reichweite kommen</td><td>Wenn CC auf CD ist</td><td>Bei aktivem Poke/CC</td></tr>
+        <tr><td><strong>Umbrella</strong></td><td><span class="pill p-hoch">Mittel</span></td><td>Defensiv, Konter</td><td>Nicht in offene Konter laufen, Geduld</td><td>Nach verbrauchtem Konter</td><td>Während Konter aktiv</td></tr>
+        <tr><td><strong>Fan</strong></td><td><span class="pill p-hoch">Mittel</span></td><td>Range / Poke / Kite</td><td>Nicht endlos chasen, Terrain nutzen</td><td>Beim Gap-Close mit Cloud Steps</td><td>Im offenen Feld</td></tr>
+        <tr><td><strong>Twin Blades</strong></td><td><span class="pill p-no">Hoch</span></td><td>Extremer Nahkampf-Burst</td><td>Burst überleben, danach kontern</td><td>Nach seinem Burst</td><td>Während Burst-Combo</td></tr>
+        <tr><td><strong>Mo Blade</strong></td><td><span class="pill p-hoch">Mittel</span></td><td>Zäh, Konter</td><td>Nicht zuerst sinnlos committen, Deflect baiten</td><td>Nach seinem Commit</td><td>Bei aktivem Konter</td></tr>
+        <tr><td><strong>Healer/Support</strong></td><td><span class="pill p-sit">Ziel</span></td><td>Hält Gegner am Leben</td><td>Isolieren, Casts brechen, Druck halten</td><td>Wenn isoliert</td><td>Wenn er Peel hat</td></tr>
+        <tr><td><strong>Tank/Bruiser</strong></td><td><span class="pill p-hoch">Mittel</span></td><td>Zäh, bindet Zeit</td><td>Kein sinnloses Zeitduell; im GvG binden oder umgehen</td><td>Nur mit Fokus-Unterstützung</td><td>Im 1v1 ohne Ziel</td></tr>
+        <tr><td><strong>HengDao Mirror</strong></td><td><span class="pill p-hoch">Mittel</span></td><td>Gleiche Deflect-Logik</td><td>Deflect-Bait, Momentum-Management, Geduld</td><td>Wenn er zuerst chargt</td><td>Wenn du übercommitten würdest</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 10 -->
+  <section id="k10">
+    <div class="chap-head"><span class="chap-num">10</span><h2>GvG-Kapitel</h2></div>
+    <p>Im GvG ist der Stonesplit HengDao ein <strong>Bruiser/Assassin-Hybrid</strong> — gefährlicher Druck auf Frontline und Support, aber abhängig von Gruppenfenstern. Hier zählt Disziplin mehr als Heldenmut.</p>
+
+    <div class="card">
+      <h3>Rolle &amp; Aufgabe</h3>
+      <ul>
+        <li><strong>Rolle:</strong> Druck-Bruiser, der Frontline beschäftigt und Support unter Druck setzt.</li>
+        <li><strong>Aufgabe:</strong> Push-Fenster der Gruppe verstärken, Deflect-Fenster in Schaden umsetzen, gegnerische Backline binden.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Positionierung &amp; Calls</h3>
+      <ul>
+        <li><strong>Positionierung:</strong> Am Rand des Pushs, nicht allein vor der Gruppe. Auf Reichweite zur eigenen Linie achten.</li>
+        <li><strong>Push-Call:</strong> Nur mit laufenden Buffs und Gruppe pushen — Druck legen, wenn das Team mitgeht.</li>
+        <li><strong>Rückzugs-Call:</strong> Bei leeren Defensiv-CDs zurückfallen, Cloud Steps/Serene Breeze für sauberen Disengage.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Anti-Healer &amp; Backline-Peel</h3>
+      <ul>
+        <li><strong>Anti-Healer:</strong> Support isolieren, Casts brechen, dauerhaften Druck halten — aber nur, wenn du danach wieder rauskommst.</li>
+        <li><strong>Backline-Peel:</strong> Eigene Backline schützen, gegnerische Assassinen/Bruiser stören.</li>
+      </ul>
+    </div>
+
+    <div class="warn">
+      <strong>Typische GvG-Fehler:</strong>
+      <ul>
+        <li>Killjagd statt Linie halten</li>
+        <li>Overextend in die gegnerische Backline ohne Rückendeckung</li>
+        <li>Ohne Follow-ups / ohne Buffs pushen</li>
+        <li>Defensiv-Mystic (Serene Breeze) zu früh verbrennen</li>
+      </ul>
+    </div>
+
+    <p><strong>Warum nicht allein in die Backline?</strong> Als HengDao kannst du isolierte Heiler zerlegen — aber gegnerischer Peel und Fokusfeuer töten dich in Sekunden, wenn du ohne Gruppe springst. Deshalb spielst du Push-Fenster <em>mit</em> der Gruppe und nutzt dein Mobility-Kit, um nach dem Druck wieder rauszukommen.</p>
+    <p class="merk">Im GvG gewinnt Positionierung, nicht die Killstatistik.</p>
+  </section>
+
+  <!-- 11 -->
+  <section id="k11">
+    <div class="chap-head"><span class="chap-num">11</span><h2>Jungle · Löwengebrüll · Flöte · Turm</h2></div>
+    <p>Diese Objectives entscheiden Kämpfe. Klare Rollen und Calls sind wichtiger als individueller Schaden. EMPYREANS-Begriffe bitte konsequent verwenden.</p>
+
+    <div class="card">
+      <h3>Jungle</h3>
+      <p>Wir schreiben <strong>„Jungle“</strong>, nicht „Dschungel“. Hier laufen kleine Kämpfe und Rotationen — Mobility-Builds wie der HengDao sind ideal, um schnell zwischen Punkten zu wechseln und Druck zu verteilen.</p>
+    </div>
+
+    <div class="card">
+      <h3>Löwengebrüll (Glocke)</h3>
+      <p><strong>Löwengebrüll bezieht sich auf eine Glocke — nicht auf ein Tier.</strong> Der verantwortliche Spieler aktiviert und koordiniert die Glocke, callt Timing und Push. Das Team sichert die Aktivierung und reagiert auf den Call.</p>
+    </div>
+
+    <div class="card">
+      <h3>Flöte</h3>
+      <p>Der verantwortliche Spieler sichert die Flöte, nutzt/koordiniert sie und <strong>callt den Cooldown</strong>, damit das Team das nächste Fenster planen kann.</p>
+    </div>
+
+    <div class="card">
+      <h3>Turm</h3>
+      <p>Ein ausgewählter Spieler springt/rotiert auf den Turm. Das Team <strong>schützt</strong> ihn, kontrolliert Engstellen und callt das Re-Engage.</p>
+    </div>
+
+    <div class="checkbox">
+      <strong>Vorbereitung 30 Minuten vorher</strong>
+      <ul>
+        <li>Food bereit</li>
+        <li>Reparatur erledigt</li>
+        <li>Buffs vorbereitet</li>
+        <li>Innerways gesetzt</li>
+        <li>Rollen verteilt</li>
+        <li>Voice &amp; Gruppen geprüft</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="k12">
+    <div class="chap-head"><span class="chap-num">12</span><h2>Wie erhöhe ich meinen DPS?</h2></div>
+    <p>Mehr Schaden kommt selten von größeren Zahlen auf dem Charakterblatt, sondern von sauberem Spiel. Die wichtigsten Hebel:</p>
+    <div class="checkbox">
+      <strong>DPS-Checkliste</strong>
+      <ul>
+        <li>Follow-ups <strong>immer</strong> nehmen.</li>
+        <li>Deflect nicht nur defensiv, sondern als Damage-/Momentum-Fenster nutzen.</li>
+        <li>Buffs von Phalanxbane nicht auslaufen lassen.</li>
+        <li>Grave Frost / Charged Light sauber timen.</li>
+        <li>Nicht zu lange in Phalanxbane bleiben, wenn Snowparting der Hauptdruck ist.</li>
+        <li>Crit Rate vor Crit Damage.</li>
+        <li>Beweglichkeit/Agility und Stonesplit Attack priorisieren.</li>
+        <li>Bossmechaniken kennen — Schaden in sicheren Fenstern.</li>
+        <li>In sicheren Fenstern committen, nicht totgehen für einen großen Hit.</li>
+        <li>Trainingsdummy mit gleicher Buff-Reihenfolge testen.</li>
+      </ul>
+    </div>
+    <p class="merk">Tote DPS machen keinen Schaden.</p>
+  </section>
+
+  <!-- HÄUFIGE FEHLER -->
+  <section>
+    <div class="chap-head"><span class="chap-num">⚠</span><h2>Häufige Fehler</h2></div>
+    <div class="warn">
+      <strong>Vermeide diese Fehler</strong>
+      <ul>
+        <li>Follow-ups liegen lassen</li>
+        <li>Phalanxbane-Buffs vergessen</li>
+        <li>Deflects nicht nutzen</li>
+        <li>Zu gierig chargen</li>
+        <li>Im PvP blind eröffnen</li>
+        <li>Im GvG Killjagd statt Linie</li>
+        <li>Falsches Gear: Max-DPS im Fokusfeuer</li>
+        <li>Zu viel Crit Damage bei niedriger Crit Rate</li>
+        <li>Defensiven Mystic zu früh zünden</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="k13">
+    <div class="chap-head"><span class="chap-num">13</span><h2>Meta-Build-Karten</h2></div>
+    <p>Zehn fertige Setups für unterschiedliche Aufgaben. Tuning-Pfeile bedeuten Priorität von hoch nach niedrig. Werte vor dem Einsatz <span class="check-tag">im Spiel prüfen</span>.</p>
+
+    <div class="build-grid">
+
+      <div class="build-card">
+        <span class="bc-tag">PvE</span><h3>1 · Boss-DPS</h3>
+        <div class="bc-row"><span class="k">Einsatz</span><span class="v">Raid, Bosskampf</span></div>
+        <div class="bc-row"><span class="k">Waffen</span><span class="v">Snowparting + Phalanxbane</span></div>
+        <div class="bc-row"><span class="k">Gear</span><span class="v">Shattered Ridge + Obsidian Armor</span></div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Morale Chant · Frost-Clad Night · Steadfast Devotion · Throat-Piercing Art</span></div>
+        <div class="bc-row"><span class="k">Mystics</span><span class="v">Flute of the Tides · Soaring Spin</span></div>
+        <div class="bc-row"><span class="k">Tuning</span><span class="v">Agility → Min Stonesplit Atk → Crit Rate → Physical Atk</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Follow-ups, Deflects, Snowparting-Uptime</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Sehr starker, stabiler Boss-Schaden</span>
+          <span class="bc-minus">Belohnt nur sauberes Timing</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">PvE</span><h3>2 · Max-DPS</h3>
+        <div class="bc-row"><span class="k">Einsatz</span><span class="v">Sicheres Speed-Clear</span></div>
+        <div class="bc-row"><span class="k">Gear</span><span class="v">Stärker offensiv (Shattered Ridge Fokus)</span></div>
+        <div class="bc-row"><span class="k">Tuning</span><span class="v">Stonesplit Atk → Crit Rate → Crit Damage → Physical Atk</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Maximaler Output, keine Fehlertoleranz</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Höchster theoretischer Schaden</span>
+          <span class="bc-minus">Nur mit sicherem Survival spielbar</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">PvE</span><h3>3 · Anfänger</h3>
+        <div class="bc-row"><span class="k">Einsatz</span><span class="v">Loop lernen, robust spielen</span></div>
+        <div class="bc-row"><span class="k">Gear</span><span class="v">Obsidian Armor priorisieren</span></div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Morale Chant · Frost-Clad Night · Vital Leech · Steadfast Devotion</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Stabiler Loop, überleben, Follow-ups lernen</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Verzeiht Fehler, leicht zu lernen</span>
+          <span class="bc-minus">Weniger Spitzen-Output</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">PvP</span><h3>4 · 1v1 Duelist</h3>
+        <div class="bc-row"><span class="k">Einsatz</span><span class="v">Duelle, kleine Skirmishes</span></div>
+        <div class="bc-row"><span class="k">Gear</span><span class="v">Shattered Ridge + Agile Steps oder Obsidian</span></div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Morale Chant · Frost-Clad Night · Vital Leech · Divine Roulette</span></div>
+        <div class="bc-row"><span class="k">Mystics</span><span class="v">Serene Breeze · Cloud Steps</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Gegner lesen, Deflect punishen</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Stark gegen unsaubere Eröffnungen</span>
+          <span class="bc-minus">Bestraft eigenes Overcommit hart</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">PvP</span><h3>5 · Arena 3v3</h3>
+        <div class="bc-row"><span class="k">Fokus</span><span class="v">Support stören, Backline peelen, nicht overextenden</span></div>
+        <div class="bc-row"><span class="k">Mystics</span><span class="v">Serene Breeze · Wolflike Frenzy</span></div>
+        <div class="bc-row"><span class="k">Tuning</span><span class="v">HP → Defense → Resilience → Agility → Crit</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Mit Team fokussieren, Druck verteilen</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Starker Peel- und Druckpart</span>
+          <span class="bc-minus">Kein Solo-Carry</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">GvG</span><h3>6 · Bruiser</h3>
+        <div class="bc-row"><span class="k">Fokus</span><span class="v">Linie halten, Druck, Kontrolle</span></div>
+        <div class="bc-row"><span class="k">Gear</span><span class="v">Shattered Ridge + Obsidian/Agile Steps</span></div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Morale Chant · Frost-Clad Night · Vital Leech · Steadfast Devotion</span></div>
+        <div class="bc-row"><span class="k">Mystics</span><span class="v">Serene Breeze · Dragon's Breath</span></div>
+        <div class="bc-row"><span class="k">Tuning</span><span class="v">HP → Defense → Resilience → Agility</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Hält Druck und übersteht Fokus</span>
+          <span class="bc-minus">Kein Solo-Held — braucht Gruppe</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">GvG</span><h3>7 · Anti-Healer</h3>
+        <div class="bc-row"><span class="k">Fokus</span><span class="v">Support isolieren, Casts brechen, Druck halten</span></div>
+        <div class="bc-row"><span class="k">Mystics</span><span class="v">Cloud Steps · Serene Breeze</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Heiler binden, danach rauskommen</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Sehr gefährlich gegen isolierte Heiler</span>
+          <span class="bc-minus">Stirbt bei Overextend</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">GvG</span><h3>8 · Mobile Skirmisher</h3>
+        <div class="bc-row"><span class="k">Fokus</span><span class="v">Kleine Kämpfe, Jungle, Flöte, Rotationen</span></div>
+        <div class="bc-row"><span class="k">Mystics</span><span class="v">Cloud Steps · Drunken Poet</span></div>
+        <div class="bc-row"><span class="k">Tuning</span><span class="v">Mobility/Survival-Basis → Agility → Crit</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Schnell rotieren, Druck verteilen</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Extrem flexibel auf der Karte</span>
+          <span class="bc-minus">Weniger Standkraft im Stellungskampf</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">EMPYREANS</span><h3>9 · Standard</h3>
+        <div class="bc-row"><span class="k">Einsatz</span><span class="v">Allround: PvE → Jungle → GvG mit kleinen Anpassungen</span></div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Morale Chant · Frost-Clad Night + 2 modusabhängig</span></div>
+        <div class="bc-row"><span class="k">Gear</span><span class="v">Shattered Ridge Standard, Armor je Modus</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Eine Grundausbildung, flexibel umstellbar</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Ein Build für fast alles</span>
+          <span class="bc-minus">In keinem Modus absolut maximal</span>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">EMPYREANS</span><h3>10 · Anfänger</h3>
+        <div class="bc-row"><span class="k">Einsatz</span><span class="v">Neue Mitglieder</span></div>
+        <div class="bc-row"><span class="k">Gear</span><span class="v">Defensiver</span></div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Morale Chant · Frost-Clad Night · Vital Leech · Steadfast Devotion</span></div>
+        <div class="bc-row"><span class="k">Mystics</span><span class="v">Serene Breeze · Flute of the Tides</span></div>
+        <div class="bc-row"><span class="k">Tuning</span><span class="v">Überleben → Agility → Crit</span></div>
+        <div class="bc-row"><span class="k">Spielweise</span><span class="v">Loop lernen, nicht sterben, Follow-ups nicht vergessen</span></div>
+        <div class="bc-pm">
+          <span class="bc-plus">Sicherer Einstieg in den Build</span>
+          <span class="bc-minus">Output erst nach Lernkurve</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="fcrest">⟡ EMPYREANS ⟡</div>
+  <div>EMPYREANS · Where Winds Meet Gildenhandbuch · Stonesplit HengDao · Interne Edition</div>
+  <div style="margin-top:6px;color:var(--gold-soft)">Spielrelevante Werte, Namen und Set-Effekte vor dem Einsatz im Spiel gegenprüfen.</div>
+</footer>
+
+<button id="toTop" aria-label="Nach oben">↑</button>
+
+<script>
+  const btn = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    btn.style.display = window.scrollY > 600 ? 'flex' : 'none';
+  });
+  btn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+</script>
+
+</body>
+</html>
