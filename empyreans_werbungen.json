@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "guild": "EMPYREANS",
+  "categories": [
+    {
+      "id": "best-of",
+      "name": "Best Of",
+      "icon": "⭐",
+      "ads": [
+        {
+          "id": "EMP_AD_001",
+          "title": "Spiel ernst, Worldchat nicht",
+          "tags": [
+            "best-of",
+            "worldchat",
+            "humor"
+          ],
+          "text": "#ffd700☠⚔ EMPYREANS ⚔☠\n#ffffffWir nehmen das Spiel ernst.\n#ffd700Nicht den Worldchat.\n#a678ffPvE • PvX • GvG • Events • Open World\n#ffffffHumor im Discord.\nAmbition auf dem Schlachtfeld.\n#ffd700LvL 90+ | Seit DAY 0"
+        },
+        {
+          "id": "EMP_AD_002",
+          "title": "Vielleicht-Gilde",
+          "tags": [
+            "best-of",
+            "day0"
+          ],
+          "text": "#a678ff⚔ EMPYREANS ⚔\n#ffffffDu suchst keine Vielleicht-Gilde.\n#ffd700Du suchst Beständigkeit.\n#a678ffSeit DAY 0.\nDerselbe Name.\nDieselbe Gemeinschaft.\n#a678ffPvE • PvX • GvG • Events • Open World\n#ffd700LvL 90+"
+        },
+        {
+          "id": "EMP_AD_003",
+          "title": "Kopiert",
+          "tags": [
+            "copy",
+            "contra"
+          ],
+          "text": "#ffd700☠⚔ EMPYREANS ⚔☠\n#ffffffUnsere Werbung wird kopiert.\n#ffd700Unsere Gemeinschaft nicht.\n#a678ffPvE • PvX • GvG • Events • Open World\n#ffffffHumor | Struktur | Zusammenhalt\n#ffd700LvL 90+"
+        }
+      ]
+    },
+    {
+      "id": "community",
+      "name": "Community & Identität",
+      "icon": "❤️",
+      "ads": [
+        {
+          "id": "EMP_AD_004",
+          "title": "Starke Community",
+          "tags": [
+            "community",
+            "standard"
+          ],
+          "text": "#ffd700☠⚔ EMPYREANS ⚔☠\n#ffffffEine starke Community mit Spaß, Ambition und richtig guten Leuten.\n#a678ffPvE • PvX • GvG • Events • Open World\n#a678ffAktive Community | Discord | Struktur | Humor\n#ffffffMin. LvL 90\n#7a3cffGemeinsam kämpfen. Gemeinsam lachen. Gemeinsam stärker werden."
+        },
+        {
+          "id": "EMP_AD_005",
+          "title": "Mehr als ein Name",
+          "tags": [
+            "community",
+            "emotional"
+          ],
+          "text": "#b266ffManche Gilden sind nur ein Name über deinem Charakter.\n#ffffffBei #ffd700EMPYREANS #ffffffwollen wir mehr sein als das.\n#a678ffGemeinsam stellen wir uns jeder Herausforderung – in PvE, PvX, GvG und Open World.\n#ffffffDenn die besten Abenteuer erlebt man nie allein.\n#ffd700Schreib mit uns das nächste Kapitel der EMPYREANS-Geschichte.\n#a678ffLvL 90+ | Humor • Zusammenhalt • Ambition"
+        }
+      ]
+    },
+    {
+      "id": "gvg",
+      "name": "GvG & Ambition",
+      "icon": "⚔️",
+      "ads": [
+        {
+          "id": "EMP_AD_006",
+          "title": "Nächste Herausforderung",
+          "tags": [
+            "gvg",
+            "ambition"
+          ],
+          "text": "#a678ff⚔ EMPYREANS ⚔\n#ffffffAndere suchen den einfachsten Weg.\n#ffd700Wir suchen die nächste Herausforderung.\n#ffffffGemeinsam wachsen.\nGemeinsam kämpfen.\nGemeinsam gewinnen.\n#a678ffPvX • GvG • Events • Open World\n#ffd700LvL 90+ | SemiProgress willkommen"
+        }
+      ]
+    },
+    {
+      "id": "healer",
+      "name": "Healer Fokus",
+      "icon": "💚",
+      "ads": [
+        {
+          "id": "EMP_AD_007",
+          "title": "Healer möglich gemacht",
+          "tags": [
+            "healer",
+            "gvg"
+          ],
+          "text": "#a678ff☠ EMPYREANS ☠\n#ffffffJeder feiert den Kill.\n#ffd700Wir feiern den Healer,\nder ihn möglich gemacht hat.\n#a678ffPvX • GvG • Events • Open World\n#ffffffHumor • Zusammenhalt • Ambition\n#ffd700LvL 90+ | SemiProgress willkommen"
+        }
+      ]
+    },
+    {
+      "id": "tank",
+      "name": "Tank Fokus",
+      "icon": "🛡️",
+      "ads": [
+        {
+          "id": "EMP_AD_008",
+          "title": "Tanks halten Linie",
+          "tags": [
+            "tank",
+            "gvg"
+          ],
+          "text": "#a678ff☠ EMPYREANS ☠\n#ffffffDPS machen Druck.\nHealer halten Leben.\n#ffd700Tanks halten die Linie.\n#a678ffPvX • GvG • Events • Open World\n#ffffffHumor • Struktur • Ambition\n#ffd700LvL 90+ | Tanks willkommen"
+        }
+      ]
+    },
+    {
+      "id": "worldchat",
+      "name": "Worldchat Edition",
+      "icon": "🎭",
+      "ads": [
+        {
+          "id": "EMP_AD_009",
+          "title": "Hochtouren",
+          "tags": [
+            "worldchat",
+            "drama"
+          ],
+          "text": "#ffd700☠⚔ EMPYREANS ⚔☠\n#ffffffDer Worldchat läuft heute wieder auf Hochtouren?\n#ffd700Perfekt.\nDann sind die Schlachtfelder schön ruhig.\n#a678ffPvE • PvX • GvG • Events • Open World\n#ffd700LvL 90+"
+        },
+        {
+          "id": "EMP_AD_010",
+          "title": "Worldchat vs GvG",
+          "tags": [
+            "worldchat",
+            "gvg"
+          ],
+          "text": "#a678ff⚔ EMPYREANS ⚔\n#ffffffAndere farmen Worldchat.\n#ffd700Wir farmen GvGs.\n#a678ffPvX • Community • Events\n#ffd700LvL 90+"
+        }
+      ]
+    }
+  ]
+}
