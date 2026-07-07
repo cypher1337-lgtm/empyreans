@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMPYREANS · Rekrutierungs-Anzeigen</title>
+<style>
+  :root{
+    --bg:#0d0b14;
+    --bg-soft:#151222;
+    --card:#1b1729;
+    --card-hover:#221c34;
+    --gold:#e5b567;
+    --gold-soft:#f0d199;
+    --violet:#8b6fd4;
+    --violet-soft:#b09ce6;
+    --text:#e8e4f0;
+    --text-dim:#a79fbd;
+    --line:rgba(139,111,212,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:radial-gradient(120% 80% at 50% -10%, #1a1530 0%, var(--bg) 60%);
+    color:var(--text);
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.5;
+    min-height:100vh;
+    padding:0 20px 80px;
+  }
+  header{
+    text-align:center;
+    padding:64px 16px 40px;
+    max-width:820px;
+    margin:0 auto;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:var(--violet-soft);
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(2.4rem,6vw,3.8rem);
+    font-weight:700;
+    letter-spacing:.04em;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    line-height:1.1;
+  }
+  header p{color:var(--text-dim);margin-top:18px;font-size:1.02rem}
+  .sub{color:var(--gold);font-weight:600;letter-spacing:.02em}
+
+  .toolbar{
+    max-width:1180px;
+    margin:34px auto 30px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:center;
+    justify-content:center;
+  }
+  .search{
+    flex:1 1 320px;
+    max-width:440px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px 16px;
+    color:var(--text);
+    font-size:.95rem;
+  }
+  .search::placeholder{color:var(--text-dim)}
+  .search:focus{outline:2px solid var(--violet);border-color:transparent}
+  .count{color:var(--text-dim);font-size:.88rem}
+  .count b{color:var(--gold)}
+
+  .grid{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:20px;
+  }
+  .card{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px 22px 66px;
+    transition:transform .18s ease,border-color .18s ease,background .18s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    background:var(--card-hover);
+    border-color:rgba(229,181,103,.4);
+  }
+  .card .num{
+    font-family:Georgia,serif;
+    font-size:.82rem;
+    letter-spacing:.15em;
+    color:var(--violet-soft);
+    display:block;
+    margin-bottom:12px;
+  }
+  .card .num::before{content:"\2116 "}
+  .card .ad{font-size:1rem;color:var(--text)}
+  .card .len{
+    position:absolute;
+    left:22px;
+    bottom:22px;
+    font-size:.74rem;
+    color:var(--text-dim);
+  }
+  .copy-btn{
+    position:absolute;
+    right:18px;
+    bottom:18px;
+    background:linear-gradient(135deg,var(--gold),#c99847);
+    color:#1a1206;
+    border:none;
+    border-radius:9px;
+    padding:8px 16px;
+    font-size:.82rem;
+    font-weight:700;
+    letter-spacing:.02em;
+    cursor:pointer;
+    transition:filter .15s ease,transform .1s ease;
+  }
+  .copy-btn:hover{filter:brightness(1.1)}
+  .copy-btn:active{transform:scale(.95)}
+  .copy-btn.done{
+    background:linear-gradient(135deg,var(--violet),#6d54b0);
+    color:#fff;
+  }
+  footer{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:.82rem;
+    margin-top:56px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    max-width:1180px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  footer span{color:var(--gold)}
+  .no-results{
+    grid-column:1/-1;
+    text-align:center;
+    color:var(--text-dim);
+    padding:40px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Where Winds Meet &middot; Jianghu &middot; Deutschsprachige Gilde</div>
+    <h1>EMPYREANS</h1>
+    <p>Rufe an die Wanderer des Jianghu &ndash; zum Kopieren &amp; Verteilen<br>
+    <span class="sub">Gemeinschaft &middot; Stabilit&auml;t &middot; Ambition</span></p>
+  </header>
+
+  <div class="toolbar">
+    <input type="text" class="search" id="search" placeholder="Anzeigen durchsuchen &hellip;" aria-label="Anzeigen durchsuchen">
+    <div class="count" id="count"></div>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    <span>EMPYREANS</span> &middot; Freydar &amp; die Klinge der Truppe &middot; Klick auf &bdquo;Kopieren&ldquo; und trag den Ruf in den Wind.
+  </footer>
+
+<script>
+const ads = [
+  "Der Wind trägt einen Ruf durch den Jianghu: EMPYREANS sucht dich. Deutschsprachige Gilde, die zusammensteht – in Feld, Fehde und Gildenkrieg. Wandere nicht länger allein!",
+  "Jeder Wanderer braucht seine Truppe. Bei EMPYREANS findest du Kameraden, feste Bande und große Ziele. Deutschsprachig im Jianghu. Zieh die Klinge – aber nicht allein!",
+  "Wo Winde sich treffen, treffen wir uns auch. EMPYREANS: eine deutschsprachige Gilde mit stabilem Kern und Ehrgeiz. PvE, PvP & Gildenkrieg. Nimm deinen Platz an unserer Seite!",
+  "Der Jianghu ist rau, doch niemand muss ihn allein bestehen. EMPYREANS hält zusammen – verlässlich, ehrgeizig, freundlich. Deutschsprachig. Reih dich ein bei uns!",
+  "Ehre, Klinge, Zusammenhalt – das ist EMPYREANS. Eine deutschsprachige Gilde, die im Wind der Zeiten fest steht. Ob Feld oder Fehde: dein Weg führt zu uns. Komm herbei!",
+  "Kein einsamer Schwertkämpfer mehr: EMPYREANS ist dein Rückhalt im Jianghu. Deutschsprachig, aktiv, mit großen Zielen. Trag deine Klinge an unserer Seite in Feld & Fehde!",
+  "Die Wege des Jianghu sind lang – geh sie mit Gefährten. EMPYREANS bietet feste Strukturen, lockere Truppe und echten Ehrgeiz. Deutschsprachig. Wandere mit uns!",
+  "Ein Ruf im Wind, ein Bund fürs Gefecht: EMPYREANS wächst. Deutschsprachige Gilde mit Herz und Plan. PvE, PvP & Gildenkrieg. Zieh deine Klinge und schließ dich an!",
+  "Durch Sturm und Stille stehen wir zusammen: EMPYREANS. Verlässliche Bande, große Ambitionen, gute Stimmung. Deutschsprachige Gilde im Jianghu. Finde deine Truppe hier!",
+  "Ob junger Wanderer oder erprobter Meister – bei EMPYREANS ist ein Platz für dich. Deutschsprachig, gut geführt, ehrgeizig. Feld, Fehde, Gildenkrieg. Grüß uns einfach!",
+  "Eine Gilde, die dich nicht dem Wind überlässt: EMPYREANS. Fester Bund, klare Ziele, freundliche Kameraden. Deutschsprachig in Where Winds Meet. Wandere an unsere Seite!",
+  "Stabil wie Stein, schnell wie der Wind – so kämpft EMPYREANS. Deutschsprachige Gilde mit Struktur und guter Laune. PvE, PvP & Gildenkrieg. Wir suchen deine Klinge!",
+  "Kein Zwist, nur Zusammenhalt: EMPYREANS. Entspannte Gefährten mit großen Zielen im Jianghu. Ob Neuling oder Veteran – trag deinen Ruf zu uns und werde Teil der Truppe!",
+  "EMPYREANS – deine Halle im Jianghu von Where Winds Meet. Deutschsprachig, verlässlich, voller Ehrgeiz. Wir bieten Bund, Struktur und Ambition. Antworte dem Ruf des Windes!",
+  "Suchst du echte Gefährten statt flüchtiger Wegbegleiter? EMPYREANS hält Wort und Klinge. Deutschsprachig, aktiv, zielstrebig. Feld, Fehde & Gildenkrieg. Wir warten auf dich!",
+  "Bei EMPYREANS führen alle Klingen in eine Richtung. Feste Bande, lockere Leute, große Pläne. Deutschsprachige Gilde im Jianghu. Wandere herbei und bleib bei uns!",
+  "Neue Wanderer willkommen! EMPYREANS ist eine aktive deutschsprachige Gilde mit Herz, Plan und Ehre. Ob Feld, Fehde oder Gildenkrieg – deine Klinge hat hier ein Zuhause!",
+  "Ambition trifft Ehre: EMPYREANS. Wir vereinen festen Bund mit entspannter Truppe. Deutschsprachig & aktiv im Jianghu. Werde Teil einer Sage, die noch geschrieben wird!",
+  "EMPYREANS ist mehr als ein Banner – es ist ein Bund, der im Wind fest steht. Deutschsprachig, stabil, ehrgeizig. Feld, Fehde & Gildenkrieg. Wir suchen dich, Wanderer!",
+  "Du willst deine Kunst vervollkommnen, doch nicht allein? EMPYREANS geht den Weg mit dir. Freundliche deutschsprachige Gilde mit klaren Zielen. Zieh mit uns durch den Jianghu!",
+  "Verlässlich, aktiv, ehrenvoll – EMPYREANS. Eine deutschsprachige Gilde, die Wort hält und Klinge teilt. Feld, Fehde & Gildenkrieg in Where Winds Meet. Antworte dem Ruf!",
+  "Ein Bund, der trägt, wenn die Winde toben: EMPYREANS. Struktur, Ambition und eine lockere Truppe. Deutschsprachig & aktiv. Teile den Weg durch den Jianghu mit uns!",
+  "EMPYREANS öffnet die Tore seiner Halle! Deutschsprachige Gilde mit festem Kern, großen Zielen und guter Stimmung. Ob Feld, Fehde oder Gildenkrieg – dein Platz wartet schon!",
+  "Kein einsames Wandern mehr: EMPYREANS zieht gemeinsam los. Aktive deutschsprachige Gilde mit Ehre und Herz. Komm herbei, bring dich ein und wachse mit uns im Jianghu!",
+  "Von der ersten Klinge an dabei sein? EMPYREANS baut auf – auf Zusammenhalt, Struktur und Ambition. Deutschsprachige Gilde im Jianghu. Feld, Fehde & Gildenkrieg. Komm zu uns!",
+  "EMPYREANS: die Gilde, in der Wanderer bleiben. Ehrenvoll, verlässlich, zielstrebig. Deutschsprachig & aktiv in Where Winds Meet. Antworte dem Wind und finde deine Truppe!",
+  "Zusammen mehr erreichen, als eine Klinge je könnte – das ist EMPYREANS. Feste Bande, lockere Leute, echte Ziele. Deutschsprachige Gilde. Feld, Fehde, Gildenkrieg: sei dabei!",
+  "Willkommen bei EMPYREANS! Wir vereinen Gemeinschaft, Stabilität und Ambition zu einem Bund im Jianghu. Der Wind von Where Winds Meet ruft – und wir folgen ihm gemeinsam!"
+];
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const count = document.getElementById('count');
+
+function render(list){
+  grid.innerHTML = '';
+  if(!list.length){
+    grid.innerHTML = '<div class="no-results">Keine Anzeige gefunden.</div>';
+  }
+  list.forEach(({text,index})=>{
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <span class="num">${String(index+1).padStart(2,'0')}</span>
+      <p class="ad">${text}</p>
+      <span class="len">${text.length} Zeichen</span>
+      <button class="copy-btn" aria-label="Anzeige kopieren">Kopieren</button>
+    `;
+    const btn = card.querySelector('.copy-btn');
+    btn.addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(text);
+      }catch(e){
+        const ta=document.createElement('textarea');
+        ta.value=text;document.body.appendChild(ta);ta.select();
+        document.execCommand('copy');ta.remove();
+      }
+      btn.textContent='Kopiert \u2713';
+      btn.classList.add('done');
+      setTimeout(()=>{btn.textContent='Kopieren';btn.classList.remove('done');},1400);
+    });
+    grid.appendChild(card);
+  });
+}
+
+function filter(){
+  const q = search.value.trim().toLowerCase();
+  const list = ads
+    .map((text,index)=>({text,index}))
+    .filter(({text})=>text.toLowerCase().includes(q));
+  count.innerHTML = `<b>${list.length}</b> von ${ads.length} Anzeigen`;
+  render(list);
+}
+
+search.addEventListener('input', filter);
+filter();
+</script>
+</body>
+</html>
