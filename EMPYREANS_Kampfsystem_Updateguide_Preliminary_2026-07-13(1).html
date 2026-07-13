@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>EMPYREANS · Kommendes Kampfsystem-Update · Preliminary Guide</title>
+<style>
+:root{
+  --bg:#0d0b13;--bg2:#14101d;--panel:#1a1524;--panel2:#211a2e;
+  --ink:#eee8dc;--muted:#bcb3a7;--gold:#d5ad4c;--gold2:#f0d58e;
+  --violet:#9965d8;--violet2:#c8a5f2;--green:#6ec486;--greenbg:#13251a;
+  --amber:#e4ae4e;--amberbg:#2b2110;--red:#e06c75;--redbg:#2a1418;
+  --blue:#78b6e8;--bluebg:#112331;--gray:#9ea0aa;--line:#372c45;
+  --shadow:0 18px 48px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+ radial-gradient(1000px 520px at 82% -5%,rgba(153,101,216,.14),transparent 62%),
+ radial-gradient(900px 520px at -8% 4%,rgba(213,173,76,.09),transparent 58%),
+ linear-gradient(180deg,var(--bg2),var(--bg) 420px);color:var(--ink);
+ font-family:"Palatino Linotype",Palatino,Georgia,serif;line-height:1.62;font-size:17px}
+a{color:var(--gold2)} a:hover{color:#fff}
+.hero{position:relative;overflow:hidden;text-align:center;padding:70px 24px 44px;border-bottom:1px solid var(--line)}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(213,173,76,.18);width:330px;height:330px;transform:rotate(45deg);top:-250px}
+.hero:before{left:-110px}.hero:after{right:-110px}
+.crest{font:700 13px/1.4 system-ui,sans-serif;letter-spacing:.36em;text-transform:uppercase;color:var(--violet2)}
+h1{font-size:clamp(34px,6vw,65px);margin:14px 0 8px;letter-spacing:.035em;line-height:1.08;background:linear-gradient(180deg,#fff4c8,var(--gold) 72%,#8c6e21);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{max-width:920px;margin:0 auto;color:var(--muted);font-size:clamp(17px,2.5vw,21px);font-style:italic}
+.version{display:inline-flex;gap:9px;align-items:center;margin-top:24px;padding:7px 16px;border:1px solid var(--gold);border-radius:999px;color:var(--gold2);font:700 12px/1.3 system-ui,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.wrap{max-width:1180px;margin:0 auto;padding:34px 22px 90px}
+.alert{background:linear-gradient(135deg,rgba(224,108,117,.10),rgba(153,101,216,.08));border:1px solid rgba(224,108,117,.55);border-left:5px solid var(--red);padding:18px 20px;border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px}
+.alert strong{color:#ffc2c7}
+.status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0}
+.status-card{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:16px;min-height:148px}
+.status-card h3{margin:8px 0 5px;font-size:17px}.status-card p{margin:0;color:var(--muted);font-size:14px}
+.badge{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:5px 9px;font:800 10px/1.2 system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;border:1px solid currentColor;white-space:nowrap}
+.badge.global{color:var(--green);background:var(--greenbg)}
+.badge.test{color:var(--amber);background:var(--amberbg)}
+.badge.analysis{color:var(--violet2);background:#21142f}
+.badge.spec{color:var(--red);background:var(--redbg)}
+.badge.live{color:var(--blue);background:var(--bluebg)}
+.badge.name{color:var(--gray);background:#1b1b21}
+.toolbar{position:sticky;top:0;z-index:30;margin:30px 0 28px;background:rgba(13,11,19,.93);backdrop-filter:blur(13px);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.toolbar-row{display:flex;flex-wrap:wrap;gap:9px;align-items:center}.toolbar-row+.toolbar-row{margin-top:10px}
+button.filter{appearance:none;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer;font:700 12px system-ui,sans-serif}
+button.filter:hover,button.filter.active{border-color:var(--gold);color:var(--gold2);background:var(--panel2)}
+.switch{margin-left:auto;display:flex;align-items:center;gap:8px;font:700 12px system-ui,sans-serif;color:var(--muted)}
+.switch input{accent-color:var(--gold);width:18px;height:18px}
+nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:34px}
+nav.toc h2{margin:0 0 10px;font-size:18px;color:var(--gold2)}
+nav.toc ol{columns:2;column-gap:36px;margin:0;padding-left:22px;font-family:system-ui,sans-serif;font-size:14px}nav.toc li{margin:4px 0;break-inside:avoid}
+section{scroll-margin-top:115px;margin:48px 0}
+.section-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:11px;margin-bottom:20px}
+.num{font:900 12px system-ui,sans-serif;color:var(--violet2);letter-spacing:.14em}.section-head h2{margin:0;color:var(--gold2);font-size:clamp(25px,4vw,37px)}
+.lead{font-size:19px;color:var(--muted);max-width:950px}
+.fact-list{display:grid;gap:12px}.fact{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:16px 18px}.fact-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:7px}.fact h3{margin:0;font-size:18px}.fact p{margin:0;color:var(--muted)}
+.callout{border:1px solid var(--line);border-left:5px solid var(--gold);background:var(--panel);border-radius:10px;padding:16px 18px;margin:18px 0}.callout.red{border-left-color:var(--red)}.callout.violet{border-left-color:var(--violet)}.callout.green{border-left-color:var(--green)}
+.path{background:linear-gradient(145deg,var(--panel),#17121f);border:1px solid var(--line);border-radius:16px;margin:22px 0;box-shadow:var(--shadow);overflow:hidden}
+.path-header{padding:22px 22px 18px;background:linear-gradient(90deg,rgba(213,173,76,.07),rgba(153,101,216,.07));border-bottom:1px solid var(--line)}
+.path-title{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.path-title h3{font-size:26px;margin:0;color:var(--gold2)}
+.weapons{margin-top:5px;color:var(--violet2);font-family:system-ui,sans-serif;font-size:14px}.path-body{padding:20px 22px}
+.change-list{display:grid;gap:10px}.change{border-left:3px solid var(--amber);background:rgba(228,174,78,.055);padding:12px 14px;border-radius:0 9px 9px 0}.change strong{color:#f6db9e}.change small{display:block;color:var(--muted);margin-top:5px;font-family:system-ui,sans-serif}
+.impact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}.impact{border:1px solid var(--line);border-top:3px solid var(--violet);border-radius:10px;padding:14px;background:var(--panel2)}.impact.pve{border-top-color:var(--green)}.impact.pvp{border-top-color:var(--red)}.impact.gvg{border-top-color:var(--gold)}.impact h4{margin:0 0 8px;font:800 13px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.12em}.impact p,.impact ul{margin:0;color:var(--muted);font-size:15px}.impact ul{padding-left:19px}.impact li+li{margin-top:5px}
+.term-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}.term-table th,.term-table td{padding:11px 13px;border-bottom:1px solid var(--line);text-align:left}.term-table th{font:800 12px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);background:var(--panel2)}.term-table tr:last-child td{border-bottom:0}.term-table td:last-child{color:var(--muted)}
+.meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.meta{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px}.meta h3{margin:0 0 10px;color:var(--gold2)}.meta ol{margin:0;padding-left:21px}.meta li+li{margin-top:7px}.meta p{color:var(--muted)}
+.gvg-baseline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.baseline-card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--blue);border-radius:12px;padding:16px}.baseline-card h3{margin:8px 0 6px;color:var(--gold2);font-size:18px}.baseline-card p{margin:0;color:var(--muted);font-size:15px}
+.tactic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:20px 0}.tactic{background:linear-gradient(145deg,var(--panel),#17121f);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}.tactic-head{display:flex;gap:9px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:8px}.tactic h3{margin:0;color:var(--gold2);font-size:21px}.tactic h4{margin:14px 0 5px;font:800 12px system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--violet2)}.tactic p,.tactic ul{margin:0;color:var(--muted);font-size:15px}.tactic ul{padding-left:20px}.tactic li+li{margin-top:5px}.confidence{font:800 10px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted)}
+.tactic-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:20px 0}.tactic-table{width:100%;min-width:850px;border-collapse:collapse;background:var(--panel)}.tactic-table th,.tactic-table td{padding:12px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.tactic-table th{font:800 11px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);background:var(--panel2)}.tactic-table td{font-size:14px;color:var(--muted)}.tactic-table td:first-child{color:var(--ink);font-weight:700}.tactic-table tr:last-child td{border-bottom:0}
+.source{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}.source h3{margin:0 0 5px;font-size:17px}.source p{margin:0;color:var(--muted);font-size:14px}.source .url{display:block;margin-top:7px;word-break:break-all;font:12px system-ui,sans-serif}
+.hidden{display:none!important}
+footer{text-align:center;margin-top:62px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;font-style:italic}
+@media(max-width:900px){.status-grid{grid-template-columns:1fr 1fr}.impact-grid,.meta-grid,.gvg-baseline,.tactic-grid{grid-template-columns:1fr}.switch{margin-left:0;width:100%;padding-top:5px}.toolbar{position:relative;top:auto}nav.toc ol{columns:1}}
+@media(max-width:560px){body{font-size:16px}.wrap{padding-left:14px;padding-right:14px}.status-grid{grid-template-columns:1fr}.path-header,.path-body{padding-left:15px;padding-right:15px}.path-title h3{font-size:22px}.hero{padding-top:52px}.badge{white-space:normal}}
+@media print{body{background:#fff;color:#171717;font-size:11pt}.hero{padding:25px;border-color:#aaa}.hero h1{-webkit-text-fill-color:#7c5d16;color:#7c5d16}.wrap{max-width:none;padding:15px}.toolbar{display:none}.path,.fact,.status-card,.meta,.source,.callout,nav.toc{box-shadow:none;background:#fff;color:#171717;break-inside:avoid}.path-body p,.impact p,.impact ul,.fact p,.source p,.lead,.status-card p{color:#444}.impact{background:#fff}.section-head h2,.path-title h3,.meta h3,nav.toc h2{color:#70530e}a{color:#111}.badge{background:#fff!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="crest">☠ ⚔ EMPYREANS ⚔ ☠</div>
+  <h1>Kommendes Kampfsystem-Update</h1>
+  <p class="subtitle">Preliminary Balance Guide für <strong>PvE (Spieler gegen Umgebung)</strong>, <strong>PvP (Spieler gegen Spieler)</strong> und <strong>GvG (Gildenkampf)</strong> – mit strikter Trennung zwischen bestätigten Fakten, offiziellem Teststand und EMPYREANS-Prognose.</p>
+  <div class="version">Recherche-Edition · GvG-Taktik erweitert · Stand 13. Juli 2026 · Global Version 1.8</div>
+</header>
+
+<main class="wrap">
+  <div class="alert">
+    <strong>Wichtige Einordnung:</strong> Für die Global-Version ist offiziell nur bestätigt, dass seit dem <strong>9. Juli 2026</strong> der Modus <strong>Training Terrace – Preliminary (Trainingsterrasse – Vorabtest)</strong> verfügbar ist. Die detaillierten Werte auf dieser Seite stammen aus dem offiziellen chinesischen Vorabtest vom <strong>12. Juni 2026</strong>. Sie sind echte Teständerungen, aber noch keine bestätigten finalen Global-Patchnotes.
+  </div>
+
+  <div class="status-grid">
+    <article class="status-card"><span class="badge global">Bestätigt · Global</span><h3>Vorabtest ist live</h3><p>Der Global-Client besitzt einen offiziellen Preliminary-Testmodus. Spielerfeedback soll in die weitere Balance einfließen.</p></article>
+    <article class="status-card"><span class="badge test">Bestätigt · CN-Test</span><h3>Konkrete Teständerung</h3><p>Steht so in der offiziellen chinesischen Testankündigung und ist dort im Preliminary-Modus testbar.</p></article>
+    <article class="status-card"><span class="badge analysis">EMPYREANS-Analyse</span><h3>Wahrscheinliche Wirkung</h3><p>Begründete Auswertung für PvE oder PvP. Sie ist keine Aussage des Entwicklers.</p></article>
+    <article class="status-card"><span class="badge spec">Spekulation</span><h3>Global- oder GvG-Prognose</h3><p>Noch unbestätigte Übertragung auf Global, Guild War oder die spätere Meta.</p></article>
+  </div>
+
+  <div class="toolbar" aria-label="Filter">
+    <div class="toolbar-row">
+      <button class="filter active" data-filter="all">Alle Bereiche</button>
+      <button class="filter" data-filter="general">Allgemein</button>
+      <button class="filter" data-filter="pve">PvE</button>
+      <button class="filter" data-filter="pvp">PvP</button>
+      <button class="filter" data-filter="gvg">GvG</button>
+      <button class="filter" data-filter="paths">Pfade</button>
+      <label class="switch"><input id="confirmedOnly" type="checkbox"> Nur bestätigte Inhalte anzeigen</label>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <h2>Inhalt</h2>
+    <ol>
+      <li><a href="#status">Was ist wirklich bestätigt?</a></li>
+      <li><a href="#general">Allgemeine Kampfsystemänderungen</a></li>
+      <li><a href="#pvp-system">Allgemeine PvP-Anpassungen</a></li>
+      <li><a href="#paths">Änderungen nach Pfad</a></li>
+      <li><a href="#meta">Vorläufige Meta-Auswirkung</a></li>
+      <li><a href="#gvg-tactics">Direkte GvG-Auswirkungen &amp; Taktiken</a></li>
+      <li><a href="#terms">Begriffe Englisch/Deutsch</a></li>
+      <li><a href="#sources">Quellen und Methodik</a></li>
+    </ol>
+  </nav>
+
+  <section id="status" data-category="general">
+    <div class="section-head"><span class="num">01</span><h2>Was ist wirklich bestätigt?</h2></div>
+    <div class="fact-list">
+      <article class="fact confirmed"><div class="fact-head"><span class="badge global">Bestätigt · Global</span><h3>Training Terrace – Preliminary (Trainingsterrasse – Vorabtest)</h3></div><p>Seit 9. Juli 2026 kann der Vorabmodus über <strong>Wandering Paths (Wandernde Pfade) → Arena → Training Terrace</strong> oder über das Training an der <strong>Wooden Stake (Trainingspuppe)</strong> aktiviert werden.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge global">Bestätigt · Global</span><h3>Es handelt sich ausdrücklich um einen Balance-Test</h3></div><p>Der Entwickler bittet um Feedback und bezeichnet den Modus als Pre-Season-Balance-Test. Die dort getesteten Zustände sind deshalb nicht automatisch die endgültige Version.</p></article>
+      <article class="fact speculative"><div class="fact-head"><span class="badge spec">Nicht bestätigt</span><h3>Finales Veröffentlichungsdatum und finale Global-Werte</h3></div><p>Die Global-Webseite nennt derzeit weder ein Datum für die endgültige Übernahme noch eine vollständige Liste der getesteten Zahlen. Aussagen wie „kommt sicher im nächsten Patch exakt so“ wären momentan zu stark.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Offizielle chinesische Detailänderungen</h3></div><p>Die chinesische Entwicklerseite veröffentlichte am 12. Juni 2026 eine vollständige Preliminary-Liste. Am Ende wird ausdrücklich erklärt, dass die Änderungen anhand der Testergebnisse nochmals angepasst werden und nur die spätere Live-Version verbindlich ist.</p></article>
+    </div>
+    <div class="callout red speculative"><strong>GvG-Sonderwarnung:</strong> Zahlreiche chinesische PvP-Punkte sind ausdrücklich auf <strong>Arena modes (Arena-Modi)</strong> beziehungsweise das dortige PvP-Regelset begrenzt. Daraus folgt nicht automatisch, dass dieselben Regeln in <strong>Guild War (Gildenkampf)</strong> gelten. Jede GvG-Auswirkung in diesem Guide ist daher als Spekulation markiert.</div>
+  </section>
+
+  <section id="general" data-category="general pve">
+    <div class="section-head"><span class="num">02</span><h2>Allgemeine Kampfsystemänderungen</h2></div>
+    <p class="lead">Diese Punkte sind im offiziellen chinesischen Preliminary-Test bestätigt. Ihre endgültige Übernahme auf Global ist noch offen.</p>
+    <div class="fact-list">
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Exhausted (Erschöpft) und Qi Imbalance (Qi-Ungleichgewicht)</h3></div><p>Die allgemeine Verwundbarkeit während <strong>Exhausted (Erschöpft)</strong> und der zusätzliche Bonus von <strong>Qi Imbalance (Qi-Ungleichgewicht)</strong> werden mit bestimmten Bossmechanik-Verstärkungen in denselben Multiplikatorbereich eingeordnet. Ziel ist, Unterschiede zwischen Pfaden in Break-Fenstern zu verkleinern.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Buff Food (Buff-Nahrung) wird aufgeteilt</h3></div><p><strong>Qi Food (Qi-Nahrung)</strong> und <strong>Attack Food (Angriffsnahrung)</strong> sollen gleichzeitig aktiv sein können. Die Nahrung fließt außerdem in die effektiven Grundattribute ein, bevor prozentuale Verstärkungen berechnet werden.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>DoT (Schaden über Zeit) und Qi Damage (Qi-Schaden)</h3></div><p>Die Qi-Schadensleistung verschiedener dauerhafter Effekte wird vereinheitlicht. Bleeding (Blutung) und High Bleeding (Starke Blutung) der Strategic Sword erhalten Qi-Schaden; mehrere Gift-, Verbrennungs- und Twinblade-Effekte verlieren dagegen einen Teil ihrer bisherigen Qi-Wirkung.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>High-Latency Optimization (Optimierung bei hoher Latenz)</h3></div><p>Fortlaufende Eingaben bestimmter Martial Arts (Kampfkünste) werden bei hohem Ping stabiler verarbeitet. Genannt werden unter anderem Infernal Twinblades und Nameless Sword.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Dragon’s Breath (Drachenatem) erhält eine alternative DoT-Variante</h3></div><p>Eine neue Ausprägung ersetzt den bisherigen Verbrennungseffekt durch <strong>Dark Scorch (Dunkelbrand; Arbeitsübersetzung)</strong>. Mehrere Spieler können eigene Dunkelbrand-Effekte parallel auf demselben Ziel führen.</p></article>
+    </div>
+    <div class="impact-grid speculative">
+      <article class="impact pve"><h4>PvE · EMPYREANS-Analyse</h4><ul><li>Break-Burst bleibt wichtig, extreme multiplikative Unterschiede dürften aber kleiner werden.</li><li>Attack Food kann durch die geänderte Reihenfolge stärker mit Prozentwerten skalieren.</li><li>DoT-Gruppen erhalten klarere Qi-Rollen, müssen aber einzelne abgeschwächte Effekte neu testen.</li></ul></article>
+      <article class="impact pvp"><h4>PvP · EMPYREANS-Analyse</h4><p>Die allgemeinen DoT- und Latenzänderungen können Combos stabilisieren. Konkrete PvP-Stärke hängt jedoch von den separaten Arena-Anpassungen ab.</p></article>
+      <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Mehrere unabhängig stapelbare Dark-Scorch-Effekte könnten organisierten DoT-Druck fördern. Ob sämtliche Testwerte im Guild War gelten, ist nicht bestätigt.</p></article>
+    </div>
+  </section>
+
+  <section id="pvp-system" data-category="pvp gvg general">
+    <div class="section-head"><span class="num">03</span><h2>Allgemeine PvP-Anpassungen</h2></div>
+    <div class="fact-list">
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Serene Breeze (Heitere Brise) – Passive Break Control (passiver Kontrollbruch)</h3></div><p>Der Tier-2-Effekt soll nach acht statt zehn Sekunden fortlaufender Kontrolle auslösen. Der Fortschritt wird dauerhaft angezeigt; Tenacity (Standhaftigkeit) und Super Armor (Unerschütterlichkeit) werden sichtbarer.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Mehr Schutz während Hit State (Trefferzustand) und Control (Kontrolle)</h3></div><p>Die Arena-Attunement (Arena-Abstimmung) des Brustteils reduziert Schaden künftig sowohl während Trefferstarre als auch während echter Kontrolle. Gleichzeitig wird die allgemeine Qi-Schadensreduktion in den Arena-Talenten gesenkt.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Anti-Guard Mystic Skills (Mystische Anti-Block-Fähigkeiten)</h3></div><p>Yaksha Rush und Talon Strike können verteidigende Ziele mit Tenacity aus der Defense (Verteidigung) brechen. Talon Strike erhält besseres Tracking; Vairocana verbessert Ansaugung und Reichweite.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Yin-Yang Dodge (Yin-Yang-Ausweichschritt)</h3></div><p>Die Dauer wird reduziert. Die Schattenvariante nach einem Perfect Dodge (Perfektes Ausweichen) erhält eine interne Abklingzeit von 0,8 Sekunden.</p></article>
+      <article class="fact confirmed"><div class="fact-head"><span class="badge test">Bestätigt · CN-Test</span><h3>Sprint und Dash (Sprint und Ansturm)</h3></div><p>Wer ohne Dodge (Ausweichrolle) in den Sprint wechselt, kann nicht sofort einen Dash Skill (Ansturm-Fertigkeit) einsetzen. Gleichzeitig werden einige Nahkampf-Anstürme beschleunigt.</p></article>
+    </div>
+    <div class="impact-grid speculative">
+      <article class="impact pvp"><h4>PvP · EMPYREANS-Analyse</h4><ul><li>Sehr lange garantierte Kontrollketten verlieren Zuverlässigkeit.</li><li>Qi Break (Qi-Bruch) wird leichter, der anschließende HP-Burst während Kontrolle aber abgefedert.</li><li>Passives Dauerblocken wird durch Anti-Guard-Optionen riskanter.</li></ul></article>
+      <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Nur dann relevant, wenn die jeweiligen Arena-Regeln auch im Guild War aktiviert werden. Eine automatische Übertragung ist nicht belegt.</p></article>
+      <article class="impact pve"><h4>PvE</h4><p>Die ausdrücklich Arena-begrenzten Punkte haben keine bestätigte PvE-Wirkung.</p></article>
+    </div>
+  </section>
+
+  <section id="paths" data-category="paths pve pvp gvg">
+    <div class="section-head"><span class="num">04</span><h2>Änderungen nach Martial-Arts Path (Kampfkunstpfad)</h2></div>
+    <p class="lead">Die englischen Pfad- und Martial-Art-Namen entsprechen der Global-Terminologie. Die deutschen Namen in Klammern dienen der eindeutigen Zuordnung; einzelne deutsche UI-Bezeichnungen können abweichen.</p>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Bellstrike – Splendor (Glockenschlag – Glanz)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Nameless Sword (Namenloses Schwert) · Nameless Spear (Namenloser Speer)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Nameless Spear (Namenloser Speer):</strong> Qi Imbalance erhöht während Exhausted sowohl HP Damage (Lebenspunktschaden) als auch Bellstrike Damage (Glockenschlag-Schaden) zusätzlich.</div>
+          <div class="change"><strong>Nameless Sword (Namenloses Schwert):</strong> Sword Energy (Schwertenergie) verliert keinen Schaden mehr, wenn eine einzelne Welle mehrere Nicht-Spieler-Ziele trifft.</div>
+          <div class="change"><strong>PvP-Spezialfertigkeit:</strong> Der Start der zweiten Dash-Stufe verursacht keinen Schaden mehr, erhält dafür besseres Ziel-Tracking.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Klarer AoE-Buff für Add-Phasen. Nameless Spear gewinnt zusätzlich in koordinierten Qi-Break-Fenstern.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Weniger unmittelbarer Startschaden, aber zuverlässigere Zielbindung. Eher eine Funktionsverschiebung als ein reiner Nerf.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Besserer Cleave gegen Gruppen; der PvP-Dash-Punkt könnte Arena-exklusiv bleiben.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Bellstrike – Umbra (Glockenschlag – Schatten)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Strategic Sword (Strategisches Schwert) · Heavenquaker Spear (Himmelserschütterer-Speer)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Strategic Sword (Strategisches Schwert):</strong> Bleeding und High Bleeding erhalten leicht höhere Physical-/Attribute-Attack-Koeffizienten.</div>
+          <div class="change"><strong>Path Inner Way (pfadspezifischer Innerer Weg):</strong> Ein garantierter High-Bleeding-Treffer bei maximalen Stapeln kann die Restdauer eigener DoTs verlängern – mit Obergrenze.</div>
+          <div class="change"><strong>Heavenquaker Spear (Himmelserschütterer-Speer):</strong> Der DoT-Vulnerability-Debuff hält länger. Den vollen Bonus erhält der Schaden nur, wenn die Quelle aktuell Strategic Sword oder Heavenquaker Spear verwendet.</div>
+          <div class="change"><strong>PvP:</strong> High Bleeding verursacht längeren Stagger; die Tenacity des Speer-Charge beginnt später.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Einer der wahrscheinlich größten Gewinner: mehr DoT-Uptime, höhere Blutungsskalierung und stärkere Langkampfleistung.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Mehr Druck durch High Bleeding, aber leichteres Bestrafen vorhersehbarer Speer-Aufladungen.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Sehr interessanter Attrition-Pfad gegen Frontline und Heilerressourcen. Der volle Debuff bevorzugt reine Umbra-Setups gegenüber Hybridwechseln.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Silkbind – Jade (Seidenbindung – Jade)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Inkwell Fan (Tintenfassfächer) · Vernal Umbrella (Frühlingsschirm)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Inkwell Fan (Tintenfassfächer):</strong> Lingering Bone (Nachwirkender Knochen; Arbeitsübersetzung) hält auf Bossen länger.</div>
+          <div class="change"><strong>Inner Way Stats (Werte des Inneren Wegs):</strong> Teile der bisherigen Affinity-/Affinity-Damage-Skalierung wechseln zu Min Physical Attack (minimaler physischer Angriff) und Direct Affinity Rate (direkte Affinitätsrate).</div>
+          <div class="change"><strong>Charged Light Attack (aufgeladener leichter Angriff):</strong> zusätzlicher Schaden gegen erschöpfte Bosse.</div>
+          <div class="change"><strong>Vernal Umbrella (Frühlingsschirm):</strong> Blossom-Rückerstattung trifft künftig kontrollierte normale Gegner oder erschöpfte Bosse.</div>
+          <div class="change"><strong>PvP-Aufladung:</strong> Der Fan-Pull erhält eine schnelle kurze und eine längere starke Ladestufe.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Bessere Boss-Uptime, flüssigere Ressourcennutzung und stärkeres Burst-Fenster nach Qi Break.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Der schnelle Pull verbessert spontane Starter; kürzere Kontrollketten begrenzen jedoch sichere One-Combo-Abfolgen.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Weiterhin stark für Pick und Fernkontrolle, falls die zweistufige PvP-Aufladung auch im Guild War gilt.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Silkbind – Deluge (Seidenbindung – Sintflut)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Panacea Fan (Allheilfächer) · Soulshade Umbrella (Seelenschattenschirm)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Vollständige Pfadkombination:</strong> Bei gleichzeitig ausgerüstetem Panacea Fan und Soulshade Umbrella verursachen Mystic Skills (Mystische Fähigkeiten) keine Abrasion (Streifschaden).</div>
+          <div class="change"><strong>Sleeve-Sword State (Ärmelschwert-Zustand):</strong> Light Attack, Heavy Attack und Weapon Switch werden an Nameless Sword beziehungsweise Strategic Sword angeglichen.</div>
+          <div class="change"><strong>Charged Skill (aufgeladene Fertigkeit):</strong> wird zu einem Vorwärts-Dash, der Dew (Tau) verbraucht und Gegner vor dem Spieler trifft.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Mystische Fähigkeiten werden verlässlicher; der Dash verbessert Positionierung, kostet jedoch Heilressource.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Deutlich bessere Eigenmobilität und Escape-Optionen. Das Ressourcenmanagement wird anspruchsvoller.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Potentiell großer Heiler-Buff: schnelleres Repositionieren erschwert Fokus und Isolation. Nicht bestätigt ist, ob der Dash unverändert in GvG funktioniert.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Stonesplit – Might (Steinspalt – Macht)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Thundercry Blade (Donnerruf-Klinge / Mo Blade) · Stormbreaker Spear (Sturmbrecher-Speer)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Thundercry Blade Talent:</strong> Der bisherige Crit-Bonus auf Basis des höheren Werts aus Body/Strength wird zu einem Bonus auf Max Physical Attack (maximaler physischer Angriff).</div>
+          <div class="change"><strong>Path Inner Way:</strong> Ein zentraler Buff hält länger und kann zwei statt einen Stapel tragen.</div>
+          <div class="change"><strong>PvP Heavy Attack:</strong> Sind <strong>Drumbeat (Trommelschlag; Arbeitsübersetzung)</strong> und <strong>Inspired (Inspiriert; Arbeitsübersetzung)</strong> gleichzeitig aktiv, kann Heavy Attack Stufe 3 sofort ausgelöst werden. Schaden und Stagger steigen.</div>
+          <div class="change"><strong>Special Skill:</strong> belegt das nächste Ziel alle 0,5 Sekunden mit Slow (Verlangsamung) und gewährt am Ende kurzzeitig Movement Speed (Bewegungsgeschwindigkeit).</div>
+          <div class="change"><strong>Stormbreaker Spear:</strong> Erfolgreiches Verteidigen erzeugt weniger Battle Will (Kampfgeist). Storm Roar (Sturmgebrüll) verursacht früher Schaden; eine Folgeaktion lässt sich schneller abbrechen.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Die Skalierung verschiebt sich in Richtung Max Physical Attack. Zwei Buff-Stapel können Bruiser- und DPS-Tank-Varianten verbessern; konkrete optimale Tuningwerte müssen nach finalen Zahlen neu gemessen werden.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Voraussichtlich klarer Gewinner: sofortiger Heavy-3-Druck, mehr Stagger, Slow und Bewegungsschub. Passives Blocken wird durch weniger Kampfgeist schwächer.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Für aktive Frontline-Tanks sehr attraktiv. Reine Block-Tanks könnten verlieren; Push-Tanks gewinnen wahrscheinlich an Zugriff und Kontrollwirkung – sofern die PvP-Änderungen nicht Arena-exklusiv bleiben.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Stonesplit – Strength (Steinspalt – Stärke)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Snowparting Blade (Schneetrennende Klinge / Heng Blade) · Phalanxbane Blade (Phalanxbrecher-Klinge / Mo Blade)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Exhausted Boss (erschöpfter Boss):</strong> Pfadspezifische Inner Ways erhalten schnellere Verstärkungsstapel und verlängern zentrale Debuffs beziehungsweise Bufffenster.</div>
+          <div class="change"><strong>Guaranteed Critical (garantierter kritischer Treffer):</strong> Die notwendige finale effektive Critical Rate (kritische Trefferchance) wird angepasst.</div>
+          <div class="change"><strong>PvP-Fix:</strong> Nach einem erfolgreichen Deflect mit Snowparting Blade kann die Folgeaktion nicht mehr sofort durch Dodge abgebrochen werden.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Stärkerer Burst und bessere Rotation während Exhaustion-Phasen. Besonders interessant für Heng-Blade/Phalanxbane-Kombinationen.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Der Deflect-Fix nimmt Sicherheit aus einer sehr risikoarmen Abbruchmöglichkeit.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Solider Bruiser mit stärkeren Break-Fenstern, aber weniger neue Frontline-Werkzeuge als Stonesplit – Might.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Bamboocut – Wind (Bambusschnitt – Wind)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Infernal Twinblades (Höllische Zwillingsklingen) · Mortal Rope Dart (Todesseilpfeil)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Infernal Twinblades:</strong> Light Attacks gegen bestimmte markierte Ziele ignorieren einen Teil von Physical Defense und Bamboocut Resistance.</div>
+          <div class="change"><strong>Perfect Dodge:</strong> Die dadurch gewonnenen Buffs halten länger.</div>
+          <div class="change"><strong>Mortal Rope Dart:</strong> Rodent Damage (Rattenschaden) erhält mehr Physical-/Bamboocut-Schaden und zusätzliche Min-Physical-Attack-Skalierung.</div>
+          <div class="change"><strong>PvP:</strong> Bei aktivem Rodent Rampage sinkt nach gegnerischem Deflect der erlittene Qi-Schaden um 30 Prozent. Gespeicherte Light-Attack-Stufen bleiben nur noch drei Sekunden; eine Mehrfach-Deflect-Fähigkeit kann nur noch dreimal statt sechsmal entkräftet werden.</div>
+          <div class="change"><strong>Rope-Dart-Kicks:</strong> schnelleres Timing, besseres Tracking und Knockback beim letzten Treffer; Tenacity auf Charged Skills startet später.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Deutlicher Schadensgewinn durch Defense Ignore und stärkere Ratten-Skalierung.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Mehr Tracking und weniger Deflect-Schleifen, aber weniger lange gespeicherte Strings und riskantere Aufladung.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Stärkerer Backline-Diver mit besserem Knockback; ungeschützte Charge-Angriffe in der Masse bleiben riskant.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <article class="path confirmed" data-category="paths pve pvp gvg">
+      <div class="path-header"><div class="path-title"><h3>Bamboocut – Dust (Bambusschnitt – Staub)</h3><span class="badge test">CN-Test bestätigt</span></div><div class="weapons">Everspring Umbrella (Immerfrühlingsschirm) · Unfettered Rope Dart (Ungebundener Seilpfeil)</div></div>
+      <div class="path-body">
+        <div class="change-list">
+          <div class="change"><strong>Everspring Umbrella:</strong> Die Illusion eines aufgeladenen Heavy Attacks kann ebenfalls Resonance Damage (Resonanzschaden) auslösen.</div>
+          <div class="change"><strong>Burn and Bury (Verbrennen und Begraben):</strong> wird Unblockable (nicht blockbar) und erhält als Gegenlesbarkeit eine goldene Warnanzeige.</div>
+          <div class="change"><strong>Unfettered Rope Dart:</strong> Die Tenacity der Charging Stance (Aufladehaltung) startet später.</div>
+        </div>
+        <div class="impact-grid speculative">
+          <article class="impact pve"><h4>PvE · Analyse</h4><p>Mehr Resonanzschaden und bessere Nutzung der Umbrella-Illusion bei stationären Zielen.</p></article>
+          <article class="impact pvp"><h4>PvP · Analyse</h4><p>Starker Anti-Guard-Buff, aber klar telegraphiert. Gute Gegner erhalten ein sichtbares Dodge-Fenster.</p></article>
+          <article class="impact gvg"><h4>GvG · Spekulation</h4><p>Kann kompakte Defensivformationen unter Druck setzen. Ob „nicht blockbar“ im Guild War identisch umgesetzt wird, ist offen.</p></article>
+        </div>
+      </div>
+    </article>
+
+    <div class="callout violet confirmed"><span class="badge name">Name nicht Global bestätigt</span><br><strong>CN-only / unreleased paths:</strong> Die chinesische Testliste enthält zusätzlich die Pfade <strong>牵丝·翊</strong> und <strong>破竹·鸢</strong>. Offizielle Global-Namen und deutsche UI-Namen sind nicht veröffentlicht. Deshalb werden sie hier bewusst nicht als „Silkbind – Wing“ oder „Bamboocut – Kite“ ausgegeben. Ihre Detailänderungen sind für aktuelle Global-Builds noch nicht handlungsrelevant.</div>
+  </section>
+
+  <section id="meta" data-category="pve pvp gvg">
+    <div class="section-head"><span class="num">05</span><h2>Vorläufige Meta-Auswirkung</h2></div>
+    <div class="callout red speculative"><strong>Komplett spekulativ:</strong> Diese Rangfolge ist eine EMPYREANS-Theorycrafting-Einschätzung auf Basis unfertiger Testwerte. Sie ist keine finale Tier-Liste und keine Aufforderung zum sofortigen Respec.</div>
+    <div class="meta-grid speculative">
+      <article class="meta"><span class="badge analysis">PvE-Analyse</span><h3>Wahrscheinliche Gewinner</h3><ol><li><strong>Bellstrike – Umbra</strong>: DoT-Uptime und Blutung.</li><li><strong>Bamboocut – Wind</strong>: Defense Ignore und Rattenschaden.</li><li><strong>Silkbind – Jade</strong>: Bossmarkierung und Break-Ressourcen.</li><li><strong>Stonesplit – Might</strong>: offensivere Tankskalierung.</li><li><strong>Bellstrike – Splendor</strong>: AoE ohne Zielabzug.</li></ol></article>
+      <article class="meta"><span class="badge analysis">PvP-Analyse</span><h3>Wahrscheinliche Gewinner</h3><ol><li><strong>Stonesplit – Might</strong>: Zugriff, Slow, Heavy 3.</li><li><strong>Silkbind – Deluge</strong>: neue Mobilität.</li><li><strong>Bamboocut – Dust</strong>: nicht blockbarer Druck.</li><li><strong>Bellstrike – Umbra</strong>: mehr High-Bleeding-Stagger.</li></ol><p>Geschwächt werden vor allem extrem lange CC-Ketten, Dauerblocken und unbegrenzt gespeicherte Angriffsfolgen.</p></article>
+      <article class="meta"><span class="badge spec">GvG-Spekulation</span><h3>Mögliche Folgen</h3><ol><li>Aktive Push-Tanks könnten gegenüber passiven Block-Tanks gewinnen.</li><li>Heiler könnten durch den Dew-Dash schwerer zu isolieren sein.</li><li>DoT-Kompositionen könnten Frontline und Heilressourcen stärker belasten.</li><li>Anti-Guard-Werkzeuge könnten Schildformationen öffnen.</li></ol><p>Diese Punkte gelten nur, sofern die relevanten Änderungen im Guild War aktiv sind.</p></article>
+    </div>
+  </section>
+
+
+  <section id="gvg-tactics" data-category="gvg">
+    <div class="section-head"><span class="num">06</span><h2>Direkte GvG-Auswirkungen und betroffene Taktiken</h2></div>
+    <p class="lead">Dieser Abschnitt übersetzt die Teständerungen in konkrete Guild-War-Situationen. Dabei werden die bereits live bestätigten <strong>Guild War (Gildenkampf)</strong>-Regeln von den möglichen Auswirkungen des <strong>Preliminary Balance Test (Vorab-Balancetests)</strong> getrennt.</p>
+
+    <div class="callout red"><strong>Wichtig:</strong> Keine der neuen Preliminary-Änderungen wurde bislang ausdrücklich als finale <strong>Guild-War-Anpassung</strong> angekündigt. Änderungen aus dem allgemeinen Pfadteil könnten nach einer globalen Veröffentlichung auch im GvG wirken. Punkte, die in der chinesischen Ankündigung ausdrücklich unter dem PvP-Regelset <strong>Zhige (kompetitives PvP-Regelset)</strong> stehen, besitzen für GvG eine deutlich niedrigere Übertragungssicherheit.</div>
+
+    <div class="gvg-baseline">
+      <article class="baseline-card confirmed"><span class="badge live">Bestätigt · GvG live</span><h3>Qi Damage (Qi-Schaden)</h3><p>Im Guild War wird erlittener Qi-Schaden bereits um <strong>50 %</strong> reduziert. Änderungen an Qi-Break und Arena-Qi-Talenten wirken deshalb nicht automatisch im gleichen Ausmaß wie in Arena-Duellen.</p></article>
+      <article class="baseline-card confirmed"><span class="badge live">Bestätigt · GvG live</span><h3>Bulwark &amp; Goose (Bollwerk &amp; Gans)</h3><p>Beide Ziele erhalten abhängig von der Zahl naher Spieler stapelbare Damage Reduction (Schadensreduktion). Mehr Spieler am Ziel bedeuten daher nicht zwangsläufig proportional mehr Objective Damage (Objektivschaden).</p></article>
+      <article class="baseline-card confirmed"><span class="badge live">Bestätigt · GvG live</span><h3>Resurrection &amp; EX Techniques</h3><p><strong>Resurrection (Wiederbelebung)</strong> kann denselben Spieler 60 Sekunden lang nicht erneut beleben. Gleichzeitig besitzen GvG-exklusive EX-Techniken eigene Werte, etwa Bleeding Detonation (Blutungsdetonation), Healing Reduction (Heilungsreduktion) und erhöhte Damage Reduction.</p></article>
+    </div>
+
+    <div class="tactic-grid">
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>Frontline Push (Frontlinien-Vorstoß)</h3><span class="confidence">Relevanz hoch · Sicherheit mittel/niedrig</span></div>
+        <span class="badge spec">GvG-Übertragung unbestätigt</span>
+        <h4>Betroffene Änderungen</h4>
+        <p><strong>Stonesplit – Might (Steinspalt – Macht)</strong> erhält im Test leichteren Zugriff auf Heavy Attack Stage 3 (Schwerer Angriff Stufe 3), mehr Stagger (Wanken), wiederholten Slow (Verlangsamung) und anschließend Movement Speed (Bewegungsgeschwindigkeit). Gleichzeitig erzeugt erfolgreiches Blocken mit <strong>Stormbreaker Spear (Sturmbrecher-Speer)</strong> weniger Battle Will (Kampfgeist).</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>Aktive Push-Tanks gewinnen gegenüber rein passiven Block-Tanks.</li><li>Battle Will sollte vor dem Push aufgebaut oder durch aktive Treffer gesichert werden.</li><li>Der Tank kann den gegnerischen Frontanker verlangsamen und die eigene Line beim Durchdrücken unterstützen.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Push nicht aus dauerhaftem Guard (Block) eröffnen. Erst Ressourcen vorbereiten, dann mit Heavy 3, Slow und EX-Defensive gemeinsam auf das markierte Frontziel gehen.</p>
+      </article>
+
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>Healer Dive (Heiler-Fokus und Isolation)</h3><span class="confidence">Relevanz hoch · Sicherheit niedrig</span></div>
+        <span class="badge spec">PvP-Testregel</span>
+        <h4>Betroffene Änderungen</h4>
+        <p><strong>Silkbind – Deluge (Seidenbindung – Sintflut)</strong> kann im Test einen mit Dew (Tau) bezahlten Forward Dash (Vorwärtsansturm) erhalten. Gleichzeitig würden ein früherer Passive Control Break (passiver Kontrollbruch) und Damage Reduction while Controlled (Schadensreduktion während Kontrolle) lange Fokusketten abschwächen.</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>Ein einzelner Dive reicht seltener, weil der Heiler nach dem ersten Zugriff repositionieren kann.</li><li>Statische „Stun bis tot“-Ketten würden weniger zuverlässig.</li><li>Der zweite Catch nach dem Dew-Dash wird wichtiger als der erste Engage.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Heiler-Fokus zweistufig spielen: erster Diver erzwingt Dodge/Dash, zweiter Diver oder Rope Dart (Seilpfeil) fängt die neue Position ab. Knockback (Rückstoß) und Slow nicht gleichzeitig verschwenden.</p>
+      </article>
+
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>CC Chain (Kontrollkette und Target Delete)</h3><span class="confidence">Relevanz hoch · Sicherheit niedrig</span></div>
+        <span class="badge spec">Arena-Regel möglicherweise exklusiv</span>
+        <h4>Betroffene Änderungen</h4>
+        <p>Der Test verkürzt den automatischen Kontrollbruch von ungefähr zehn auf acht Sekunden und erweitert eine Brust-Attunement-Wirkung auf Treffer- und Kontrollzustände. Diese Punkte sind in der CN-Ankündigung dem kompetitiven PvP-Regelset zugeordnet.</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>Sehr lange CC-Ketten könnten vor dem Kill automatisch brechen.</li><li>Schaden sollte früher in die Kette eingebaut werden.</li><li>Ein zweites Burst Window (Burstfenster) nach dem Kontrollbruch gewinnt an Wert.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Nicht alle Kontrolleffekte hintereinander legen. Kurzer Lock → Burst → Re-Catch nach Dodge oder Kontrollbruch. Kommandos sollten „Burst jetzt“ und „zweiter Catch“ getrennt ansagen.</p>
+      </article>
+
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>Guard Wall (Blockformation und Chokepoint)</h3><span class="confidence">Relevanz mittel/hoch · Sicherheit niedrig</span></div>
+        <span class="badge spec">Anti-Guard nur im PvP-Test bestätigt</span>
+        <h4>Betroffene Änderungen</h4>
+        <p>Mehrere Mystic Skills (Mystische Fähigkeiten) sollen verteidigende Tenacity Targets (standhafte Ziele) besser brechen. <strong>Burn and Bury (Verbrennen und Begraben)</strong> von <strong>Unfettered Rope Dart (Ungebundener Seilpfeil)</strong> wird im Test Unblockable (nicht blockbar), erhält aber eine sichtbare goldene Warnung.</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>Dicht gestapelte Guard Walls werden anfälliger für gezielte Brecher.</li><li>Permanentes Blocken verliert gegenüber rotierendem Guard und Seitwärtsbewegung.</li><li>Telegraphierte Unblockables können die Line zum Ausweichen zwingen und einen Chokepoint öffnen.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Frontline leicht versetzt staffeln statt vollständig stapeln. Unblockable-Warnung mit Seitwärts-Dodge beantworten; danach sofort wieder schließen, damit der Gegner die entstandene Lücke nicht nutzt.</p>
+      </article>
+
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>DoT Pressure (Schaden-über-Zeit-Druck)</h3><span class="confidence">Relevanz sehr hoch · Sicherheit mittel</span></div>
+        <span class="badge analysis">Starke GvG-Synergie möglich</span>
+        <h4>Betroffene Änderungen</h4>
+        <p>Die allgemeinen Änderungen von <strong>Bellstrike – Umbra (Glockenschlag – Umbra)</strong> verbessern Bleeding (Blutung), High Bleeding (Starke Blutung), Debuff-Uptime und die Verlängerung eigener DoTs. Bereits live kann <strong>Strategic Sword: EX (Strategisches Schwert: EX)</strong> Ziele mit fünf Bleeding Stacks (Blutungsstapeln) detonieren.</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>Frontline und Heiler werden durch dauerhaften Druck stärker gebunden.</li><li>Disengage (Rückzug) beendet den Schaden nicht sofort.</li><li>Eine koordinierte Fünf-Stack-Detonation kann als zweites Burstfenster nach dem ersten Engage dienen.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Einen festen Bleed Caller (Blutungs-Ansager) einsetzen: Stapel auf dem markierten Tank oder Heiler aufbauen, EX-Detonation erst bei bestätigten fünf Stapeln und möglichst zusammen mit Healing Reduction (Heilungsreduktion) auslösen.</p>
+      </article>
+
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>Objective Burn (Bollwerk- und Gans-Burst)</h3><span class="confidence">Relevanz hoch · Sicherheit mittel</span></div>
+        <span class="badge analysis">Interaktion mit bestätigten GvG-Regeln</span>
+        <h4>Betroffene Änderungen</h4>
+        <p>Allgemeine PvE- und Pfadbuffs können den Schaden gegen Non-Player Units (Nicht-Spieler-Einheiten) erhöhen. Gleichzeitig skalieren <strong>Bulwark (Bollwerk)</strong> und <strong>Goose (Gans)</strong> bereits live ihre Schadensreduktion mit der Zahl naher Spieler.</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>Mehr Roh-DPS macht „alle auf das Ziel“ nicht automatisch optimal.</li><li>Der größere Gewinn entsteht, wenn ein Teil der Gruppe Gegner vom Objektiv wegzoned.</li><li>DoT- und Cleave-Buffs können gleichzeitig Gegner und Ziel belasten, sofern beide im Wirkbereich stehen.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Objective Team (Objektivgruppe) und Zoning Team (Abschirmgruppe) klar trennen. Erst Gegner aus dem Stack drücken, dann Burst auf Bollwerk oder Gans. Zusätzliche Spieler nur dann ans Ziel holen, wenn deren Nutzen die zusätzliche Schadensreduktion überwiegt.</p>
+      </article>
+
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>Jungle Tempo (Jungle-Tempo und Boss-Contest)</h3><span class="confidence">Relevanz mittel · Sicherheit mittel</span></div>
+        <span class="badge analysis">Allgemeine Pfadwerte könnten wirken</span>
+        <h4>Betroffene Änderungen</h4>
+        <p>Neutral Camps (neutrale Lager) besitzen bereits live nur noch einen stärkeren Gegner; neutrale Bosse erscheinen zufällig bis zu eine Minute früher oder später. Mehr Single-Target Damage (Einzelzielschaden), DoT-Uptime und Qi-Break-Burst könnten die Clear Time (Tötungszeit) verändern.</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>AoE-Buffs sind an Ein-Gegner-Camps weniger wertvoll als starker Einzelzielschaden.</li><li>Schnellere Bosskills verkürzen das Zeitfenster für einen gegnerischen Steal.</li><li>Durch die zufällige Spawnzeit bleibt frühes Scouting wichtiger als eine starre Timer-Rotation.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Jungle-Gruppe auf Single Target (Einzelziel), Debuffs und sicheren Finish-Burst ausrichten. Scout mindestens eine Minute vor dem nominellen Spawn schicken und ein Kontrollpaket für den gegnerischen Contest zurückhalten.</p>
+      </article>
+
+      <article class="tactic speculative">
+        <div class="tactic-head"><h3>Fortune Tree Escort (Glücksbaum-Transport)</h3><span class="confidence">Relevanz mittel · Sicherheit niedrig/mittel</span></div>
+        <span class="badge analysis">Mobilitäts- und Slow-Interaktion</span>
+        <h4>Betroffene Änderungen</h4>
+        <p>Im Guild War ist der Slow Down Effect (Verlangsamungseffekt) durch Interception (Abfangen) bereits reduziert; <strong>Ignore Interception (Abfangen ignorieren)</strong> kann die Wind Wall (Windmauer) durchbrechen. Neue Slows, Knockbacks und Mobilitätsoptionen könnten dennoch den Kampf um Träger und Verfolger verändern.</p>
+        <h4>Mögliche taktische Folge</h4>
+        <ul><li>Ein einzelner Slow reicht weniger zuverlässig, um den Transport zu stoppen.</li><li>Knockback und Wegblockade werden gegenüber reinem Slow wichtiger.</li><li>Ein mobiler Tank kann als Rear Guard (Nachhut) Verfolger binden und danach zum Träger aufschließen.</li></ul>
+        <h4>EMPYREANS-Anpassung</h4>
+        <p>Transport mit zwei Kontrollschichten absichern: erste Line stoppt den Engage, zweite Line hält Knockback oder Pull für den erneuten Zugriff zurück. Command Skill nicht gleichzeitig mit allen normalen Mobilitäts-Cooldowns verbrauchen.</p>
+      </article>
+    </div>
+
+    <h3 style="color:var(--gold2);margin-top:30px">Taktische Prioritäten für EMPYREANS</h3>
+    <div class="tactic-table-wrap speculative">
+      <table class="tactic-table">
+        <thead><tr><th>Taktik</th><th>Wahrscheinliche Veränderung</th><th>Empfohlene Reaktion</th><th>Sicherheit</th></tr></thead>
+        <tbody>
+          <tr><td>Frontline Push (Frontlinien-Vorstoß)</td><td>Aktive Tanks erhalten mehr Zugriff; passives Blocken erzeugt möglicherweise weniger Ressourcen.</td><td>Kampfgeist vorbauen, Heavy 3 und Slow als gemeinsames Push-Signal nutzen.</td><td>Mittel bis niedrig</td></tr>
+          <tr><td>Healer Dive (Heiler-Fokus)</td><td>Heiler könnten nach dem ersten Engage leichter repositionieren.</td><td>Zweiten Catch fest einplanen; CC, Slow und Knockback zeitlich staffeln.</td><td>Niedrig</td></tr>
+          <tr><td>CC Chain (Kontrollkette)</td><td>Lange Ketten könnten früher brechen und weniger Schaden zulassen.</td><td>Kürzere Kontrollfenster mit früherem Burst und zweitem Re-Engage spielen.</td><td>Niedrig</td></tr>
+          <tr><td>DoT Pressure (DoT-Druck)</td><td>Bleeding-Uptime und Strategic Sword: EX könnten stärker zusammenspielen.</td><td>Fünf Stapel ansagen und Detonation mit Heilungsreduktion synchronisieren.</td><td>Mittel</td></tr>
+          <tr><td>Objective Burn (Objektiv-Burst)</td><td>Mehr Pfadschaden trifft weiterhin auf stapelnde Objektiv-Schadensreduktion.</td><td>Mehr Zoning, weniger blindes Vollstacken am Ziel.</td><td>Mittel</td></tr>
+          <tr><td>Jungle Contest (Jungle-Kampf)</td><td>Single-Target-Buffs können Clear und Steal-Fenster verkürzen.</td><td>Früher scouten, Finish-Burst und CC für den Contest aufsparen.</td><td>Mittel</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout violet speculative"><strong>Was jetzt sinnvoll getestet werden kann:</strong> Push-Rotation mit vorbereitetem Battle Will (Kampfgeist), zweistufiger Heiler-Catch, Bleeding-Stack-Ansage mit <strong>Strategic Sword: EX</strong> sowie Objective-Zoning mit kleinerer Burn-Gruppe. Noch nicht sinnvoll sind endgültige Gear-Umbauten oder eine feste GvG-Tierliste, solange die Global-Livewerte und der tatsächliche Guild-War-Geltungsbereich fehlen.</div>
+  </section>
+
+  <section id="terms" data-category="general">
+    <div class="section-head"><span class="num">07</span><h2>Begriffe Englisch / Deutsch</h2></div>
+    <table class="term-table">
+      <thead><tr><th>English</th><th>Deutsch / Verwendung im Guide</th></tr></thead>
+      <tbody>
+        <tr><td>Martial-Arts Path</td><td>Kampfkunstpfad</td></tr>
+        <tr><td>Martial Art</td><td>Kampfkunst</td></tr>
+        <tr><td>Inner Way</td><td>Innerer Weg / Innere Kunst</td></tr>
+        <tr><td>Mystic Skill</td><td>Mystische Fähigkeit</td></tr>
+        <tr><td>Light Attack / Heavy Attack</td><td>Leichter Angriff / Schwerer Angriff</td></tr>
+        <tr><td>Charged Skill</td><td>Aufgeladene Fertigkeit</td></tr>
+        <tr><td>Special Skill</td><td>Spezialfertigkeit</td></tr>
+        <tr><td>Weapon Switch Skill</td><td>Waffenwechsel-Fertigkeit</td></tr>
+        <tr><td>Exhausted</td><td>Erschöpft / Qi erschöpft</td></tr>
+        <tr><td>Qi Imbalance</td><td>Qi-Ungleichgewicht</td></tr>
+        <tr><td>HP Damage / Qi Damage</td><td>Lebenspunktschaden / Qi-Schaden</td></tr>
+        <tr><td>Tenacity</td><td>Standhaftigkeit</td></tr>
+        <tr><td>Super Armor</td><td>Unerschütterlichkeit</td></tr>
+        <tr><td>Stagger</td><td>Wanken / Trefferstarre</td></tr>
+        <tr><td>Control</td><td>Kontrolleffekt</td></tr>
+        <tr><td>Deflect</td><td>Parade / Entkräften</td></tr>
+        <tr><td>Defense / Guard</td><td>Verteidigung / Block</td></tr>
+        <tr><td>Damage over Time (DoT)</td><td>Schaden über Zeit</td></tr>
+        <tr><td>Bleeding / High Bleeding</td><td>Blutung / Starke Blutung</td></tr>
+        <tr><td>Battle Will</td><td>Kampfgeist</td></tr>
+        <tr><td>Movement Speed / Slow</td><td>Bewegungsgeschwindigkeit / Verlangsamung</td></tr>
+        <tr><td>Abrasion</td><td>Streifschaden / abgeschwächter Treffer</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>Namensregel der Webseite:</strong> Offizielle Global-English-Namen stehen zuerst. Deutsche Namen stehen in Klammern. Nicht veröffentlichte Global-Namen werden nicht erfunden; reine Arbeitsübersetzungen sind ausdrücklich gekennzeichnet.</div>
+  </section>
+
+  <section id="sources" data-category="general">
+    <div class="section-head"><span class="num">08</span><h2>Quellen und Methodik</h2></div>
+    <article class="source"><span class="badge global">Primärquelle · Global</span><h3>1.8 Version Patch Notes – July 9, 2026</h3><p>Bestätigt die Freischaltung von Training Terrace – Preliminary und den Zweck als Pre-Season-Balance-Test. Enthält keine vollständige öffentliche Detailwertliste.</p><a class="url" href="https://www.wherewindsmeetgame.com/news/official/625update.html">https://www.wherewindsmeetgame.com/news/official/625update.html</a></article>
+    <article class="source"><span class="badge test">Primärquelle · CN</span><h3>武学平衡，从现在到未来 – 12. Juni 2026</h3><p>Offizielle chinesische Detailankündigung mit allgemeinen, Pfad- und PvP-Teständerungen. Sie erklärt ausdrücklich, dass die endgültige Live-Fassung anhand der Testergebnisse angepasst wird.</p><a class="url" href="https://www.yysls.cn/news/official/20260612/37780_1304101.html">https://www.yysls.cn/news/official/20260612/37780_1304101.html</a></article>
+    <article class="source"><span class="badge live">Baseline · bereits live</span><h3>Version 1.7 Path Balance Adjustment – May 28, 2026</h3><p>Dient zur Abgrenzung bereits veröffentlichter Global-Änderungen von den neuen Preliminary-Testpunkten sowie für die offiziellen Global-English-Namen.</p><a class="url" href="https://www.wherewindsmeetgame.com/news/official/Adjustment528.html">https://www.wherewindsmeetgame.com/news/official/Adjustment528.html</a></article>
+    <article class="source"><span class="badge live">GvG-Baseline · bereits live</span><h3>May 27 Patch Notes – Guild War</h3><p>Dokumentiert die aktuell live geschalteten Guild-War-Regeln. Sie beweisen nicht, dass künftige Arena-Teständerungen automatisch im GvG gelten.</p><a class="url" href="https://www.wherewindsmeetgame.com/news/official/527update.html">https://www.wherewindsmeetgame.com/news/official/527update.html</a></article>
+    <div class="callout green"><strong>EMPYREANS-Prüfregel:</strong> Erst nach Veröffentlichung einer offiziellen Global-Detailpatchnote werden gelbe Test-Badges zu grünen Global-Badges. Änderungen an Gear, Attunements oder Inner Ways sollten bis dahin nur im Testmodus vorbereitet, nicht endgültig umgesetzt werden.</div>
+  </section>
+
+  <footer>EMPYREANS · Where Winds Meet · Preliminary Combat Balance Guide<br>Gemeinschaft · Humor · Ambitionen · Seit Day 0</footer>
+</main>
+<script>
+const buttons=[...document.querySelectorAll('button.filter')];
+const confirmedOnly=document.getElementById('confirmedOnly');
+let active='all';
+function applyFilters(){
+  document.querySelectorAll('main section, article.path').forEach(el=>{
+    const cats=(el.dataset.category||'').split(/\s+/);
+    const categoryOK=active==='all'||cats.includes(active);
+    const confirmationOK=!confirmedOnly.checked||!el.classList.contains('speculative');
+    el.classList.toggle('hidden',!(categoryOK&&confirmationOK));
+  });
+  document.querySelectorAll('.speculative').forEach(el=>{
+    if(!el.matches('section, article.path')) el.classList.toggle('hidden',confirmedOnly.checked);
+  });
+}
+buttons.forEach(btn=>btn.addEventListener('click',()=>{
+  buttons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');active=btn.dataset.filter;applyFilters();
+}));
+confirmedOnly.addEventListener('change',applyFilters);
+</script>
+</body>
+</html>
