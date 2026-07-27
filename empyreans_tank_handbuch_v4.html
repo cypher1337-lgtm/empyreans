@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EMPYREANS Gildenhandbuch v4 für Thundercry Blade & Stormbreaker Spear (Stonesplit-Might) in Where Winds Meet – PvE, Arena/PvP und GvG. Patchstand 2.0 Unseen Approach, mit Quellen-Labeln und offenen Testaufträgen.">
+<title>EMPYREANS · Thundercry &amp; Stormbreaker — Tank-Handbuch v4</title>
+<style>
+  :root{
+    --bg:#0a0710; --bg2:#120a1c; --card:#160e22; --card2:#1d1330;
+    --border:#2a2140;
+    --gold:#e8c66a; --gold-soft:#c9a955; --violet:#a06bff; --red:#d2455e;
+    --text:#efe9f7; --text-dim:#c2b8d4; --text-faint:#9488ac;
+    --pve:#5fb98e; --pvp:#e0a14f; --gvg:#6f9ce8;
+    /* evidence colours */
+    --e-off:#5fb98e; --e-test:#6f9ce8; --e-single:#e0c04a; --e-cons:#e0a14f; --e-theory:#d2455e; --e-guild:#a06bff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{
+    background:
+      radial-gradient(1100px 500px at 50% -120px, #221338, transparent 60%),
+      var(--bg);
+    color:var(--text); font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    line-height:1.6; font-size:16px;
+  }
+  a{color:var(--gold)}
+  a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--violet);outline-offset:2px;border-radius:4px}
+
+  .skip{position:absolute;left:-999px;top:0;background:var(--gold);color:#1a1020;padding:10px 16px;font-weight:700;z-index:200;border-radius:0 0 8px 0}
+  .skip:focus{left:0}
+
+  header.hero{text-align:center;padding:52px 18px 34px;border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,rgba(60,36,104,.4),transparent)}
+  header.hero .crest{color:var(--gold);letter-spacing:.26em;font-size:.8rem;font-weight:700;margin-bottom:14px}
+  header.hero h1{font-size:2.2rem;font-weight:800;letter-spacing:.01em;color:var(--gold);
+    background:linear-gradient(90deg,var(--gold),#fff5d8,var(--gold-soft));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  @supports not (background-clip:text){header.hero h1{color:var(--gold);-webkit-text-fill-color:currentColor}}
+  header.hero .sub{color:var(--violet);font-weight:600;margin-top:10px;font-size:1.05rem}
+  .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .badge{font-size:.74rem;padding:5px 11px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--text-dim)}
+  .badge.gold{border-color:var(--gold-soft);color:var(--gold)}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 18px 60px}
+  .intro{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:30px}
+  .intro p{color:var(--text-dim);margin-bottom:10px}
+  .intro p:last-child{margin-bottom:0}
+  .intro strong{color:var(--text)}
+
+  /* evidence badge: colour + text, never colour alone */
+  .src{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:999px;font-size:.7rem;font-weight:700;white-space:nowrap;vertical-align:middle;border:1px solid transparent}
+  .src .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+  .src-off{background:rgba(95,185,142,.14);color:var(--e-off);border-color:rgba(95,185,142,.45)} .src-off .dot{background:var(--e-off)}
+  .src-test{background:rgba(111,156,232,.15);color:var(--e-test);border-color:rgba(111,156,232,.45)} .src-test .dot{background:var(--e-test)}
+  .src-single{background:rgba(224,192,74,.14);color:var(--e-single);border-color:rgba(224,192,74,.45)} .src-single .dot{background:var(--e-single)}
+  .src-cons{background:rgba(224,161,79,.14);color:var(--e-cons);border-color:rgba(224,161,79,.45)} .src-cons .dot{background:var(--e-cons)}
+  .src-theory{background:rgba(210,69,94,.13);color:var(--e-theory);border-color:rgba(210,69,94,.42)} .src-theory .dot{background:var(--e-theory)}
+  .src-guild{background:rgba(160,107,255,.14);color:var(--e-guild);border-color:rgba(160,107,255,.45)} .src-guild .dot{background:var(--e-guild)}
+  .src .stand{opacity:.75;font-weight:600;font-size:.64rem}
+
+  nav.toc{margin-bottom:36px}
+  nav.toc h2{color:var(--gold);font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .toc-grid a{display:flex;gap:10px;align-items:baseline;padding:9px 13px;border-radius:9px;background:var(--card);border:1px solid var(--border);color:var(--text-dim);text-decoration:none}
+  .toc-grid a:hover{border-color:var(--gold-soft);color:var(--text)}
+  .toc-grid .num{color:var(--gold);font-weight:700;font-size:.82rem;min-width:24px}
+
+  section{margin-bottom:34px;scroll-margin-top:16px}
+  .chap-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+  .chap-num{font-size:1.9rem;font-weight:800;color:var(--gold-soft);line-height:1}
+  .chap-head h2{font-size:1.4rem;color:var(--text);font-weight:700}
+  h3{color:var(--gold);font-size:1.05rem;margin:16px 0 9px;font-weight:700}
+  p{color:var(--text-dim);margin-bottom:12px}
+  p strong,li strong{color:var(--text)}
+  ul,ol{margin:6px 0 12px 20px;color:var(--text-dim)}
+  li{margin-bottom:5px}
+  em{color:var(--gold);font-style:normal}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .card h3{margin-top:0}
+  .bc-row{display:flex;gap:8px;margin-bottom:6px;font-size:.92rem}
+  .bc-row .k{color:var(--gold);font-weight:700;min-width:120px;flex-shrink:0}
+  .bc-row .v{color:var(--text-dim)}
+
+  .table-wrap{overflow-x:auto;margin:8px 0 16px}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--card);border-radius:10px;overflow:hidden;min-width:520px}
+  caption{text-align:left;color:var(--text-faint);font-size:.8rem;padding:6px 4px;caption-side:top}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{background:var(--card2);color:var(--gold);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+  th[scope=row]{background:transparent;color:var(--text);text-transform:none;font-size:.88rem}
+  tr:last-child td{border-bottom:none}
+  td{color:var(--text-dim)}
+
+  .box{border-radius:12px;padding:15px 18px;margin:14px 0;border:1px solid var(--border);background:var(--card)}
+  .box .bt{font-weight:700;margin-bottom:7px}
+  .box.warn{border-color:rgba(210,69,94,.4);background:rgba(210,69,94,.07)} .box.warn .bt{color:var(--red)}
+  .box.ok{border-color:rgba(95,185,142,.35);background:rgba(95,185,142,.06)} .box.ok .bt{color:var(--pve)}
+  .box.note{border-color:rgba(224,161,79,.35);background:rgba(224,161,79,.06)} .box.note .bt{color:var(--pvp)}
+  .box.guild{border-color:rgba(160,107,255,.4);background:rgba(160,107,255,.07)} .box.guild .bt{color:var(--violet)}
+  .box ul{margin-top:4px}
+
+  /* fact/interpretation split */
+  .fi{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:10px 0;font-size:.9rem}
+  .fi .lab{font-weight:700;font-size:.72rem;padding-top:2px;white-space:nowrap}
+  .fi .lab.f{color:var(--pve)} .fi .lab.m{color:var(--pvp)} .fi .lab.t{color:var(--red)}
+  .fi .val{color:var(--text-dim)}
+
+  /* open test card */
+  .test{background:rgba(210,69,94,.05);border:1px dashed rgba(210,69,94,.45);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .test .th{color:var(--red);font-weight:800;font-size:.9rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .test dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:.88rem}
+  .test dt{color:var(--gold);font-weight:700}
+  .test dd{color:var(--text-dim)}
+  .test .status{margin-left:auto;font-size:.7rem;padding:1px 8px;border-radius:999px;background:rgba(210,69,94,.15);border:1px solid rgba(210,69,94,.4);color:var(--red)}
+
+  /* recommendation card meta strip */
+  .rec-meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0;padding:10px 12px;border-radius:8px;background:var(--bg2);font-size:.82rem}
+  .rec-meta dt{color:var(--gold);font-weight:700}
+  .rec-meta dd{color:var(--text-dim)}
+
+  .flow{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .flow .frow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .flow .node{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:.86rem;color:var(--text)}
+  .flow .node.res{border-color:var(--gold-soft);color:var(--gold);font-weight:700}
+  .flow .arr{color:var(--gold-soft);font-weight:800}
+
+  .merk{background:var(--card2);border-left:3px solid var(--gold-soft);padding:10px 14px;border-radius:0 8px 8px 0;color:var(--gold);font-weight:600;margin:14px 0}
+
+  .build-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .build-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 17px}
+  .build-card h3{margin-top:0;color:#fff}
+  .bc-tag{font-size:.7rem;font-weight:800;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
+  .bc-pm{margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:4px}
+  .bc-plus{color:var(--pve);font-size:.85rem} .bc-plus::before{content:"+ ";font-weight:800}
+  .bc-minus{color:var(--red);font-size:.85rem} .bc-minus::before{content:"– ";font-weight:800}
+
+  .legend-grid{display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:start;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:16px 0}
+  .legend-grid .ltext{color:var(--text-dim);font-size:.9rem}
+  .legend-grid .ltext strong{color:var(--text)}
+
+  footer{margin-top:56px;padding:28px 18px;text-align:center;border-top:1px solid var(--border);color:var(--text-faint);font-size:.9rem}
+  footer .fcrest{color:var(--gold);letter-spacing:.3em;font-weight:700;margin-bottom:8px}
+
+  #toTop{position:fixed;right:18px;bottom:18px;z-index:60;width:46px;height:46px;border-radius:50%;cursor:pointer;
+    background:var(--card2);border:1px solid var(--gold-soft);color:var(--gold);font-size:1.2rem;
+    display:none;align-items:center;justify-content:center}
+  #toTop:hover{background:#2a1a40}
+
+  @media(max-width:720px){
+    header.hero h1{font-size:1.55rem}
+    .toc-grid,.build-grid{grid-template-columns:1fr}
+    .chap-head h2{font-size:1.15rem}
+    body{font-size:15px}
+    .bc-row .k{min-width:96px}
+  }
+
+  @media print{
+    body{background:#fff;color:#111}
+    header.hero,nav.toc,#toTop,.skip{display:none}
+    .card,.box,.test,table{border-color:#bbb;background:#fff;break-inside:avoid}
+    .src,.rec-meta,.merk{border:1px solid #999;color:#111;background:#f4f4f4}
+    a{color:#111;text-decoration:underline}
+    h2,h3{color:#111}
+    p,td,li,.text-dim{color:#222}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<header class="hero">
+  <div class="crest">⟡ EMPYREANS · Where Winds Meet ⟡</div>
+  <h1>Thundercry &amp; Stormbreaker — Tank-Handbuch v4</h1>
+  <div class="sub">Stonesplit-Might · PvE · Arena/PvP · GvG</div>
+  <div class="badges">
+    <span class="badge gold">Gilden-Edition v4</span>
+    <span class="badge">Patch 2.0 „Unseen Approach“</span>
+    <span class="badge">Prüfstand: 27.07.2026</span>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <div class="intro">
+    <p>Dies ist die <strong>v4-Neufassung</strong> des EMPYREANS-Tank-Handbuchs für <strong>Thundercry Blade + Stormbreaker Spear</strong> (Pfad Stonesplit-Might). Grundsatz: <strong>keine ungeprüfte Übernahme.</strong> Jede konkrete Zahl und jede Meta-Empfehlung trägt eine sichtbare Evidenzstufe — als Farbe <em>und</em> Text, nie nur Farbe.</p>
+    <p><strong>Wichtige Ehrlichkeits-Vorbemerkung:</strong> Mehrere in der Vorlage als „offiziell“ gelistete 2.0-Detailänderungen konnten zum Prüfstand nicht gegen die Original-Patchnotes bestätigt werden. Sie erscheinen daher bewusst als <span class="src src-cons"><span class="dot"></span>🟠 zu prüfen</span> oder <span class="src src-theory"><span class="dot"></span>🔴 Theorie</span> statt als 🟢 — inklusive Testauftrag. Das ist Absicht, kein Versäumnis.</p>
+    <div class="legend-grid" role="list" aria-label="Evidenzstufen">
+      <span class="src src-off" role="listitem"><span class="dot"></span>🟢 Offiziell</span><span class="ltext">Offizielle Patchnotes oder aktueller In-Game-Tooltip.</span>
+      <span class="src src-test" role="listitem"><span class="dot"></span>🔵 Gildengetestet</span><span class="ltext">Reproduzierbarer Test mit Patch, Datum, Build, Ziel und Methode.</span>
+      <span class="src src-single" role="listitem"><span class="dot"></span>🟡 Einzelquelle</span><span class="ltext">Eine externe Datenbank / ein einzelner Guide.</span>
+      <span class="src src-cons" role="listitem"><span class="dot"></span>🟠 Konsens</span><span class="ltext">Mindestens zwei unabhängige, aktuelle Quellen.</span>
+      <span class="src src-theory" role="listitem"><span class="dot"></span>🔴 Theorie</span><span class="ltext">Plausible, aber nicht ausreichend getestete Ableitung.</span>
+      <span class="src src-guild" role="listitem"><span class="dot"></span>🟣 EMPYREANS</span><span class="ltext">Gildeninterne Shotcalls, Rollen, Bezeichnungen.</span>
+    </div>
+    <div class="merk">Der Guide trennt Fakt und Interpretation in zwei Zeilen — und lügt nicht über seine eigene Sicherheit.</div>
+  </div>
+
+  <nav class="toc" aria-label="Inhaltsverzeichnis">
+    <h2>Inhaltsverzeichnis</h2>
+    <div class="toc-grid">
+      <a href="#k01"><span class="num">01</span><span>Überblick &amp; Prüfstand</span></a>
+      <a href="#k02"><span class="num">02</span><span>Quellen- &amp; Qualitätsrichtlinie</span></a>
+      <a href="#k03"><span class="num">03</span><span>Patch-2.0-Änderungen</span></a>
+      <a href="#k04"><span class="num">04</span><span>Ressourcenmodell</span></a>
+      <a href="#k05"><span class="num">05</span><span>Thundercry Blade</span></a>
+      <a href="#k06"><span class="num">06</span><span>Stormbreaker Spear</span></a>
+      <a href="#k07"><span class="num">07</span><span>Stats &amp; Berechnungslogik</span></a>
+      <a href="#k08"><span class="num">08</span><span>Gear, Sets &amp; Attunements</span></a>
+      <a href="#k09"><span class="num">09</span><span>Inner Ways (Tier-Matrix)</span></a>
+      <a href="#k10"><span class="num">10</span><span>Mystic Skills</span></a>
+      <a href="#k11"><span class="num">11</span><span>PvE-Raid-Tank</span></a>
+      <a href="#k12"><span class="num">12</span><span>Tank-DPS &amp; Bossfenster</span></a>
+      <a href="#k13"><span class="num">13</span><span>Arena / PvP</span></a>
+      <a href="#k14"><span class="num">14</span><span>GvG-Rollen &amp; Taktik</span></a>
+      <a href="#k15"><span class="num">15</span><span>Matchups</span></a>
+      <a href="#k16"><span class="num">16</span><span>Buildkarten</span></a>
+      <a href="#k17"><span class="num">17</span><span>EMPYREANS-Testlabor</span></a>
+      <a href="#k18"><span class="num">18</span><span>Änderungsprotokoll</span></a>
+      <a href="#k19"><span class="num">19</span><span>Quellenanhang</span></a>
+    </div>
+  </nav>
+
+  <!-- 01 -->
+  <section id="k01" aria-labelledby="h01">
+    <div class="chap-head"><span class="chap-num">01</span><h2 id="h01">Überblick, Zielgruppe &amp; Prüfstand</h2></div>
+    <p>Zielgruppe sind EMPYREANS-Mitglieder, die <strong>Thundercry Blade + Stormbreaker Spear</strong> (Stonesplit-Might) in PvE, Arena/PvP und GvG spielen. Die Kombination ist der dedizierte Nahkampf-Tank des Spiels: HP-skalierende Schilde, Aggro/Taunt in PvE, Schadensreduktion und Charged-Burst. <span class="src src-cons"><span class="dot"></span>🟠 Konsens</span></p>
+    <div class="card">
+      <h3>Eckdaten</h3>
+      <div class="bc-row"><span class="k">Patchstand</span><span class="v">Version 2.0 „Unseen Approach“ (Release 23.07.2026) <span class="src src-off"><span class="dot"></span>🟢</span></span></div>
+      <div class="bc-row"><span class="k">Prüf-/Recherchestand</span><span class="v">27.07.2026</span></div>
+      <div class="bc-row"><span class="k">Gear-Kontext</span><span class="v">Tier-96 verfügbar; Level-/Gear-Caps angehoben <span class="src src-off"><span class="dot"></span>🟢 2.0</span></span></div>
+      <div class="bc-row"><span class="k">Rolle</span><span class="v">Tank / Tank-DPS / Konter-Bruiser je nach Modus (siehe Kap. 07 &amp; 16)</span></div>
+    </div>
+    <div class="box note">
+      <div class="bt">Lesehilfe zu den Labeln</div>
+      <p>Fakten und daraus abgeleitete Interpretationen stehen in getrennten Zeilen (Fakt / Folge / Taktik / zu testen). Kein Badge trägt gleichzeitig „offiziell“ und „Theorie“.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="k02" aria-labelledby="h02">
+    <div class="chap-head"><span class="chap-num">02</span><h2 id="h02">Quellen- &amp; Qualitätsrichtlinie</h2></div>
+    <p>Diese Richtlinie ist direkt eingebettet (kein externer Link, der ins Leere führen könnte).</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Sechsstufige Evidenzhierarchie und Aufnahmeregel</caption>
+        <thead><tr><th scope="col">Stufe</th><th scope="col">Bedeutung</th><th scope="col">Aufnahme ins Handbuch</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="src src-off"><span class="dot"></span>🟢 Offiziell</span></th><td>Patchnotes / In-Game-Tooltip</td><td>direkt, mit Patch-Nummer</td></tr>
+          <tr><th scope="row"><span class="src src-test"><span class="dot"></span>🔵 Gildengetestet</span></th><td>reproduzierbarer Test (Patch, Datum, Build, Ziel, Methode, Wiederholungen)</td><td>direkt, mit Testkopf</td></tr>
+          <tr><th scope="row"><span class="src src-single"><span class="dot"></span>🟡 Einzelquelle</span></th><td>eine externe DB / ein Guide</td><td>nur mit Quellenangabe, klar als einzeln markiert</td></tr>
+          <tr><th scope="row"><span class="src src-cons"><span class="dot"></span>🟠 Konsens</span></th><td>≥ 2 unabhängige aktuelle Quellen</td><td>direkt, Quellen im Anhang</td></tr>
+          <tr><th scope="row"><span class="src src-theory"><span class="dot"></span>🔴 Theorie</span></th><td>mechanik-abgeleitet, ungetestet</td><td>nur wenn nachvollziehbar; sonst Testauftrag</td></tr>
+          <tr><th scope="row"><span class="src src-guild"><span class="dot"></span>🟣 EMPYREANS</span></th><td>gildeninterne Calls/Rollen/Begriffe</td><td>als intern gekennzeichnet</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="bt">Feste Regeln</div>
+      <ul>
+        <li>Eine einzelne Quelle (Game8, Fextralife, MetaBattle, WhereWindsMeet.gg …) ist <strong>nie automatisch Konsens</strong> — sie bleibt 🟡, bis eine zweite unabhängige Quelle sie stützt.</li>
+        <li>Jede konkrete Zahl und jede Meta-Empfehlung trägt eine Stufe.</li>
+        <li>Ein Gildentest heißt nur „verifiziert“, wenn Testcharakter, Gear-Tier, Inner-Way-Stufen, Ziel, Modus, Buffs und Wiederholungen dokumentiert sind.</li>
+        <li>Begriffe wie „Best in Slot“, „Meta“, „Pflicht“ oder „verifiziert“ werden nur bei ausreichender Evidenz verwendet.</li>
+        <li>CN-Server-/Pre-Release-Infos gelten als 🔴, bis auf dem Global-Client bestätigt.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="k03" aria-labelledby="h03">
+    <div class="chap-head"><span class="chap-num">03</span><h2 id="h03">Patch-2.0-Änderungen für Stonesplit-Might</h2></div>
+    <p>Jede Änderung ist in <em>bestätigte Änderung</em>, <em>direkte Folge</em>, <em>mögliche Taktik</em> und <em>zu testen</em> getrennt.</p>
+
+    <div class="card">
+      <h3>Belegte 2.0-Änderungen <span class="src src-off"><span class="dot"></span>🟢 offizielle Patchnotes 23.–24.07.2026</span></h3>
+      <div class="table-wrap">
+        <table>
+          <caption>Offiziell bestätigte 2.0-Änderungen an Thundercry Blade / Stormbreaker Spear</caption>
+          <thead><tr><th scope="col">Änderung</th><th scope="col">Direkte Folge</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">HP→Max-Physical-Attack-Umwandlung skaliert nun mit <strong>Martial-Arts-Breakthrough-Level</strong> (statt festem Cap)</th><td>HP wird stärker zur Schadensquelle, abhängig vom Breakthrough-Fortschritt</td></tr>
+            <tr><th scope="row">Talent „Critical Rate UP“ → <strong>„Physical Attack UP“</strong> umbenannt/geändert (Anti-Crit-Overcap)</th><td>weniger verschwendete Crit-Rate; Wert fließt in Attack</td></tr>
+            <tr><th scope="row"><strong>Cadence</strong> (Exquisite Scenery) hält <strong>20 statt 15 s</strong>, stapelt bis 2×</th><td>längeres/stärkeres Buff-Fenster</td></tr>
+            <tr><th scope="row">Bei aktivem Drumbeat/Breakthrough löst <strong>Heavy Attack sofort Stage-3</strong> aus; dessen Schaden erhöht</th><td>schnellerer, härterer Burst; Rotation ändert sich</td></tr>
+            <tr><th scope="row"><strong>Stonebreaker</strong>: Pull stark verbessert; schlägt nach erfolgreicher Deflection nicht mehr unrechtmäßig nieder</th><td>zuverlässigeres Heranziehen, sauberere Interaktion</td></tr>
+            <tr><th scope="row"><strong>Avalanche</strong> zieht Gegner besser heran</th><td>besseres Gruppieren</td></tr>
+            <tr><th scope="row"><strong>Avalanche &amp; Galecloud Cleave</strong> kosten beim Laden mehr Endurance</th><td>strengere Endurance-Ökonomie, sparsamer chainen</td></tr>
+            <tr><th scope="row"><strong>Sunrush Gale</strong>: alle 0,5 s Slow + nach Abschluss kurzer starker Movement-Speed-Buff</th><td>bessere Kontrolle + Repositionierung</td></tr>
+            <tr><th scope="row"><strong>Buff-Food</strong> gesplittet: Vitality + Attack Food koexistieren</th><td>Max HP <em>und</em> Physical Attack gleichzeitig buffbar</td></tr>
+            <tr><th scope="row">Food-Werte werden <strong>zuerst den Basiswerten zugerechnet</strong>, dann prozentual skaliert</th><td>Food vor %-Buffs → größerer Effekt bei hoher %-Skalierung</td></tr>
+            <tr><th scope="row"><strong>Tier-96-Gear</strong> + zugehörige Tuning-/Attunement-Anpassungen</th><td>neues Gear-Ziel, Tuning nachziehen</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fi"><span class="lab t">🔴 Theorie</span><span class="val">„Der Bruiser-/Konter-Stil profitiert am meisten von 2.0.“ — plausibel wegen schnellerem Stage-3 und HP→Attack, aber <strong>ohne Vergleichstest</strong> nicht belegt.</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Aus der Vorlage übernommen — aber nicht unabhängig bestätigt <span class="src src-cons"><span class="dot"></span>🟠 zu prüfen</span></h3>
+      <p>Die folgenden Punkte stehen in der Aufgaben-Vorlage als offiziell, ließen sich zum Prüfstand aber nicht gegen die Original-Patchnotes verifizieren. Bis zum Tooltip-/Patchnote-Beleg gelten sie als <strong>zu prüfen</strong>, nicht als 🟢:</p>
+      <ul>
+        <li>Drumbeat und die eigene DR von Storm Roar benötigen seit 2.0 zwingend gleichzeitig ausgerüstete Thundercry Blade. <span class="src src-cons"><span class="dot"></span>🟠</span></li>
+        <li>Ohne Thundercry Blade erzeugt eine erfolgreiche Stormbreaker-Verteidigung weniger Battle Will. <span class="src src-cons"><span class="dot"></span>🟠</span></li>
+        <li>Die Predator's-Shield-Arena-Attunement wurde für stabilere Folgeangriffe überarbeitet. <span class="src src-cons"><span class="dot"></span>🟠</span></li>
+        <li>Der Fehler „Battle Will Increase upon Defending“ wurde am 23.07.2026 behoben. <span class="src src-cons"><span class="dot"></span>🟠</span></li>
+      </ul>
+      <div class="fi"><span class="lab f">Hinweis</span><span class="val">Diese Punkte sind inhaltlich plausibel und stammen aus eurer Vorlage — sie werden nur nicht fälschlich mit 🟢 geadelt. Testaufträge dazu in Kapitel 17.</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Frühere offizielle Änderungen (Version 1.7) <span class="src src-off"><span class="dot"></span>🟢 offiziell, nicht Community</span></h3>
+      <ul>
+        <li>HP-Conversion-Cap 60 → 120 (vor 2.0; in 2.0 durch Breakthrough-Skalierung ersetzt)</li>
+        <li>zusätzlicher Stonebreaker-AoE-Treffer</li>
+        <li>insgesamt erhöhter Stonebreaker-Schaden</li>
+        <li>verringerte vertikale Reichweite von Storm Roar</li>
+        <li>Exquisite-Scenery-Anpassungen</li>
+        <li>Art-of-Resistance-Anpassungen auf T3 und T6</li>
+        <li>Rainwhisper-Zusatzbonus nur unter dem eigenen HP-Shield</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="k04" aria-labelledby="h04">
+    <div class="chap-head"><span class="chap-num">04</span><h2 id="h04">Ressourcenmodell &amp; zentrale Effekte</h2></div>
+    <div class="box warn">
+      <div class="bt">Korrektur zu früheren Versionen</div>
+      <p>Battle Will <strong>ersetzt nicht</strong> Endurance. Es sind <strong>zwei parallele Ressourcen</strong>.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>Zwei parallele Ressourcen</caption>
+        <thead><tr><th scope="col">Ressource</th><th scope="col">Wofür</th><th scope="col">Erzeugung / Verbrauch</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Endurance</th><td>Laden, Verteidigen/Block, Ausweichen, Bewegung</td><td>regeneriert passiv; verbraucht durch die genannten Aktionen. 2.0: Avalanche/Galecloud kosten beim Laden mehr <span class="src src-off"><span class="dot"></span>🟢</span></td></tr>
+          <tr><th scope="row">Battle Will</th><td>exklusive Mechanik von Thundercry Blade + Stormbreaker Spear</td><td>erzeugt durch Verteidigen/Regeneration; verbraucht durch bestimmte Skills, Stage-3-Verstärkungen und Varied Combos <span class="src src-cons"><span class="dot"></span>🟠</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.86rem"><em>Begriffshinweis:</em> Der offizielle Begriff ist <strong>Battle Will</strong>. „Fighting Spirit“ ist nur die ältere bzw. in einigen Community-Datenbanken genutzte Bezeichnung und wird hier nicht weiter verwendet.</p>
+
+    <div class="card">
+      <h3>Ressourcenfluss</h3>
+      <div class="flow" aria-label="Ressourcenfluss-Diagramm">
+        <div class="frow"><span class="node">Defense / Block</span><span class="arr">→</span><span class="node res">Battle Will</span></div>
+        <div class="frow"><span class="node">Fury Spear (finaler Treffer)</span><span class="arr">→</span><span class="node res">Drumbeat</span></div>
+        <div class="frow"><span class="node">Sunrush Gale</span><span class="arr">→</span><span class="node res">Focus</span></div>
+        <div class="frow"><span class="node">Predator's Shield</span><span class="arr">→</span><span class="node res">HP-Shield</span><span class="arr">+</span><span class="node res">Battle Will</span></div>
+        <div class="frow"><span class="node">Exquisite Scenery</span><span class="arr">→</span><span class="node res">Cadence / Defensive Riposte</span></div>
+        <div class="frow"><span class="node res">Battle Will</span><span class="arr">→</span><span class="node">verstärkte Stage-3- &amp; Varied-Combo-Angriffe</span></div>
+      </div>
+      <div class="fi"><span class="lab f">🟢 Fakt</span><span class="val">Fury Spear erzeugt Drumbeat auf dem finalen Treffer; Sunrush Gale gewährt Focus; Predator's Shield erzeugt HP-Shield + Battle Will.</span></div>
+      <div class="fi"><span class="lab t">🔴 zu testen</span><span class="val">Exakte Battle-Will-Beträge pro Quelle und Cadence-Interaktion mit Stage-3 — siehe Testlabor.</span></div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="k05" aria-labelledby="h05">
+    <div class="chap-head"><span class="chap-num">05</span><h2 id="h05">Thundercry Blade</h2></div>
+    <p>Die Schadens- und Schild-Waffe der Linie. Effekte werden getrennt dargestellt; Prozentzahlen nur mit Beleg.</p>
+    <div class="card">
+      <h3>Predator's Shield</h3>
+      <div class="fi"><span class="lab f">🟢/🟡 Fakt</span><span class="val">Erzeugt einen HP-Shield und Battle Will. Ein Community-Wert (fextralife) nennt Schild ≈ 25 % Max-HP, ~8 s, ~12 s Cooldown, +2 Battle-Will-Leisten. <span class="src src-single"><span class="dot"></span>🟡 fextralife</span></span></div>
+      <div class="fi"><span class="lab t">🔴 entfernt</span><span class="val">Die frühere Pauschalaussage „gewährt ~30 % Charged Damage und senkt 12 s die Endurance-Kosten“ ist <strong>nicht tooltip-belegt</strong> und wurde entfernt → Testauftrag (Kap. 17).</span></div>
+    </div>
+    <div class="card">
+      <h3>Drumbeat &amp; Focus</h3>
+      <div class="fi"><span class="lab f">🟢 Fakt</span><span class="val"><strong>Drumbeat</strong> erhöht Charged-Skill-Schaden für eine begrenzte Dauer und wird von <strong>Fury Spear auf dem finalen Treffer</strong> erzeugt. <strong>Focus</strong> beschleunigt den nächsten Charged Skill innerhalb des Fensters (aus Sunrush Gale).</span></div>
+      <div class="fi"><span class="lab m">Taktik</span><span class="val">Seit 2.0: bei aktivem Drumbeat/Breakthrough Heavy Attack drücken → sofortiger, verstärkter Stage-3. <span class="src src-off"><span class="dot"></span>🟢 2.0</span></span></div>
+      <div class="fi"><span class="lab t">🔴 zu testen</span><span class="val">Exakter Drumbeat-%-Wert und -Dauer im 2.0-Client.</span></div>
+    </div>
+    <div class="card">
+      <h3>Exquisite Scenery — nach Ausbaustufe getrennt</h3>
+      <p>Dies ist <strong>keine</strong> allgemeine Waffenmechanik, sondern ein Inner Way mit stufenweisen Effekten. Der 20-%-Refund, der volle Refund und die zusätzliche +25/+50-%-Verstärkung gehören zu <em>unterschiedlichen</em> Stufen:</p>
+      <div class="table-wrap">
+        <table>
+          <caption>Exquisite Scenery — Effekte je Stufe (Zuordnung teils zu prüfen)</caption>
+          <thead><tr><th scope="col">Bestandteil</th><th scope="col">Wirkung</th><th scope="col">Stufe / Status</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Basiseffekt</th><td>Konter/Riposte bei erfolgreichem Verteidigen; Cadence-Buff</td><td>Basis <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Cadence-Dauer</th><td>20 s, 2 Stacks (2.0; vorher 15 s)</td><td><span class="src src-off"><span class="dot"></span>🟢 2.0</span></td></tr>
+            <tr><th scope="row">20 %-Refund beim Verteidigen</th><td>Chance auf 1 zusätzliche Battle-Will-Leiste</td><td>Ausbaustufe, <span class="src src-test"><span class="dot"></span>🔵 Freydar (1.8)</span> — im 2.0 nachtesten</td></tr>
+            <tr><th scope="row">Voller Refund</th><td>Charged-Varied-Combo-Treffer erstattet verbrauchten Battle Will</td><td>höhere Stufe <span class="src src-test"><span class="dot"></span>🔵</span></td></tr>
+            <tr><th scope="row">+25/+50 %-Verstärkung</th><td>1/2 zusätzliche Leisten für +25/+50 % Charged-Schaden</td><td>eigene Stufe <span class="src src-test"><span class="dot"></span>🔵</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fi"><span class="lab t">🔴 zu testen</span><span class="val">Genaue Tier-Zuordnung jedes Bestandteils im 2.0-Client (T1/T3/T4/T6).</span></div>
+    </div>
+    <div class="card">
+      <h3>Thunder Shock</h3>
+      <div class="fi"><span class="lab f">🟡 Fakt</span><span class="val">Kostet Battle Will; verursacht Knockdown und Vulnerability. Exakte Kosten/Werte nicht sicher belegt. <span class="src src-single"><span class="dot"></span>🟡</span></span></div>
+      <div class="fi"><span class="lab t">🔴 zu testen</span><span class="val">Battle-Will-Kosten, Knockdown-Dauer, Vulnerability-%.</span></div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="k06" aria-labelledby="h06">
+    <div class="chap-head"><span class="chap-num">06</span><h2 id="h06">Stormbreaker Spear</h2></div>
+    <div class="card">
+      <h3>Storm Roar</h3>
+      <div class="fi"><span class="lab f">🟡 Fakt</span><span class="val">Taunt (PvE-Aggro), „Shocked“-Effekt und Schadensreduktion für begrenzte Zeit. Ein Community-Wert nennt DR 20 % solo / 40 % Multiplayer-Boss, ~16 s. <span class="src src-single"><span class="dot"></span>🟡 fextralife</span></span></div>
+      <div class="fi"><span class="lab m">Wichtig PvE vs. PvP</span><span class="val"><strong>Taunt zwingt NPCs</strong>, dich anzugreifen. Gegen <strong>Spieler wirkt kein Taunt</strong> — im PvP/GvG zählen nur CC/„Shocked“ und die DR. „Storm Roar löst Angreifer vom Heiler“ gilt also <em>nur gegen NPCs</em>.</span></div>
+      <div class="fi"><span class="lab t">🔴 zu prüfen (aus Vorlage)</span><span class="val">2.0: DR von Storm Roar soll gleichzeitig ausgerüstete Thundercry Blade erfordern. <span class="src src-cons"><span class="dot"></span>🟠</span></span></div>
+    </div>
+    <div class="card">
+      <h3>Fury Spear</h3>
+      <div class="fi"><span class="lab f">🟢/🟡 Fakt</span><span class="val">Erzeugt Drumbeat auf dem <strong>finalen Treffer</strong> der Kombo.</span></div>
+    </div>
+    <div class="box note">
+      <div class="bt">Storm-Roar-Reichweite</div>
+      <p>Seit 1.7 verringerte vertikale Reichweite — Poke/Zoning schwächer, Nahkampf-Profil unverändert. <span class="src src-off"><span class="dot"></span>🟢 1.7</span></p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="k07" aria-labelledby="h07">
+    <div class="chap-head"><span class="chap-num">07</span><h2 id="h07">Stats &amp; Berechnungslogik</h2></div>
+    <div class="card">
+      <h3>Schadensberechnung (Hit-Typen)</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>Precision entscheidet Max/Min-Attack, dann Crit/Affinity/Abrasion</caption>
+          <thead><tr><th scope="col">Begriff</th><th scope="col">Mechanik</th><th scope="col">Quelle</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Precision Rate</th><td>entscheidet, ob ein Treffer mit <em>Max</em>- oder <em>Min</em>-Attack rollt; Precise → kann Crit/Affinity auslösen</td><td><span class="src src-cons"><span class="dot"></span>🟠 keengamer + gamerant</span></td></tr>
+            <tr><th scope="row">Affinity Hit</th><td>basiert auf <em>Max</em>-Attack; kann via Precision kritisch werden</td><td><span class="src src-cons"><span class="dot"></span>🟠</span></td></tr>
+            <tr><th scope="row">Abrasion Hit</th><td>basiert auf <em>Min</em>-Attack; kann <strong>nicht</strong> kritisch werden</td><td><span class="src src-cons"><span class="dot"></span>🟠</span></td></tr>
+            <tr><th scope="row">Max/Min Stonesplit</th><td>Attack-Boost nur für waffenspezifische (Stonesplit-)Angriffe, nicht Basis-Autos</td><td><span class="src src-single"><span class="dot"></span>🟡 Steam</span></td></tr>
+            <tr><th scope="row">Physical Penetration</th><td>erhöht Schaden/Heilung physischer Angriffe; wird von gegnerischem Physical Resistance beeinflusst; Mo Blade zieht Penetration aus Min Stonesplit (ab Tier-3-Breakthrough)</td><td><span class="src src-single"><span class="dot"></span>🟡 Tooltip/Steam</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Einzel-Stats</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>Stat-für-Stat: Wirkung und Tank-Relevanz</caption>
+          <thead><tr><th scope="col">Stat</th><th scope="col">Wirkung</th><th scope="col">Relevanz &amp; Status</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Max HP</th><td>Lebenspool; skaliert Predator's-Shield &amp; Trapped-Beast-Shield; seit 2.0 zusätzlich HP→Max-Physical-Attack (Breakthrough-skaliert)</td><td>Kern <span class="src src-off"><span class="dot"></span>🟢 2.0</span></td></tr>
+            <tr><th scope="row">Max Physical Attack</th><td>obere Grenze des Basisschadens; Affinity nutzt Max-Attack</td><td>hoch für Charged/Affinity <span class="src src-cons"><span class="dot"></span>🟠</span></td></tr>
+            <tr><th scope="row">Min Physical Attack</th><td>untere Grenze; Abrasion nutzt Min-Attack; engerer Range = konsistenter</td><td>situativ <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Power</th><td>Haupttreiber des Basisschadens</td><td>relevant; vs. Stonesplit testen <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Body</th><td>erhöht Max HP</td><td>Tank-freundlich <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Max/Min Stonesplit</th><td>Schaden der Stonesplit-Angriffe (die Hauptschadensquelle dieser Linie)</td><td>hoch <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Precision Rate</th><td>Wahrscheinlichkeit für Max-Attack/Precise-Hits</td><td>Gate für Crit/Affinity <span class="src src-cons"><span class="dot"></span>🟠</span></td></tr>
+            <tr><th scope="row">Critical Rate / Direct Crit / Effective Crit</th><td>Crit-Chance; „Direct“ umgeht ggf. Zwischenschritte; „Effective“ = tatsächlich wirksame Crit-Chance nach Overcap</td><td>2.0 senkt Overcap-Verschwendung; keine festen Caps ohne Test <span class="src src-off"><span class="dot"></span>🟢 2.0</span></td></tr>
+            <tr><th scope="row">Critical Damage</th><td>Schadensmultiplikator bei Crit</td><td>skaliert mit Rainwhisper-Schild-Bonus <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Affinity Rate</th><td>Chance auf Affinity-Hit (Max-Attack-Basis)</td><td>Alternative Schadensschiene <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Physical / Stonesplit Penetration &amp; Resistance</th><td>durchdringt gegnerische Resistenz; Gegenwert reduziert eingehende Penetration</td><td>Break-Even vs. Ziel-Resistenz testen <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+            <tr><th scope="row">Damage Reduction</th><td>senkt eingehenden Schaden; stapelt mit Storm Roar / Flawless Defense</td><td>Kern-Defensivwert <span class="src src-cons"><span class="dot"></span>🟠</span></td></tr>
+            <tr><th scope="row">Endurance</th><td>Ressource für Laden/Block/Dodge/Bewegung (siehe Kap. 04)</td><td>2.0: strengere Kosten bei Avalanche/Galecloud <span class="src src-off"><span class="dot"></span>🟢</span></td></tr>
+            <tr><th scope="row">Shield-Stärke</th><td>skaliert die HP-Shields (Predator's Shield etc.)</td><td>Überlebens-Multiplikator <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="box warn">
+      <div class="bt">Tenacity — nicht vermischen</div>
+      <p>„Tenacity“ wird hier <strong>nicht</strong> pauschal als ausrüstbarer „CC-Widerstand-Stat“ behauptet. Ob es im aktuellen Client ein temporärer Kampfstatus, eine Mechanik oder ein Gear-Stat ist, ist <strong>zu prüfen</strong>. <strong>Tenacity, Super Armor, Control Immunity und Resilience sind getrennte Dinge</strong> und werden nicht vermischt. <span class="src src-theory"><span class="dot"></span>🔴 Tooltip prüfen</span></p>
+    </div>
+
+    <div class="box note">
+      <div class="bt">Keine universellen Caps</div>
+      <p>2.0 will Crit-Overcapping ausdrücklich verhindern (Talent-Rename). Es werden hier <strong>keine festen Stat-Caps</strong> ausgegeben, außer sie sind offiziell oder reproduzierbar getestet. Für Caps siehe Testmatrix (Kap. 17).</p>
+    </div>
+
+    <h3>Konditionale Stat-Prioritäten</h3>
+    <div class="table-wrap">
+      <table>
+        <caption>Prioritäten je Rolle — mit Begründung, Mindestvoraussetzung, Evidenz</caption>
+        <thead><tr><th scope="col">Rolle</th><th scope="col">Priorität</th><th scope="col">Begründung / Mindestvor.</th><th scope="col">Evidenz</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Reiner Raid-Tank</th><td>Max HP → DR → Shield → etwas Stonesplit</td><td>Überleben vor Schaden; Healer vorhanden</td><td><span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Raid-Tank mit Eigenschaden</th><td>Max HP → Stonesplit/Power → Crit-DMG → DR</td><td>HP→Attack (2.0) nutzen; Rainwhisper-Schild aktiv halten</td><td><span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">GvG-Frontline</th><td>HP → DR → (Kontrollwiderstand, s. Prüfhinweis) → Stonesplit</td><td>Linie halten unter Fokusfeuer</td><td><span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">GvG-Counter-Bruiser</th><td>Crit/Stonesplit → HP → DR</td><td>Konter-Uptime; Charged-Burst nutzen</td><td><span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Arena-Attrition</th><td>HP → DR → Kontroll-/Unterbrechungswerte (prüfen) → Crit</td><td>langer Kampf; Anti-Burst</td><td><span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Experimenteller Mobile Tank</th><td>HP → Mobilität → DR</td><td>Thundercry + Nameless Sword; Re-Engage</td><td><span class="src src-theory"><span class="dot"></span>🔴 experimentell</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.85rem">Alle Prioritäten sind <strong>🔴 Theorie</strong>, bis durch Gildentests bestätigt — bewusst keine erfundenen Zielzahlen.</p>
+  </section>
+
+  <!-- 08 -->
+  <section id="k08" aria-labelledby="h08">
+    <div class="chap-head"><span class="chap-num">08</span><h2 id="h08">Gear, Sets &amp; Attunements</h2></div>
+    <div class="box note">
+      <div class="bt">Set-Slotlogik</div>
+      <p>Ein vollständiger Set-Bonus entsteht aus mehreren Teilen <em>derselben</em> Slotgruppe (Rüstungsteile bzw. Schmuck/Waffen-Slots). Dass „nur zwei volle Sets gleichzeitig“ möglich sind, folgt daraus, wie viele Slots jede Gruppe hat — nicht aus einer pauschalen Regel. Genaue Slotaufteilung im Client gegenprüfen. <span class="src src-theory"><span class="dot"></span>🔴 prüfen</span></p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>Tank-relevante Sets — Effekt, Einsatz, Evidenz</caption>
+        <thead><tr><th scope="col">Set</th><th scope="col">Effekt (soweit belegt)</th><th scope="col">Einsatz</th><th scope="col">Evidenz</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Rainwhisper</th><td>4pc: +10 % Crit-DMG &amp; Heilung, +15 % zusätzlich <em>unter eigenem HP-Shield</em></td><td>PvE/GvG — da fast immer Schild aktiv</td><td><span class="src src-single"><span class="dot"></span>🟡 fextralife</span></td></tr>
+          <tr><th scope="row">Flawless Defense</th><td>unbedingte flache DR, skaliert höher unter 60 % HP</td><td>Frontline PvE &amp; PvP; immer aktiv</td><td><span class="src src-single"><span class="dot"></span>🟡 game8</span></td></tr>
+          <tr><th scope="row">Formbend</th><td>+Schild-Dauer (Community-Wert ~+2 s)</td><td>mehr Schild-Uptime</td><td><span class="src src-single"><span class="dot"></span>🟡 game8</span></td></tr>
+          <tr><th scope="row">Moonflare</th><td>Rüstung/Defense</td><td>Übergang bis Flawless/Formbend</td><td><span class="src src-single"><span class="dot"></span>🟡 metabattle</span></td></tr>
+          <tr><th scope="row">Calmwaters</th><td>HP/Ausdauer bei Perfect Dodge</td><td>PvP mit gutem Dodge-Timing</td><td><span class="src src-single"><span class="dot"></span>🟡 game8</span></td></tr>
+          <tr><th scope="row">Hawkwing</th><td>Output-orientiert</td><td>Bruiser/Hybrid</td><td><span class="src src-single"><span class="dot"></span>🟡 metabattle</span></td></tr>
+          <tr><th scope="row">Eaglerise</th><td>Output-orientiert (Partner zu Hawkwing)</td><td>Bruiser/Hybrid</td><td><span class="src src-single"><span class="dot"></span>🟡 metabattle</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="bt">Korrigierte Altfehler</div>
+      <ul>
+        <li>„6× Formbend“ bzw. Formbend als einzige Kombo — <strong>falsch</strong>; Flawless Defense ist mindestens gleichwertig.</li>
+        <li>Alle 1.8-/Level-95-Hinweise ersetzt durch 2.0-/Tier-96-Kontext.</li>
+        <li>„Jadeware“ als Tank-Set — in keiner Quelle bestätigt; Name im Spiel prüfen. <span class="src src-theory"><span class="dot"></span>🔴</span></li>
+      </ul>
+    </div>
+    <div class="test">
+      <div class="th">🔴 Testmatrix statt erfundener Substat-Zielwerte <span class="status">offen</span></div>
+      <p>Per-Slot-Substat-Zielwerte erscheinen erst nach Test/Tooltip-Beleg. Bis dahin gilt die Testmatrix in Kapitel 17 (u. a. Flawless Defense vs. Formbend Überlebensvergleich; Tier-96-Substat-Rolls).</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="k09" aria-labelledby="h09">
+    <div class="chap-head"><span class="chap-num">09</span><h2 id="h09">Inner Ways — Tier-Matrix</h2></div>
+    <div class="box warn"><div class="bt">Korrektur</div><p><strong>Golden Body</strong> wurde aus der Inner-Way-Tabelle entfernt — es ist ein <strong>Mystic Skill</strong> (siehe Kap. 10).</p></div>
+    <div class="table-wrap">
+      <table>
+        <caption>Tank-relevante Inner Ways: Basis- und Tier-Effekte, Modus-Nutzen, Alternativen</caption>
+        <thead><tr><th scope="col">Inner Way</th><th scope="col">Basis / T1 / T3 / T4 / T6</th><th scope="col">PvE · Arena · GvG</th><th scope="col">Alternative</th><th scope="col">Evidenz</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Exquisite Scenery</th><td>Basis: Riposte/Cadence · Tiers: 20 %-Refund → voller Refund → +25/+50 % (genaue Tier-Zuordnung zu testen); Cadence 20 s/2 Stacks (2.0)</td><td>hoch · hoch · hoch</td><td>—</td><td><span class="src src-off"><span class="dot"></span>🟢 (2.0-Teil)</span> / <span class="src src-test"><span class="dot"></span>🔵</span></td></tr>
+          <tr><th scope="row">Art of Resistance</th><td>Schild-Uptime &amp; Stonesplit-Werte; T3- und T6-Anpassungen (1.7)</td><td>hoch · mittel · hoch</td><td>Battle Anthem (mehr Eigenschaden)</td><td><span class="src src-off"><span class="dot"></span>🟢 1.7</span> / <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+          <tr><th scope="row">Adaptive Steel</th><td>+Crit-DMG auf Thundercry-Charge-Skills</td><td>hoch · mittel · hoch</td><td>Vital Leech (PvP-Sustain)</td><td><span class="src src-single"><span class="dot"></span>🟡 game8</span></td></tr>
+          <tr><th scope="row">Morale Chant</th><td>verlässlicher Schadensboost, auch für Tank</td><td>hoch · mittel · mittel</td><td>—</td><td><span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+          <tr><th scope="row">Trapped Beast</th><td>Notfall-Schild bei niedriger HP; <strong>Werte je Tier unterschiedlich</strong> — nicht Basis=T6 annehmen</td><td>mittel · hoch · hoch</td><td>—</td><td><span class="src src-theory"><span class="dot"></span>🔴 je Tier prüfen</span></td></tr>
+          <tr><th scope="row">Vital Leech</th><td>Sustain über Execution/Lifesteal</td><td>niedrig · hoch · mittel</td><td>Adaptive Steel (PvE-Schaden)</td><td><span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+          <tr><th scope="row">Battle Anthem</th><td>Eigenschaden-orientiert (Solo/DPS)</td><td>hoch (Solo) · mittel · mittel</td><td>Art of Resistance (mehr Tank)</td><td><span class="src src-single"><span class="dot"></span>🟡 vortexgaming</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box note"><div class="bt">Mindeststufen</div><p>Konkrete Mindest-Tier-Stufen pro Buildempfehlung erscheinen erst, wenn die Tier-Effekte im 2.0-Client verifiziert sind — siehe Testlabor. Priorität allgemein: Exquisite Scenery zuerst hochziehen (Konter-Uptime), dann Art of Resistance, dann die Schadens-/Sustain-Wege je Rolle.</p></div>
+  </section>
+
+  <!-- 10 -->
+  <section id="k10" aria-labelledby="h10">
+    <div class="chap-head"><span class="chap-num">10</span><h2 id="h10">Mystic Skills &amp; Transformationen</h2></div>
+    <div class="table-wrap">
+      <table>
+        <caption>Tank-relevante Mystic Skills — Funktion, Modus, Status (Cooldowns zu testen)</caption>
+        <thead><tr><th scope="col">Mystic</th><th scope="col">Funktion</th><th scope="col">PvE · Arena · GvG</th><th scope="col">Cooldown</th><th scope="col">Evidenz</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Golden Body</th><td>Panic/Negate; mehr Tankigkeit über Schilde + DR</td><td>mittel · hoch · hoch</td><td>zu testen</td><td><span class="src src-single"><span class="dot"></span>🟡 game8</span></td></tr>
+          <tr><th scope="row">Dragon's Breath</th><td>Fire-Stacks, dann Animation-Cancel für Burst</td><td>hoch · mittel · mittel</td><td>zu testen</td><td><span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+          <tr><th scope="row">Gap-Closer (allg.)</th><td>Lücke schließen gegen Kiter; GvG-Re-Engage</td><td>niedrig · hoch · hoch</td><td>zu testen</td><td><span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="test">
+      <div class="th">🔴 Offen: Cooldowns &amp; 2.0-Transformationen <span class="status">offen</span></div>
+      <p>Cooldowns, „wann NICHT benutzen“, beste Kombinationen und die 2.0-Mystik-Ableitungen (Talent „Mystik-Einsicht“) sind nicht verlässlich belegt — Tooltip-Screenshots nötig. Kein erfundener Wert.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="k11" aria-labelledby="h11">
+    <div class="chap-head"><span class="chap-num">11</span><h2 id="h11">PvE-Raid-Tank</h2></div>
+    <div class="card">
+      <h3>Grundrotation (2.0)</h3>
+      <ol>
+        <li><strong>Storm Roar</strong> (Speer) → PvE-Taunt + DR-Fenster <span class="src src-single"><span class="dot"></span>🟡</span></li>
+        <li><strong>Fury Spear</strong> → Drumbeat auf finalem Treffer <span class="src src-single"><span class="dot"></span>🟡</span></li>
+        <li><strong>Swap</strong> zur Thundercry Blade</li>
+        <li><strong>Predator's Shield</strong> → HP-Shield + Battle Will <span class="src src-single"><span class="dot"></span>🟡</span></li>
+        <li><strong>2.0:</strong> im Drumbeat/Breakthrough-Fenster <strong>Heavy → sofortiger Stage-3</strong> (erhöhter Schaden) <span class="src src-off"><span class="dot"></span>🟢 2.0</span></li>
+        <li><strong>Avalanche / Galecloud Cleave</strong> sparsam (2.0: höhere Lade-Endurance) <span class="src src-off"><span class="dot"></span>🟢 2.0</span></li>
+        <li><strong>Block</strong> → Battle Will zurück, Phasen verbinden</li>
+      </ol>
+    </div>
+    <div class="rec-meta" aria-label="Empfehlungs-Metadaten">
+      <dt>Evidenzstufe</dt><dd>🟢 (2.0-Teile) / 🟡 (Rotationsgerüst)</dd>
+      <dt>Patchstand</dt><dd>2.0</dd>
+      <dt>Modus</dt><dd>PvE-Raid/Boss mit Healer</dd>
+      <dt>Inner-Way-Minimum</dt><dd>Exquisite Scenery + Art of Resistance (Stufen zu testen)</dd>
+      <dt>Einschränkung</dt><dd>Battle-Will-Rate im 2.0-Client nachtesten</dd>
+      <dt>Letzte Prüfung</dt><dd>27.07.2026</dd>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="k12" aria-labelledby="h12">
+    <div class="chap-head"><span class="chap-num">12</span><h2 id="h12">PvE-Tank-DPS &amp; Bossfenster</h2></div>
+    <div class="card">
+      <h3>Schlüsselfenster</h3>
+      <ul>
+        <li><strong>Exhausted-Fenster (Boss):</strong> Avalanche in eine kontinuierliche Kette verlängern → großer Burst <span class="src src-single"><span class="dot"></span>🟡 game8</span></li>
+        <li><strong>Focus-Fenster (nach Sunrush Gale):</strong> schnelleres Laden → Charged-Varied-Combo einbauen <span class="src src-single"><span class="dot"></span>🟡 fextralife</span></li>
+        <li><strong>Drumbeat/Breakthrough:</strong> Heavy für sofortigen Stage-3 (2.0) <span class="src src-off"><span class="dot"></span>🟢</span></li>
+        <li><strong>Animation-Cancel:</strong> Dragon's Breath casten, dann canceln <span class="src src-single"><span class="dot"></span>🟡</span></li>
+      </ul>
+      <div class="fi"><span class="lab t">🔴 zu testen</span><span class="val">Stage-3-Schaden mit Drumbeat vs. Breakthrough vs. beiden — Vergleichstest (Kap. 17).</span></div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="k13" aria-labelledby="h13">
+    <div class="chap-head"><span class="chap-num">13</span><h2 id="h13">Arena / PvP</h2></div>
+    <p>Attrition statt Burst. Kein Top-Arena-Pick, aber zäh. Wichtig: <strong>Taunt wirkt nicht gegen Spieler</strong> — nur CC, „Shocked“, DR und Konter zählen.</p>
+    <div class="box note">
+      <div class="bt">Arena-Kontext seit 1.8/2.0</div>
+      <ul>
+        <li>„Depleting Defense“: langes Blocken kostet zunehmend Ausdauer; Stamina-Reduktion inzwischen bei 40 % gedeckelt. <span class="src src-off"><span class="dot"></span>🟢</span></li>
+        <li>Execute-Überlebende erhalten kurze Control Immunity + Super Armor; Hit-Escape-Timing latenzangeglichen. <span class="src src-single"><span class="dot"></span>🟡</span></li>
+      </ul>
+    </div>
+    <div class="rec-meta">
+      <dt>Evidenzstufe</dt><dd>🟡 / 🔴 (Priority gegen Spieler)</dd>
+      <dt>Modus</dt><dd>1v1 / 3v3 Arena</dd>
+      <dt>Einschränkung</dt><dd>gegen mobile Kiter ohne Gap-Closer schwach</dd>
+      <dt>Letzte Prüfung</dt><dd>27.07.2026</dd>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="k14" aria-labelledby="h14">
+    <div class="chap-head"><span class="chap-num">14</span><h2 id="h14">GvG-Rollen &amp; EMPYREANS-Taktik</h2></div>
+    <div class="box guild">
+      <div class="bt">🟣 EMPYREANS-interne Begriffe</div>
+      <p>Jungle, Bell/Löwengebrüll, Flute, Tower, Frog/Boss sind <strong>gildeninterne Bezeichnungen</strong>, keine offiziellen globalen Begriffe.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>GvG-Rollen des Tanks</caption>
+        <thead><tr><th scope="col">Rolle</th><th scope="col">Aufgabe</th><th scope="col">Weapon-Swap-Bedingung</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Main Frontline</th><td>Linie halten, Druck absorbieren, vor der Backline</td><td>selten; Klinge für Konter</td></tr>
+          <tr><th scope="row">Off-Tank</th><td>zweite Druckquelle, Flanken absichern</td><td>situativ</td></tr>
+          <tr><th scope="row">Peel Tank</th><td>eigene Heiler/DPS schützen; CC gegen Angreifer</td><td>Speer für CC</td></tr>
+          <tr><th scope="row">Engage Tank</th><td>Push initiieren mit Schild-/DR-CDs</td><td>Klinge vor Engage</td></tr>
+          <tr><th scope="row">Counter-Engage</th><td>gegnerischen Push abfangen, CC unterbrechen</td><td>Speer für CC/Peel</td></tr>
+          <tr><th scope="row">Objective Anchor</th><td>Punkt/Objektiv halten (Bell/Flute/Tower)</td><td>defensiv, kein Swap unter Druck</td></tr>
+          <tr><th scope="row">Escort</th><td>Aktivierungsspieler abschirmen</td><td>Speer für Peel</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="bt">PvE-Aggro ≠ PvP-Control</div>
+      <p>Gegen NPCs zwingt Taunt Aggro. Gegen <strong>Spieler gibt es keinen Taunt</strong> — „Angreifer vom Heiler lösen“ gelingt nur über echte CC/Displacement, nicht über Storm-Roar-Taunt. Peel im GvG = CC + Körperblock + Displacement, nicht Aggro.</p>
+    </div>
+    <div class="card">
+      <h3>Calls &amp; Kriterien</h3>
+      <ul>
+        <li><strong>Cooldown-Calls:</strong> Trapped Beast / Panic-Mystic nur für den entscheidenden Push. <span class="src src-guild"><span class="dot"></span>🟣</span></li>
+        <li><strong>Rückzug:</strong> bei leeren Defensiv-CDs + außerhalb Heiler-Reichweite. <span class="src src-guild"><span class="dot"></span>🟣</span></li>
+        <li><strong>Re-Engage:</strong> nach Schild-Reset + Heiler in Reichweite. <span class="src src-guild"><span class="dot"></span>🟣</span></li>
+        <li><strong>Heilerlinie:</strong> in Peel-Distanz bleiben; Fokusansagen abwarten. <span class="src src-guild"><span class="dot"></span>🟣</span></li>
+        <li><strong>Skirmish vs. Zerg:</strong> im kleinen Skirmish mehr Eigendruck (Konter), im Zerg strikt Frontline/Peel. <span class="src src-guild"><span class="dot"></span>🟣</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section id="k15" aria-labelledby="h15">
+    <div class="chap-head"><span class="chap-num">15</span><h2 id="h15">Matchups</h2></div>
+    <p>Strukturiert. Details gegen menschliche Gegner sind überwiegend <strong>🔴 zu testen</strong> — Gerüst mit euren Duellen füllen.</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Matchup-Gerüst: Gegner-Kombination, Win Condition, eigene Antwort, Status</caption>
+        <thead><tr><th scope="col">Gegner</th><th scope="col">Win Condition</th><th scope="col">Eigene Antwort</th><th scope="col">Retreat / Status</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Nameless Sword/Spear</th><td>Tempo &amp; Pressure</td><td>blocken, nach Whiff kontern; Abstand kontrollieren</td><td>Retreat bei CC-Kette · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Strategic Sword + Nameless Spear</th><td>Bleed-Detonation, Spacing</td><td>Bleed-Setup unterbrechen; nicht in Detonation blocken</td><td>Retreat bei Bleed-Stacks · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Fan (Panacea)</th><td>Sustain/Support</td><td>Druck auf Backline, Heilfenster stören</td><td>— · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Umbrella (Soulshade/Vernal)</th><td>Aerial + Kite</td><td>Gap-Closer Pflicht; Anti-Air-Fenster</td><td>Retreat wenn gekitet · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Spear (Heavenquaker)</th><td>Reichweite/Poke</td><td>Distanz schließen, Konter im Nahkampf</td><td>— · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Twin Blades (Infernal)</th><td>Burst</td><td>Burst blocken/baiten, danach kontern</td><td>Retreat bei leerem Schild · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          <tr><th scope="row">Mo Blade (Spiegelmatch)</th><td>Attrition</td><td>Konter-Uptime + Schild-Management entscheidet</td><td>— · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section id="k16" aria-labelledby="h16">
+    <div class="chap-head"><span class="chap-num">16</span><h2 id="h16">Buildkarten</h2></div>
+    <div class="build-grid">
+      <div class="build-card">
+        <span class="bc-tag">PvE · Raid</span><h3>Raid-Anker</h3>
+        <div class="rec-meta">
+          <dt>Evidenz</dt><dd>🔴 Theorie (Sets 🟡)</dd>
+          <dt>Patch</dt><dd>2.0</dd>
+          <dt>Inner-Way-Min.</dt><dd>Exq. Scenery + Art of Resistance</dd>
+          <dt>Einschränkung</dt><dd>Stat-Ziele ungetestet</dd>
+          <dt>Geprüft</dt><dd>27.07.2026</dd>
+        </div>
+        <div class="bc-row"><span class="k">Sets</span><span class="v">Rainwhisper + Flawless Defense</span></div>
+        <div class="bc-row"><span class="k">Werte</span><span class="v">HP → DR → Shield → Stonesplit</span></div>
+        <div class="bc-pm"><span class="bc-plus">höchstes Überleben, Aggro (PvE)</span><span class="bc-minus">langsamer Burst</span></div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">GvG · Gildengetestet</span><h3>Freydar-Konter-Setup</h3>
+        <div class="rec-meta">
+          <dt>Evidenz</dt><dd>🔵 Gildengetestet (1.8) — 2.0 nachtesten</dd>
+          <dt>Testchar</dt><dd>Freydar, Tier-91, Rainwhisper 4/4</dd>
+          <dt>Modus</dt><dd>GvG</dd>
+          <dt>Einschränkung</dt><dd>Battle-Will unzuverlässig im Gewühl; 2.0-Retest offen</dd>
+          <dt>Geprüft</dt><dd>27.07.2026</dd>
+        </div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Exq. Scenery (Refund + Burst) + Art of Resistance</span></div>
+        <div class="bc-row"><span class="k">Werte</span><span class="v">Crit → Stonesplit → HP → DR</span></div>
+        <div class="bc-pm"><span class="bc-plus">Überleben + Schaden aus einem Loop</span><span class="bc-minus">nicht „Meta verifiziert“ — nur gildengetestet</span></div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">PvP · Arena</span><h3>Attrition-Tank</h3>
+        <div class="rec-meta">
+          <dt>Evidenz</dt><dd>🔴 Theorie</dd>
+          <dt>Patch</dt><dd>2.0</dd>
+          <dt>Modus</dt><dd>1v1 / 3v3</dd>
+          <dt>Einschränkung</dt><dd>gegen Kiter schwach</dd>
+          <dt>Geprüft</dt><dd>27.07.2026</dd>
+        </div>
+        <div class="bc-row"><span class="k">Sets</span><span class="v">Rainwhisper + Flawless Defense / Calmwaters</span></div>
+        <div class="bc-row"><span class="k">Innerways</span><span class="v">Exq. Scenery + Vital Leech + Trapped Beast</span></div>
+        <div class="bc-pm"><span class="bc-plus">zäh, Anti-Burst</span><span class="bc-minus">niedrige Mobilität</span></div>
+      </div>
+
+      <div class="build-card">
+        <span class="bc-tag">GvG · Experimentell</span><h3>Mobile Tank (Hybrid)</h3>
+        <div class="rec-meta">
+          <dt>Evidenz</dt><dd>🔴 experimentell/Hybrid</dd>
+          <dt>Patch</dt><dd>2.0</dd>
+          <dt>Modus</dt><dd>GvG Re-Engage</dd>
+          <dt>Einschränkung</dt><dd>verliert Stormbreaker-Pfadsynergie</dd>
+          <dt>Geprüft</dt><dd>27.07.2026</dd>
+        </div>
+        <div class="bc-row"><span class="k">Waffen</span><span class="v">Thundercry + Nameless Sword</span></div>
+        <div class="bc-row"><span class="k">Sets</span><span class="v">Hawkwing + Eaglerise</span></div>
+        <div class="bc-pm"><span class="bc-plus">Mobilität, hohe Schild-Uptime</span><span class="bc-minus">weniger Face-Tank; kein Storm-Roar-Speerkit</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Hybrid- &amp; pfadübergreifende Kombinationen</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>Hybride: verlorene Synergien, funktionierende Effekte, Auftrag, Teststatus</caption>
+          <thead><tr><th scope="col">Kombination</th><th scope="col">verliert</th><th scope="col">funktioniert weiter</th><th scope="col">GvG-Auftrag · Status</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Strategic Sword + Nameless Spear</th><td>kein Stonesplit-Tank-Kit</td><td>Bleed-Pressure, Spacing</td><td>PvP-Duell · <span class="src src-cons"><span class="dot"></span>🟠</span></td></tr>
+            <tr><th scope="row">Thundercry + Nameless Sword</th><td>Stormbreaker-Pfad (Storm Roar/Fury Spear-Synergie)</td><td>Predator's Shield, Klingen-Charge</td><td>Mobile Re-Engage · <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Thundercry + Strategic Sword</th><td>Stormbreaker-Peel</td><td>Klingen-Tank + Sword-Druck</td><td>Bruiser-Frontline · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+            <tr><th scope="row">Hawkwing + Eaglerise</th><td>—(Rüstungssets, keine Waffen)</td><td>Output-Boni</td><td>Bruiser-Gear · <span class="src src-single"><span class="dot"></span>🟡</span></td></tr>
+            <tr><th scope="row">Sword Morph + Art of Resistance</th><td>reiner Tank-Fokus</td><td>Morph-Mobilität + Schild-Uptime</td><td>experimentell · <span class="src src-theory"><span class="dot"></span>🔴</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fi"><span class="lab m">Regel</span><span class="val">Effekte, die <strong>beide passenden Pfadwaffen</strong> verlangen (z. B. Drumbeat/Storm-Roar-DR laut Vorlage seit 2.0), fallen bei Hybriden weg — im Client gegenprüfen. <span class="src src-cons"><span class="dot"></span>🟠</span></span></div>
+    </div>
+  </section>
+
+  <!-- 17 -->
+  <section id="k17" aria-labelledby="h17">
+    <div class="chap-head"><span class="chap-num">17</span><h2 id="h17">EMPYREANS-Testlabor</h2></div>
+    <p>Testkarten für offene Mechaniken. Jede Karte hat Hypothese, Einzelvariable, Kontrollwerte, Ziel/Modus, Buffs, Distanz, Wiederholungen, Messwerte (Min/Max/Ø), Ergebnis, Patch/Datum, Screenshot-Verweis und Status.</p>
+
+    <div class="test">
+      <div class="th">Test 01 · HP → Max Physical Attack je Breakthrough-Stufe <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>Der HP→Attack-Umsatz steigt mit Breakthrough-Stufe (2.0).</dd>
+        <dt>Einzelvariable</dt><dd>Breakthrough-Stufe</dd>
+        <dt>Kontrolle</dt><dd>gleiche HP, gleiches Gear/Food/Ziel</dd>
+        <dt>Ziel / Modus</dt><dd>Trainingsdummy, Solo</dd>
+        <dt>Wiederholungen</dt><dd>≥ 10 pro Stufe</dd>
+        <dt>Messwerte</dt><dd>Max Physical Attack (Min/Max/Ø)</dd>
+        <dt>Patch/Datum</dt><dd>2.0 / offen</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 02 · Power vs. Max Stonesplit <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>Max Stonesplit bringt pro Punkt mehr Charged-Schaden als Power.</dd>
+        <dt>Einzelvariable</dt><dd>ein Substat tauschen (Power ↔ Stonesplit), sonst identisch</dd>
+        <dt>Ziel / Modus</dt><dd>Dummy, gleiche Rotation</dd>
+        <dt>Wiederholungen</dt><dd>≥ 15 je Variante</dd>
+        <dt>Messwerte</dt><dd>Charged-Skill-Schaden (Min/Max/Ø)</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 03 · Precision/Crit/Affinity-Verhalten <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>Precise-Hits (Max-Attack) triggern Crit/Affinity; Abrasion (Min) nie Crit.</dd>
+        <dt>Einzelvariable</dt><dd>Precision-Rate schrittweise erhöhen</dd>
+        <dt>Messwerte</dt><dd>Anteil Crit/Affinity/Abrasion über ≥ 50 Hits</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 04 · Physical Penetration vs. Resistenzziele <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>Penetration lohnt erst ab einer bestimmten Ziel-Resistenz.</dd>
+        <dt>Einzelvariable</dt><dd>Penetration-Wert; Ziele mit unterschiedlicher Resistenz</dd>
+        <dt>Messwerte</dt><dd>Schaden pro Ziel (Min/Max/Ø), Break-Even</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 05 · Predator's-Shield-Skalierung <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>Schild ≈ 25 % Max-HP; skaliert linear mit HP/Shield-Stärke.</dd>
+        <dt>Einzelvariable</dt><dd>Max-HP bzw. Shield-Stärke</dd>
+        <dt>Messwerte</dt><dd>absorbierter Schaden / angezeigter Schildwert</dd>
+        <dt>Status</dt><dd>offen (klärt auch die entfernte „30 % Charged / 12 s“-Behauptung)</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 06 · Exquisite-Scenery-Refunds je Tier <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>20 %-Refund, voller Refund und +25/50 % liegen auf getrennten Tiers.</dd>
+        <dt>Einzelvariable</dt><dd>Inner-Way-Tier</dd>
+        <dt>Messwerte</dt><dd>Battle-Will vor/nach Verteidigen &amp; Combo</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 07 · Endurance-Kosten Avalanche / Galecloud (2.0) <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>Lade-Endurance beider Skills ist in 2.0 höher als in 1.8.</dd>
+        <dt>Messwerte</dt><dd>Endurance vor/nach Ladevorgang</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 08 · Battle-Will-Erzeugung PvE / Arena / GvG <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>Generierung ist gegen Spieler (Arena/GvG) niedriger als gegen NPCs.</dd>
+        <dt>Messwerte</dt><dd>Battle-Will pro Minute je Modus</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 09 · Storm-Roar-Effekte mit/ohne Thundercry Blade <span class="status">offen</span></div>
+      <dl>
+        <dt>Hypothese</dt><dd>DR von Storm Roar erfordert seit 2.0 ausgerüstete Thundercry Blade (Vorlage-Claim).</dd>
+        <dt>Einzelvariable</dt><dd>Thundercry Blade an/aus</dd>
+        <dt>Messwerte</dt><dd>angezeigte DR / erlittener Schaden</dd>
+        <dt>Status</dt><dd>offen — klärt einen 🟠-Vorlage-Punkt</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 10 · Stage-3-Schaden: Drumbeat vs. Breakthrough vs. beide <span class="status">offen</span></div>
+      <dl>
+        <dt>Messwerte</dt><dd>Stage-3-Schaden je Buff-Kombination (Min/Max/Ø)</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 11 · Überlebensvergleich Flawless Defense vs. Formbend <span class="status">offen</span></div>
+      <dl>
+        <dt>Messwerte</dt><dd>Time-to-Death / effektiver HP-Pool am selben Boss</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+
+    <div class="test">
+      <div class="th">Test 12 · GvG-Performance der Hybridwaffen <span class="status">offen</span></div>
+      <dl>
+        <dt>Messwerte</dt><dd>Überleben/Impact Thundercry+Nameless vs. Thundercry+Stormbreaker im GvG</dd>
+        <dt>Status</dt><dd>offen</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 18 -->
+  <section id="k18" aria-labelledby="h18">
+    <div class="chap-head"><span class="chap-num">18</span><h2 id="h18">Änderungsprotokoll</h2></div>
+    <div class="table-wrap">
+      <table>
+        <caption>Versionshistorie des Handbuchs</caption>
+        <thead><tr><th scope="col">Version</th><th scope="col">Wesentliche Änderungen</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">v4 (27.07.2026)</th><td>Patch-2.0-Einbau; Ressourcenmodell korrigiert (Battle Will ≠ Endurance); sechsstufige Evidenz; Golden Body aus Inner Ways entfernt; „Crit kein Fehlroll“ ersetzt; Exquisite Scenery nach Tier getrennt; Tenacity-Warnung; Testlabor; Quellenanhang; Accessibility + Druckstylesheet; Quellenrichtlinie eingebettet</td></tr>
+          <tr><th scope="row">v3</th><td>Quellen-Labels eingeführt; 5 Tankrollen; Stat-Theorie; Formbend-Fehler korrigiert</td></tr>
+          <tr><th scope="row">v2</th><td>Battle-Will-Konter-Tank als 3. Spielweise; Off-Hand-Falle; Bracer content-abhängig</td></tr>
+          <tr><th scope="row">v1</th><td>Erstfassung Tank-/Bruiser-Handbuch</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 19 -->
+  <section id="k19" aria-labelledby="h19">
+    <div class="chap-head"><span class="chap-num">19</span><h2 id="h19">Vollständiger Quellenanhang</h2></div>
+    <div class="table-wrap">
+      <table>
+        <caption>Quellen mit Titel, Datum, Patchstand, Link und betroffenen Aussagen</caption>
+        <thead><tr><th scope="col">Quelle</th><th scope="col">Titel / Datum / Patch</th><th scope="col">Betrifft</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">WhereWindsMeet (offiziell)</th><td>Version 2.0 Patchnotes „Unseen Approach“ / 23.–24.07.2026 / 2.0 · <a href="https://www.wherewindsmeetgame.com/news/official/723update.html" rel="noopener">Link</a></td><td>2.0-Skilländerungen, HP→Attack-Cap, Cadence, Stage-3, Food-Split (Kap. 03/05/07)</td></tr>
+          <tr><th scope="row">game8</th><td>Version 2.0 Update Summary / Juli 2026 / 2.0 · <a href="https://game8.co/games/Where-Winds-Meet/archives/611658" rel="noopener">Link</a></td><td>2.0-Content, Tier-96, Bosse (Kap. 01/03)</td></tr>
+          <tr><th scope="row">allthings.how</th><td>WWM 2.0 Patch Notes / Juli 2026 / 2.0 · <a href="https://allthings.how/where-winds-meet-2-0-patch-notes-hidden-mountain-and-the-new-gauntlets-weapon/" rel="noopener">Link</a></td><td>2.0-Overview, Balance-Pass (Kap. 03)</td></tr>
+          <tr><th scope="row">fextralife (Wiki)</th><td>Thundercry Blade / Juni 2026 / ~1.8 · <a href="https://wherewindsmeet.wiki.fextralife.com/Thundercry_Blade" rel="noopener">Link</a></td><td>Set-4pc-Werte, Talente, Skillbeschreibungen (Kap. 05/08)</td></tr>
+          <tr><th scope="row">metabattle</th><td>Thundercry &amp; Stormbreaker Tank PvE / Dez 2025 / ~1.5 · <a href="https://metabattle.com/where-winds-meet/Thundercry_Blade_&_Stormbreaker_Spear_Tank_PvE_Build" rel="noopener">Link</a></td><td>Rotation, Set-Kombos (Kap. 08/11)</td></tr>
+          <tr><th scope="row">keengamer</th><td>All Attributes and Their Effects / Dez 2025 · <a href="https://www.keengamer.com/articles/guides/where-winds-meet-all-attributes-and-their-effects/" rel="noopener">Link</a></td><td>Precision/Affinity/Abrasion, Penetration (Kap. 07)</td></tr>
+          <tr><th scope="row">gamerant</th><td>All Character Stats &amp; Attributes / Nov 2025 · <a href="https://gamerant.com/where-winds-meet-wwm-all-character-stats-attributes/" rel="noopener">Link</a></td><td>Affinity=Max, Abrasion=Min (Kap. 07)</td></tr>
+          <tr><th scope="row">eog.gg</th><td>Stonesplit Strength – Stat Thresholds / Mai 2026 · <a href="https://eog.gg/games/where-winds-meet/guides/stonesplit-strength/" rel="noopener">Link</a></td><td>Stat-Prioritäts-Gerüst (Kap. 07)</td></tr>
+          <tr><th scope="row">wherewindsmeetgame.org</th><td>Build/PvP Tier List / Juli 2026 · <a href="https://www.wherewindsmeetgame.org/guides/where-winds-meet-all-builds-tier-list" rel="noopener">Link</a></td><td>1.7-Balance (HP-Cap 60→120, Stonebreaker), Arena-Änderungen (Kap. 03)</td></tr>
+          <tr><th scope="row">vortexgaming</th><td>Advanced Mo Blade Guide / Jan 2026 · <a href="https://vortexgaming.io/en/postdetail/643153" rel="noopener">Link</a></td><td>Inner-Path-Alternativen (Battle Anthem) (Kap. 09)</td></tr>
+          <tr><th scope="row">EMPYREANS-Gildentest</th><td>Freydar-Setup / 1.8 / Tier-91, Rainwhisper 4/4</td><td>Exquisite-Scenery-Refund/Burst-Werte, Off-Hand-Falle, Bracer-Wahl (Kap. 05/16) — 2.0-Retest offen</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.85rem">Einzelquellen sind als 🟡 markiert; erst zwei unabhängige Quellen ergeben 🟠 Konsens. CN-Server-Infos wurden nicht als Global-Fakten übernommen.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fcrest">⟡ EMPYREANS ⟡</div>
+  <div>EMPYREANS · Tank-Handbuch v4 · Thundercry &amp; Stormbreaker (Stonesplit-Might)</div>
+  <div style="margin-top:6px;color:var(--gold-soft)">Evidenz als Farbe und Text · offene Punkte sind Testaufträge, keine erfundenen Werte</div>
+  <div style="margin-top:10px">Patchstand 2.0 „Unseen Approach“ · Prüfstand 27.07.2026</div>
+</footer>
+
+<button id="toTop" type="button" aria-label="Zurück nach oben">↑</button>
+<script>
+  (function(){
+    var btn=document.getElementById('toTop');
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var ticking=false;
+    function onScroll(){
+      if(ticking)return;
+      ticking=true;
+      window.requestAnimationFrame(function(){
+        btn.style.display=(window.scrollY>600)?'flex':'none';
+        ticking=false;
+      });
+    }
+    window.addEventListener('scroll',onScroll,{passive:true});
+    btn.addEventListener('click',function(){
+      window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+    });
+  })();
+</script>
+</body>
+</html>
