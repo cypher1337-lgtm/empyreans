@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EMPYREANS • WWM Global Stat Caps & Gear 96 Calculator</title>
+<meta name="description" content="EMPYREANS Where Winds Meet Global Stat-Cap Calculator — Level 100, Gear Tier 96.">
+<style>
+:root{
+ --bg:#090909;--panel:#11110f;--gold:#d7b15a;--gold2:#f0d28a;--text:#f4f0e7;
+ --muted:#aaa397;--green:#76c893;--orange:#e2a04b;--line:#332d21;
+ --shadow:0 18px 60px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);background:
+ radial-gradient(circle at 12% 0%,rgba(215,177,90,.12),transparent 30rem),
+ radial-gradient(circle at 88% 15%,rgba(143,39,39,.10),transparent 28rem),
+ linear-gradient(180deg,#080808,#0d0c0a 45%,#070707);
+ font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--gold2)}button{font:inherit}
+.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+.hero{padding:72px 0 36px;border-bottom:1px solid var(--line)}
+.brand{letter-spacing:.32em;text-transform:uppercase;color:var(--gold2);font-weight:800;font-size:.86rem}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;margin:.2em 0}
+h1{font-size:clamp(2.25rem,6vw,5rem);line-height:.95;max-width:1000px}
+h1 span{color:var(--gold)}
+.lead{max-width:850px;color:#d6d0c5;font-size:1.08rem}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.badge{border:1px solid var(--line);background:#11100d;padding:7px 11px;border-radius:999px;color:#d8d0c0;font-size:.86rem}
+.badge.gold{border-color:#6f5826;color:var(--gold2)}
+nav{position:sticky;top:0;z-index:5;background:rgba(8,8,8,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:18px;overflow:auto;padding:12px 0;align-items:center}
+nav a{text-decoration:none;color:#d8d1c6;white-space:nowrap;font-size:.92rem}
+nav a:hover{color:var(--gold2)}
+.lang-switch{margin-left:auto;display:flex;gap:6px}
+.lang-btn{border:1px solid #3b3427;background:#11100d;color:#d8d1c6;border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:800}
+.lang-btn.active{border-color:#8a6f32;color:var(--gold2);background:#211b10}
+section{padding:42px 0}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{background:linear-gradient(180deg,rgba(24,23,19,.94),rgba(14,14,12,.96));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}
+.kpi{font-size:2rem;font-family:Georgia,serif;color:var(--gold2);font-weight:700}
+.kpi small{font:600 .85rem system-ui;color:var(--muted)}
+.sub{color:var(--muted);font-size:.92rem}.good{color:var(--green)}.warn{color:var(--orange)}.bad{color:#f18484}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:720px;background:rgba(12,12,10,.72)}
+th,td{padding:12px 13px;border-bottom:1px solid #28241b;text-align:left;vertical-align:top}
+th{background:#17140e;color:var(--gold2);font-size:.85rem;text-transform:uppercase;letter-spacing:.06em}
+tr:last-child td{border-bottom:0}.current{background:rgba(215,177,90,.07)}
+.callout{border-left:4px solid var(--gold);padding:14px 16px;background:rgba(215,177,90,.07);border-radius:0 12px 12px 0}
+.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+label{display:block;color:#d7d0c4;font-size:.9rem;margin-bottom:5px}
+input,select{width:100%;border:1px solid #403827;background:#0c0c0a;color:var(--text);border-radius:10px;padding:11px 12px;font:inherit;outline:none}
+input:focus,select:focus{border-color:var(--gold)}
+.resultgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.result{background:#0d0d0b;border:1px solid #2b271d;border-radius:12px;padding:13px}
+.result b{display:block;font-size:1.28rem;color:var(--gold2)}
+.bar{height:8px;background:#252117;border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#9c7830,#efd187);width:0}
+.status{margin-top:14px;padding:12px;border-radius:10px;background:#0c0c0a;border:1px solid #2c271c}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-block;padding:10px 14px;cursor:pointer;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid #6b5525;background:linear-gradient(#2c2414,#18140c);color:var(--gold2)}
+.btn.secondary{border-color:#39352d;background:#111;color:#e9e4da}
+details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#0d0d0b}
+details+details{margin-top:10px}summary{cursor:pointer;color:var(--gold2);font-weight:700}
+.foot{border-top:1px solid var(--line);padding:28px 0 50px;color:var(--muted);font-size:.88rem}
+@media(max-width:850px){.span4,.span6{grid-column:span 12}.controls,.resultgrid{grid-template-columns:1fr}h1{font-size:2.7rem}.lang-switch{margin-left:0}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="wrap">
+  <div class="brand">EMPYREANS • Since Day 0</div>
+  <h1 data-de='Where Winds Meet <span>Stat Caps</span>' data-en='Where Winds Meet <span>Stat Caps</span>' data-html></h1>
+  <p class="lead" data-de='Hardcaps, aktuelle Breakthrough-Ziele und Rechner für Precision, Critical Rate und Affinity. Fokus: <strong>Global</strong> • Max-Level <strong>100</strong> • Gear-Cap <strong>Tier 96</strong>.' data-en='Hard caps, current breakthrough targets and calculators for Precision, Critical Rate and Affinity. Focus: <strong>Global</strong> • Max Level <strong>100</strong> • Gear Cap <strong>Tier 96</strong>.' data-html></p>
+  <div class="badges">
+   <span class="badge gold" data-de="Stand: 09.09.2026" data-en="Updated: 09 Sep 2026"></span>
+   <span class="badge">GLOBAL</span>
+   <span class="badge" data-de="Max-Level 100" data-en="Max Level 100"></span>
+   <span class="badge gold" data-de="Max Gear Tier 96" data-en="Max Gear Tier 96"></span>
+   <span class="badge">Judgment Resistance: 65%</span>
+  </div>
+ </div>
+</header>
+
+<nav><div class="wrap">
+ <a href="#caps" data-de="Hardcaps" data-en="Hard Caps"></a>
+ <a href="#calculator" data-de="Rechner" data-en="Calculator"></a>
+ <a href="#breakthrough">Breakthrough</a>
+ <a href="#other" data-de="Weitere Werte" data-en="Other Stats"></a>
+ <a href="#gear96">Global Gear 96</a>
+ <a href="#sources" data-de="Quellen & Rechner" data-en="Sources & Calculators"></a>
+ <div class="lang-switch">
+  <button id="langDE" class="lang-btn" type="button">DE</button>
+  <button id="langEN" class="lang-btn" type="button">EN</button>
+ </div>
+</div></nav>
+
+<main>
+<section id="caps"><div class="wrap">
+ <h2 data-de="Die echten Hardcaps" data-en="Confirmed Hard Caps"></h2>
+ <p class="sub" data-de="Gemeint sind die effektiven/gelben Werte nach Judgment Resistance. Direct-Werte liegen außerhalb der normalen Rate-Caps." data-en="These are effective/yellow values after Judgment Resistance. Direct stats sit outside the normal rate caps."></p>
+ <div class="grid">
+  <div class="card span4"><div class="sub">Precision Rate</div><div class="kpi">100%</div><p data-de="Oberhalb davon entsteht kein zusätzlicher Precision-Nutzen." data-en="Anything above this provides no additional Precision benefit."></p></div>
+  <div class="card span4"><div class="sub">Critical Rate</div><div class="kpi">80% <small>+ 20% Direct</small></div><p data-de="Normales Crit-Cap 80%; Direct Critical kann zusätzlich bis +20% beitragen." data-en="Normal Crit cap is 80%; Direct Critical can add up to another +20%."></p></div>
+  <div class="card span4"><div class="sub">Affinity Rate</div><div class="kpi">40% <small>+ 10% Direct</small></div><p data-de="Normales Affinity-Cap 40%; Direct Affinity kann zusätzlich bis +10% beitragen." data-en="Normal Affinity cap is 40%; Direct Affinity can add up to another +10%."></p></div>
+ </div>
+ <div class="callout" style="margin-top:16px" data-de='<strong>Wichtig:</strong> Crit + Affinity teilen sich den Trefferraum. Liegt die Summe über 100%, verdrängt Affinity effektiven Crit. Deshalb ist „80 Crit + 40 Affinity“ nicht automatisch 120% wert.' data-en='<strong>Important:</strong> Crit + Affinity share the same hit-outcome space. If their sum exceeds 100%, Affinity pushes out effective Crit. So “80 Crit + 40 Affinity” is not automatically worth 120%.' data-html></div>
+</div></section>
+
+<section id="calculator"><div class="wrap">
+ <h2>EMPYREANS Rate Calculator</h2>
+ <div class="grid">
+  <div class="card span6">
+   <h3 data-de="Eingabe" data-en="Input"></h3>
+   <div class="controls">
+    <div><label data-de="Welche Werte gibst du ein?" data-en="Which values are you entering?"></label>
+     <select id="mode">
+      <option value="yellow" data-de="Gelbe / effektive Panelwerte" data-en="Yellow / effective panel values"></option>
+      <option value="white" data-de="Weiße / rohe Werte" data-en="White / raw values"></option>
+     </select>
+    </div>
+    <div><label data-de="Ziel / Judgment-Faktor" data-en="Target / Judgment factor"></label>
+     <select id="target">
+      <option value="1" data-de="Ohne Judgment Resistance / Faktor 1,00" data-en="No Judgment Resistance / factor 1.00"></option>
+      <option value="1.15" data-de="15% Judgment Resistance / Faktor 1,15" data-en="15% Judgment Resistance / factor 1.15"></option>
+      <option value="1.30" data-de="30% Judgment Resistance / Faktor 1,30" data-en="30% Judgment Resistance / factor 1.30"></option>
+      <option value="1.45" data-de="45% Judgment Resistance / Faktor 1,45" data-en="45% Judgment Resistance / factor 1.45"></option>
+      <option value="1.65" selected data-de="GLOBAL aktuell: Lv.100 / Gear 96 / 65% / Faktor 1,65" data-en="GLOBAL current: Lv.100 / Gear 96 / 65% / factor 1.65"></option>
+     </select>
+    </div>
+    <div><label>Precision Rate %</label><input id="precision" type="number" step="0.1" value="100"></div>
+    <div><label>Critical Rate %</label><input id="crit" type="number" step="0.1" value="80"></div>
+    <div><label>Affinity Rate %</label><input id="aff" type="number" step="0.1" value="40"></div>
+    <div><label>Direct Critical %</label><input id="dcrit" type="number" step="0.1" value="0"></div>
+    <div><label>Direct Affinity %</label><input id="daff" type="number" step="0.1" value="0"></div>
+   </div>
+   <div class="btnrow">
+    <button class="btn" id="setYellow" type="button" data-de="Gelbe Hardcaps einsetzen" data-en="Set yellow hard caps"></button>
+    <button class="btn secondary" id="setGlobalRaw" type="button" data-de="Global-Rohwerte einsetzen" data-en="Set Global raw targets"></button>
+   </div>
+   <div class="status" id="inputHint"></div>
+  </div>
+
+  <div class="card span6">
+   <h3 data-de="Effektive Werte" data-en="Effective Values"></h3>
+   <div class="resultgrid">
+    <div class="result"><span>Precision</span><b id="rp">–</b><div class="bar"><i id="bp"></i></div></div>
+    <div class="result"><span>Base Crit</span><b id="rc">–</b><div class="bar"><i id="bc"></i></div></div>
+    <div class="result"><span>Base Affinity</span><b id="ra">–</b><div class="bar"><i id="ba"></i></div></div>
+    <div class="result"><span data-de="Final Crit inkl. Direct" data-en="Final Crit incl. Direct"></span><b id="rfc">–</b></div>
+    <div class="result"><span data-de="Final Affinity inkl. Direct" data-en="Final Affinity incl. Direct"></span><b id="rfa">–</b></div>
+    <div class="result"><span>Abrasion / Graze</span><b id="rg">–</b></div>
+   </div>
+   <div class="status" id="collision"></div>
+   <div class="status" id="overcap"></div>
+  </div>
+
+  <div class="card span12">
+   <h3 data-de="Trefferverteilung – Community-Modell" data-en="Hit Distribution – Community Model"></h3>
+   <div class="resultgrid">
+    <div class="result"><span data-de="Effektiver Crit-Anteil" data-en="Effective Crit share"></span><b id="outCrit">–</b></div>
+    <div class="result"><span data-de="Affinity-Anteil" data-en="Affinity share"></span><b id="outAff">–</b></div>
+    <div class="result"><span data-de="Normal / Rest" data-en="Normal / remainder"></span><b id="outNormal">–</b></div>
+   </div>
+   <p class="sub" data-de="Das Modell verwendet die dokumentierte Reihenfolge Precision → Crit/Affinity und die Regel „Affinity squeezes Crit“, sobald Crit + Affinity über 100% liegt. Skill-spezifische garantierte Treffer oder Sondertalente können davon abweichen." data-en="The model uses the documented order Precision → Crit/Affinity and the rule that “Affinity squeezes Crit” once Crit + Affinity exceeds 100%. Skill-specific guaranteed outcomes or special talents may behave differently."></p>
+  </div>
+ </div>
+</div></section>
+
+<section id="breakthrough"><div class="wrap">
+ <h2>Global: Level 100 / Gear 96</h2>
+ <div class="callout" data-de='<strong>Aktueller Global-Benchmark:</strong> Level 100, Gear Tier 96 und 65% Judgment Resistance. Für die Rate-Umrechnung entspricht das einem Faktor von <strong>1,65</strong>.' data-en='<strong>Current Global benchmark:</strong> Level 100, Gear Tier 96 and 65% Judgment Resistance. For rate conversion, this corresponds to a factor of <strong>1.65</strong>.' data-html></div>
+ <p data-de='Wenn du mit <strong>gelben/effektiven</strong> Werten aus dem Charakterfenster arbeitest, bleiben die Ziele direkt <strong>100% Precision / 80% Crit / 40% Affinity</strong>. Nur für rohe/weiße Werte wird zurückgerechnet.' data-en='If you use the <strong>yellow/effective</strong> values from the character panel, the targets remain <strong>100% Precision / 80% Crit / 40% Affinity</strong>. Conversion is only needed for raw/white values.' data-html></p>
+ <div class="tablewrap"><table>
+  <thead><tr>
+   <th data-de="Global-Ziel" data-en="Global target"></th>
+   <th>Judgment</th>
+   <th data-de="Faktor" data-en="Factor"></th>
+   <th data-de="Raw Precision → 100%" data-en="Raw Precision → 100%"></th>
+   <th data-de="Raw Crit → 80%" data-en="Raw Crit → 80%"></th>
+   <th data-de="Raw Affinity → 40%" data-en="Raw Affinity → 40%"></th>
+  </tr></thead>
+  <tbody><tr class="current"><td><strong>Lv.100 / Gear Tier 96</strong></td><td><strong>65%</strong></td><td><strong>1.65</strong></td><td><strong>122.75%</strong></td><td><strong>132.00%</strong></td><td><strong>66.00%</strong></td></tr></tbody>
+ </table></div>
+ <p class="sub" data-de="Formeln: Precision raw = 65% + (100% − 65%) × 1,65 = 122,75%. Crit raw = 80% × 1,65 = 132%. Affinity raw = 40% × 1,65 = 66%. Direct Crit/Affinity werden separat behandelt." data-en="Formulas: Precision raw = 65% + (100% − 65%) × 1.65 = 122.75%. Crit raw = 80% × 1.65 = 132%. Affinity raw = 40% × 1.65 = 66%. Direct Crit/Affinity are handled separately."></p>
+</div></section>
+
+<section id="other"><div class="wrap">
+ <h2 data-de="Weitere Werte: Hardcap, Softcap oder gar kein Cap?" data-en="Other Stats: Hard Cap, Soft Cap or No Cap?"></h2>
+ <div class="tablewrap"><table>
+  <thead><tr>
+   <th data-de="Wert" data-en="Stat"></th>
+   <th data-de="Art" data-en="Type"></th>
+   <th data-de="Grenze / Breakpoint" data-en="Limit / Breakpoint"></th>
+   <th data-de="Praxis" data-en="Practical meaning"></th>
+  </tr></thead>
+  <tbody>
+   <tr><td>Precision</td><td data-de="Hardcap" data-en="Hard cap"></td><td data-de="100% effektiv" data-en="100% effective"></td><td data-de="Darüber verschwendet." data-en="Anything above is wasted."></td></tr>
+   <tr><td>Critical Rate</td><td data-de="Hardcap" data-en="Hard cap"></td><td>80%</td><td data-de="Direct Crit liegt außerhalb des normalen Caps." data-en="Direct Crit sits outside the normal cap."></td></tr>
+   <tr><td>Affinity Rate</td><td data-de="Hardcap" data-en="Hard cap"></td><td>40%</td><td data-de="Direct Affinity liegt außerhalb des normalen Caps." data-en="Direct Affinity sits outside the normal cap."></td></tr>
+   <tr><td>Direct Critical</td><td data-de="Hardcap" data-en="Hard cap"></td><td>+20%</td><td data-de="Nicht durch Judgment Resistance reduziert." data-en="Not reduced by Judgment Resistance."></td></tr>
+   <tr><td>Direct Affinity</td><td data-de="Hardcap" data-en="Hard cap"></td><td>+10%</td><td data-de="Nicht durch Judgment Resistance reduziert." data-en="Not reduced by Judgment Resistance."></td></tr>
+   <tr><td>Crit + Affinity</td><td data-de="Mechanik-Breakpoint" data-en="Mechanic breakpoint"></td><td data-de="100% Summe" data-en="100% total"></td><td data-de="Darüber verdrängt Affinity Crit." data-en="Above this, Affinity pushes out Crit."></td></tr>
+   <tr><td>Min Physical / Path Attack</td><td>Breakpoint</td><td>Min = Max</td><td data-de="Wenn Min über Max liegt, wird nach dem dokumentierten Modell Min für den Treffer verwendet; kein klassisches Hardcap." data-en="If Min exceeds Max, the documented model uses Min for the hit; this is not a classic hard cap."></td></tr>
+   <tr><td>Physical / Path Penetration</td><td data-de="Kein verifiziertes Hardcap" data-en="No verified hard cap"></td><td data-de="Breakpoint: gegnerische Resistance" data-en="Breakpoint: enemy Resistance"></td><td data-de="Öffentliche Rechner behandeln Penetration mit abnehmendem/zoniertem Nutzen. 60 bzw. 30 sind Build-Ziele, keine allgemein bestätigten System-Hardcaps." data-en="Public calculators treat Penetration with diminishing/zone-based value. 60 and 30 are build targets, not generally confirmed system hard caps."></td></tr>
+   <tr><td>Crit Damage Bonus</td><td data-de="Kein verifiziertes Hardcap" data-en="No verified hard cap"></td><td>–</td><td data-de="Weiter skalierend; Wertigkeit hängt von der tatsächlichen Crit-Quote ab." data-en="Continues to scale; value depends on your actual Crit rate."></td></tr>
+   <tr><td>Affinity Damage Bonus</td><td data-de="Kein verifiziertes Hardcap" data-en="No verified hard cap"></td><td>–</td><td data-de="Weiter skalierend; Affinity nutzt Max Attack." data-en="Continues to scale; Affinity uses Max Attack."></td></tr>
+   <tr><td>Boss / General / Weapon / Skill Damage</td><td data-de="Kein globales Hardcap bestätigt" data-en="No global hard cap confirmed"></td><td>–</td><td data-de="Viele Boni liegen in additiven oder separaten Multiplikator-Zonen; nicht mit einem einzigen Cap behandeln." data-en="Many bonuses sit in additive or separate multiplier buckets; do not treat them as one single capped stat."></td></tr>
+   <tr><td>Healing</td><td data-de="Sonderregel" data-en="Special rule"></td><td data-de="Precision/Affinity nicht relevant" data-en="Precision/Affinity not relevant"></td><td data-de="Das Community-Modell setzt Healing auf 100% Precision; Crit bleibt relevant." data-en="The community model treats healing as 100% Precision; Crit remains relevant."></td></tr>
+  </tbody>
+ </table></div>
+</div></section>
+
+<section id="gear96"><div class="wrap">
+ <h2 data-de="Global Gear-Cap: Tier 96" data-en="Global Gear Cap: Tier 96"></h2>
+ <p class="sub" data-de="Die Referenz dieser Seite ist ausschließlich der derzeitige Global-Cap: Level 100 mit Gear Tier 96." data-en="This page is strictly based on the current Global cap: Level 100 with Gear Tier 96."></p>
+ <div class="grid">
+  <div class="card span4"><div class="sub" data-de="Charakter-Level" data-en="Character Level"></div><div class="kpi">100</div><p data-de="Aktuelles Global-Level-Bracket." data-en="Current Global level bracket."></p></div>
+  <div class="card span4"><div class="sub">Gear Tier</div><div class="kpi">96</div><p data-de="Aktuelles Global-Gear-Cap." data-en="Current Global gear cap."></p></div>
+  <div class="card span4"><div class="sub">Judgment Resistance</div><div class="kpi">65%</div><p data-de="Aktueller Benchmark des Tier-96-Rechners." data-en="Current benchmark used by the Tier-96 calculator."></p></div>
+  <div class="card span6"><div class="sub" data-de="Effektive Rate-Ziele" data-en="Effective rate targets"></div><div class="kpi">100 / 80 / 40</div><p>Precision / Crit / Affinity</p></div>
+  <div class="card span6"><div class="sub" data-de="Entsprechende Rohwerte" data-en="Equivalent raw targets"></div><div class="kpi">122.75 / 132 / 66</div><p data-de="Precision / Crit / Affinity bei 65% Judgment Resistance." data-en="Precision / Crit / Affinity at 65% Judgment Resistance."></p></div>
+ </div>
+ <div class="callout" style="margin-top:16px" data-de='<strong>Gear-Rolls:</strong> Einzelne Tuning-Maxwerte werden nur als „Maximum“ geführt, wenn sie für Global Tier 96 belastbar verifiziert sind. Für konkrete Gear-Optimierung ist der verlinkte Tier-96-Rechner die Referenz.' data-en='<strong>Gear rolls:</strong> Individual tuning maximums are only listed as “maximum” when reliably verified for Global Tier 96. For actual gear optimization, use the linked Tier-96 calculator as the reference.' data-html></div>
+</div></section>
+
+<section id="sources"><div class="wrap">
+ <h2 data-de="Quellen & Rechner" data-en="Sources & Calculators"></h2>
+ <div class="grid">
+  <div class="card span6">
+   <h3>Where Winds Math</h3>
+   <p data-de='Aktuell passend für Global mit <strong>Lv.100 + Tier-96-Gear</strong> und 65% Judgment Resistance.' data-en='Currently aligned with Global at <strong>Lv.100 + Tier-96 gear</strong> and 65% Judgment Resistance.' data-html></p>
+   <div class="btnrow">
+    <a class="btn" href="https://wwmath-fanmade.vercel.app/" target="_blank" rel="noopener" data-de="Global Tier-96-Rechner" data-en="Global Tier-96 Calculator"></a>
+    <a class="btn secondary" href="https://greydust.github.io/where-builds-meet/" target="_blank" rel="noopener">Where Builds Meet</a>
+    <a class="btn secondary" href="https://wherewindsmeetcalculator.com/wiki/damage-formula" target="_blank" rel="noopener">Damage Formula</a>
+   </div>
+  </div>
+  <div class="card span6">
+   <h3 data-de="Weitere Rechner" data-en="Other Calculators"></h3>
+   <div class="btnrow">
+    <a class="btn secondary" href="https://greydust.github.io/where-builds-meet/" target="_blank" rel="noopener">Where Builds Meet</a>
+    <a class="btn secondary" href="https://wwmath-fanmade.vercel.app/" target="_blank" rel="noopener">Where Winds Math</a>
+   </div>
+   <p class="sub" data-de="Für Global ist Tier 96 die Referenz. Where Winds Math weist aktuell ausdrücklich „Lv 100 · Tier 96 gear“ aus." data-en="For Global, Tier 96 is the reference. Where Winds Math currently states “Lv 100 · Tier 96 gear” explicitly."></p>
+  </div>
+  <div class="card span12">
+   <h3 data-de="Quellenbasis" data-en="Source Basis"></h3>
+   <details open>
+    <summary data-de="Aktueller Global-Spielstand" data-en="Current Global Game State"></summary>
+    <p data-de="Die Global-Calculator-Daten führen aktuell Level 100 mit Gear Tier 96. Der Tier-96-Rechner verwendet 65% Judgment Resistance als Benchmark." data-en="Current Global calculator data lists Level 100 with Gear Tier 96. The Tier-96 calculator uses 65% Judgment Resistance as its benchmark."></p>
+    <a href="https://wwmath-fanmade.vercel.app/" target="_blank" rel="noopener">Where Winds Math – Global Tier 96</a>
+   </details>
+   <details>
+    <summary data-de="Drei-Raten-System / CN-Abgleich" data-en="Three-Rate System / CN Cross-Check"></summary>
+    <p data-de="CN-Guides dokumentieren 100% Precision, 80% Crit-Cap, 40% Affinity-Cap, die Trefferreihenfolge und den Hinweis, dass gelbe Panelwerte Judgment Resistance bereits berücksichtigen." data-en="CN guides document 100% Precision, an 80% Crit cap, a 40% Affinity cap, the hit-resolution order, and that yellow panel values already account for Judgment Resistance."></p>
+    <a href="https://www.gamersky.com/handbook/202512/2061761.shtml?gsAppOpenWithNewWindow=true" target="_blank" rel="noopener">GamerSky CN Guide</a>
+   </details>
+   <details>
+    <summary data-de="Community-Formeln" data-en="Community Formulas"></summary>
+    <p data-de="Die offenen Rechner dokumentieren Base Damage, Crit/Affinity, Precision, Judgment Resistance und die Crit/Affinity-Kollision. Where Builds Meet führt aktuell Gear Tier 96 und 65% Judgment Resistance." data-en="The open calculators document Base Damage, Crit/Affinity, Precision, Judgment Resistance and the Crit/Affinity collision. Where Builds Meet currently uses Gear Tier 96 and 65% Judgment Resistance."></p>
+    <a href="https://greydust.github.io/where-builds-meet/" target="_blank" rel="noopener">Where Builds Meet</a>
+   </details>
+   <details>
+    <summary data-de="Hinweis zur Genauigkeit" data-en="Accuracy Note"></summary>
+    <p data-de="Die Hardcaps der drei Raten sind gut belegt. Einige tiefergehende Schadensformeln sind Community-Theorycrafting und nicht vollständig offiziell veröffentlicht. Deshalb werden Build-Ziele wie Penetration 60/30 ausdrücklich nicht als Hardcaps bezeichnet." data-en="The three rate hard caps are well supported. Some deeper damage formulas are community theorycrafting and are not fully published officially. Therefore build targets such as Penetration 60/30 are explicitly not labeled as hard caps."></p>
+   </details>
+  </div>
+ </div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+ <strong style="color:var(--gold2)">EMPYREANS</strong> • Where Winds Meet Stat Guide •
+ <span data-de="Community-Tool, nicht mit NetEase/Everstone verbunden." data-en="Community tool, not affiliated with NetEase/Everstone."></span><br>
+ <span data-de="Stand 09.09.2026 • Global: Max-Level 100 / Gear Tier 96. Bei Balance- oder Breakthrough-Änderungen sollten Judgment Resistance und Gear-Cap erneut geprüft werden." data-en="Updated 09 Sep 2026 • Global: Max Level 100 / Gear Tier 96. Re-check Judgment Resistance and the gear cap after balance or breakthrough changes."></span>
+</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let lang=localStorage.getItem("empyreansLang")||"de";
+const num=(v,d=2)=>new Intl.NumberFormat(lang==="de"?"de-DE":"en-US",{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
+const pct=v=>num(v,2)+"%";
+const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
+
+function translate(){
+ document.documentElement.lang=lang;
+ document.title=lang==="de" ? "EMPYREANS • WWM Global Stat Caps & Gear 96 Rechner" : "EMPYREANS • WWM Global Stat Caps & Gear 96 Calculator";
+ document.querySelectorAll("[data-de][data-en]").forEach(el=>{
+   const val=el.getAttribute("data-"+lang);
+   if(el.hasAttribute("data-html")) el.innerHTML=val; else el.textContent=val;
+ });
+ $("langDE").classList.toggle("active",lang==="de");
+ $("langEN").classList.toggle("active",lang==="en");
+ update();
+}
+
+function update(){
+ const mode=$("mode").value;
+ const factor=parseFloat($("target").value);
+ const rawP=parseFloat($("precision").value)||0;
+ const rawC=parseFloat($("crit").value)||0;
+ const rawA=parseFloat($("aff").value)||0;
+ const dC=parseFloat($("dcrit").value)||0;
+ const dA=parseFloat($("daff").value)||0;
+
+ let ep=rawP,ec=rawC,ea=rawA;
+ if(mode==="white"){
+   ep=65+(rawP-65)/factor;
+   ec=rawC/factor;
+   ea=rawA/factor;
+   $("inputHint").innerHTML=lang==="de"
+    ? `Weiße/Rohwerte werden mit Faktor <strong>${num(factor,2)}</strong> auf effektive/gelbe Werte umgerechnet.`
+    : `White/raw values are converted to effective/yellow values using factor <strong>${num(factor,2)}</strong>.`;
+ } else {
+   $("inputHint").innerHTML=lang==="de"
+    ? `Gelbe Panelwerte sind bereits effektiv. Der Ziel-Faktor <strong>${num(factor,2)}</strong> wird nicht erneut abgezogen.`
+    : `Yellow panel values are already effective. The target factor <strong>${num(factor,2)}</strong> is not applied again.`;
+ }
+
+ const p=clamp(ep,0,100), c=clamp(ec,0,80), a=clamp(ea,0,40);
+ const dc=clamp(dC,0,20), da=clamp(dA,0,10);
+ const finalC=clamp(c+dc,0,100), finalA=clamp(a+da,0,50);
+
+ $("rp").textContent=pct(p); $("rc").textContent=pct(c); $("ra").textContent=pct(a);
+ $("rfc").textContent=pct(finalC); $("rfa").textContent=pct(finalA);
+ $("bp").style.width=clamp(p,0,100)+"%";
+ $("bc").style.width=clamp(c/80*100,0,100)+"%";
+ $("ba").style.width=clamp(a/40*100,0,100)+"%";
+
+ const P=p/100,C=finalC/100,A=finalA/100;
+ const actualCrit=(C+A<=1)?P*C:P*(1-A);
+ const graze=(1-P)*(1-A);
+ const affShare=A;
+ const normal=clamp(1-actualCrit-affShare-graze,0,1);
+
+ $("rg").textContent=pct(graze*100);
+ $("outCrit").textContent=pct(actualCrit*100);
+ $("outAff").textContent=pct(affShare*100);
+ $("outNormal").textContent=pct(normal*100);
+
+ const sum=finalC+finalA;
+ $("collision").innerHTML=sum>100
+  ? (lang==="de"
+    ? `<span class="warn"><strong>Kollision:</strong></span> Crit + Affinity = <strong>${pct(sum)}</strong>. Affinity verdrängt im Community-Modell einen Teil des effektiven Crit-Anteils.`
+    : `<span class="warn"><strong>Collision:</strong></span> Crit + Affinity = <strong>${pct(sum)}</strong>. In the community model, Affinity pushes out part of the effective Crit share.`)
+  : (lang==="de"
+    ? `<span class="good"><strong>Keine Rate-Kollision:</strong></span> Crit + Affinity = <strong>${pct(sum)}</strong>.`
+    : `<span class="good"><strong>No rate collision:</strong></span> Crit + Affinity = <strong>${pct(sum)}</strong>.`);
+
+ const wastes=[];
+ if(ep>100) wastes.push(`Precision +${pct(ep-100)}`);
+ if(ec>80) wastes.push(`Base Crit +${pct(ec-80)}`);
+ if(ea>40) wastes.push(`Base Affinity +${pct(ea-40)}`);
+ if(dC>20) wastes.push(`Direct Crit +${pct(dC-20)}`);
+ if(dA>10) wastes.push(`Direct Affinity +${pct(dA-10)}`);
+ $("overcap").innerHTML=wastes.length
+   ? `<span class="bad"><strong>Overcap:</strong></span> ${wastes.join(" · ")}`
+   : (lang==="de"
+      ? `<span class="good"><strong>Kein direkter Overcap</strong></span> in den eingegebenen Raten.`
+      : `<span class="good"><strong>No direct overcap</strong></span> in the entered rates.`);
+}
+
+$("setYellow").addEventListener("click",()=>{
+ $("mode").value="yellow";$("target").value="1.65";
+ $("precision").value="100";$("crit").value="80";$("aff").value="40";$("dcrit").value="0";$("daff").value="0";update();
+});
+$("setGlobalRaw").addEventListener("click",()=>{
+ $("mode").value="white";$("target").value="1.65";
+ $("precision").value="122.75";$("crit").value="132";$("aff").value="66";$("dcrit").value="0";$("daff").value="0";update();
+});
+$("langDE").addEventListener("click",()=>{lang="de";localStorage.setItem("empyreansLang",lang);translate();});
+$("langEN").addEventListener("click",()=>{lang="en";localStorage.setItem("empyreansLang",lang);translate();});
+["mode","target","precision","crit","aff","dcrit","daff"].forEach(id=>$(id).addEventListener("input",update));
+translate();
+</script>
+</body>
+</html>
