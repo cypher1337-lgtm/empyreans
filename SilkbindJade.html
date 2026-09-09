@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMPYREANS | Silkbind – Jade | Global Lv100 T96</title>
+<meta name="description" content="EMYPREANS Guide für Silkbind – Jade in Where Winds Meet: Global, Level 100, Tier-96 Gear, PvE/Boss DPS." />
+<style>
+:root{
+  --bg:#08090b;
+  --panel:#101216;
+  --panel-2:#151820;
+  --gold:#d6ad55;
+  --gold-2:#f1d58d;
+  --red:#8f2525;
+  --red-2:#d24b3f;
+  --jade:#71c8a7;
+  --text:#f0eee9;
+  --muted:#aaa79f;
+  --line:#2b2f36;
+  --good:#7ac79d;
+  --warn:#d7b768;
+  --bad:#d77070;
+  --shadow:0 16px 45px rgba(0,0,0,.32);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+radial-gradient(circle at 15% 10%,rgba(143,37,37,.14),transparent 28%),
+radial-gradient(circle at 85% 20%,rgba(214,173,85,.09),transparent 26%),
+linear-gradient(180deg,#060708 0%,#0a0b0e 50%,#070809 100%);
+color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
+a{color:var(--gold-2);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{width:min(1180px,calc(100% - 28px));margin:auto}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);padding:64px 0 42px}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(143,37,37,.16),transparent 44%,rgba(214,173,85,.07));pointer-events:none}
+.eyebrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--gold-2);text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:800}
+.badge{border:1px solid rgba(214,173,85,.45);padding:5px 9px;border-radius:999px;background:rgba(214,173,85,.06)}
+h1{font-size:clamp(2.35rem,7vw,5.4rem);line-height:.92;margin:14px 0 14px;letter-spacing:-.045em}
+h1 span{color:var(--gold)}
+.sub{font-size:clamp(1rem,2.2vw,1.25rem);color:#cfcbc2;max-width:830px}
+.hero-grid{display:grid;grid-template-columns:1.45fr .55fr;gap:26px;align-items:end}
+.crest{justify-self:end;width:180px;aspect-ratio:1;border-radius:30px;border:1px solid rgba(214,173,85,.42);display:grid;place-items:center;background:linear-gradient(145deg,rgba(214,173,85,.10),rgba(143,37,37,.14));box-shadow:var(--shadow);position:relative}
+.crest:after{content:"E";font-family:Georgia,serif;font-size:94px;color:var(--gold);text-shadow:0 0 28px rgba(214,173,85,.18)}
+nav{position:sticky;top:0;z-index:20;background:rgba(8,9,11,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;gap:10px;overflow:auto;padding:10px 0;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner a{white-space:nowrap;color:#d6d2ca;border:1px solid #2a2d33;padding:7px 11px;border-radius:10px;font-size:.9rem}
+.nav-inner a:hover{border-color:rgba(214,173,85,.48);color:var(--gold-2);text-decoration:none}
+main{padding:34px 0 70px}
+section{scroll-margin-top:74px;margin:0 0 34px}
+.section-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:14px}
+h2{font-size:clamp(1.55rem,3vw,2.15rem);margin:0;letter-spacing:-.02em}
+.kicker{color:var(--gold);font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:800;margin-bottom:5px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{background:linear-gradient(180deg,rgba(21,24,32,.96),rgba(14,16,20,.98));border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.card h3{margin:0 0 8px;font-size:1.08rem}.card p{margin:0;color:#c6c2ba}
+.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+.stat{position:relative;overflow:hidden}.stat:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.stat .value{font-size:1.55rem;font-weight:900;color:var(--gold-2);margin:5px 0 4px}.stat small{color:var(--muted)}
+.tag{display:inline-block;font-size:.72rem;padding:3px 7px;border-radius:999px;margin-top:9px;border:1px solid}
+.confirmed{color:#b7ead1;border-color:rgba(122,199,157,.42);background:rgba(122,199,157,.08)}
+.target{color:#f0d891;border-color:rgba(215,183,104,.42);background:rgba(215,183,104,.08)}
+.reference{color:#d9c3ff;border-color:rgba(158,120,215,.42);background:rgba(158,120,215,.08)}
+.callout{border-left:3px solid var(--red-2);background:linear-gradient(90deg,rgba(143,37,37,.17),rgba(143,37,37,.04));padding:16px 18px;border-radius:0 14px 14px 0;color:#e7dfd9}
+.callout strong{color:#fff}
+.prio{display:flex;flex-direction:column;gap:9px}.prio-row{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center}.prio-rank{font-weight:900;color:var(--gold)}
+.bar{height:8px;border-radius:20px;background:#242831;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:20px}.prio-name{font-weight:700}
+table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px;font-size:.95rem}th,td{padding:12px 11px;border-bottom:1px solid #272b31;text-align:left;vertical-align:top}th{color:var(--gold-2);background:#151820}tr:last-child td{border-bottom:none}.t0{color:#ffd77d;font-weight:800}.t1{color:#c5e6d7}.t2{color:#d9d0be}.t3{color:#aaa}
+.pill{display:inline-block;padding:3px 8px;border-radius:999px;background:#1d2128;border:1px solid #343943;font-size:.8rem;color:#ddd}
+.steps{counter-reset:s}.step{position:relative;padding-left:58px;min-height:48px;margin:0 0 14px}.step:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:900;color:#0b0c0f;background:linear-gradient(145deg,var(--gold-2),var(--gold))}.step b{display:block;margin-bottom:2px}
+.checker{display:grid;grid-template-columns:1fr 1fr;gap:14px}.keep,.scrap{border-radius:16px;padding:16px;border:1px solid}.keep{border-color:rgba(122,199,157,.35);background:rgba(122,199,157,.06)}.scrap{border-color:rgba(215,112,112,.35);background:rgba(215,112,112,.06)}
+ul.clean{margin:8px 0 0;padding-left:20px}.clean li{margin:5px 0}
+.sources{font-size:.9rem;color:#b8b4ad}.sources li{margin:8px 0}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.footer{border-top:1px solid var(--line);padding:26px 0 38px;color:#8f8b84;font-size:.88rem;text-align:center}
+button.print{border:1px solid rgba(214,173,85,.45);background:rgba(214,173,85,.08);color:var(--gold-2);padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:700}button.print:hover{background:rgba(214,173,85,.14)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.crest{display:none}.span-3,.span-4,.span-5,.span-6,.span-7,.span-8{grid-column:span 12}.checker{grid-template-columns:1fr}.hero{padding-top:46px}}
+@media print{nav,.print{display:none!important}body{background:#fff;color:#111}.card{box-shadow:none;background:#fff;border-color:#ccc}.callout{background:#f6f6f6}.stat .value,h2,h3{color:#111}.hero{border-bottom:1px solid #ccc}.footer{color:#444}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="badge">EMYPREANS Guide</span><span>Global</span><span>Level 100</span><span>Tier 96</span></div>
+      <h1>Silkbind – <span>Jade</span></h1>
+      <p class="sub">PvE/Boss-DPS Guide für <b>Vernal Umbrella + Inkwell Fan</b>. Fokus auf verifizierte Mechaniken, sinnvolle Zielbereiche und T96-Gear-Entscheidungen – ohne Referenzwerte als angebliche Hardcaps zu verkaufen.</p>
+      <div class="legend">
+        <span class="tag confirmed">Bestätigte Mechanik</span>
+        <span class="tag target">Empfohlener Zielbereich</span>
+        <span class="tag reference">Build-Referenz, kein Hardcap</span>
+      </div>
+    </div>
+    <div class="crest" aria-label="EMYPREANS Emblem"></div>
+  </div>
+</header>
+
+<nav><div class="wrap nav-inner">
+  <a href="#overview">Übersicht</a><a href="#stats">Zielwerte</a><a href="#priority">Priorität</a><a href="#gear">T96 Gear</a><a href="#innerways">Innerways</a><a href="#rotation">Rotation</a><a href="#check">Behalten/Zerlegen</a><a href="#sources">Quellen</a>
+</div></nav>
+
+<main class="wrap">
+<section id="overview">
+  <div class="section-head"><div><div class="kicker">Build-Kern</div><h2>Was Jade auf T96 wirklich will</h2></div><button class="print" onclick="window.print()">Drucken / PDF</button></div>
+  <div class="grid">
+    <div class="card span-4"><h3>Precision zuerst</h3><p>Im Endgame auf praktisch <b>98–100 % effektiv</b> bringen. Fehlende Precision kostet dir die Basis für saubere Crit-Treffer.</p><span class="tag target">Zielbereich</span></div>
+    <div class="card span-4"><h3>Crit hoch, Affinity kontrolliert</h3><p>Jade profitiert von hohem Crit, aber Affinity soll nicht blind mitwachsen. Ziel: <b>ca. 72–80 % Crit</b> und <b>15–22 % Affinity</b>.</p><span class="tag target">Zielbereich</span></div>
+    <div class="card span-4"><h3>T96-Schlüsselroll</h3><p><b>Frequent Projectile DMG</b> ersetzt die alte Trennung aus Special- und Charged-Skill-Tuning und bufft die beiden zentralen Projectile-Finisher.</p><span class="tag confirmed">Patch-Mechanik</span></div>
+  </div>
+  <div class="callout" style="margin-top:14px"><strong>Merksatz:</strong> Precision vollmachen → Crit in den Zielbereich → Affinity nur bis zur sinnvollen Schwelle → danach Max Physical + echte Multiplikatoren wie Frequent Projectile, Boss DMG und Umbrella DMG.</div>
+</section>
+
+<section id="stats">
+  <div class="section-head"><div><div class="kicker">Level 100 / Tier 96</div><h2>Empfohlene Zielwerte</h2></div></div>
+  <div class="grid">
+    <div class="card stat span-3"><h3>Precision</h3><div class="value">98–100 %</div><small>effektiv</small><br><span class="tag target">Zielbereich</span></div>
+    <div class="card stat span-3"><h3>Critical Rate</h3><div class="value">72–80 %</div><small>Direct Crit separat</small><br><span class="tag target">Zielbereich</span></div>
+    <div class="card stat span-3"><h3>Affinity</h3><div class="value">15–22 %</div><small>Hawkwing eher obere Hälfte</small><br><span class="tag target">Zielbereich</span></div>
+    <div class="card stat span-3"><h3>Physical Pen</h3><div class="value">40+ / 50+ High-End</div><small>kein universeller Hardcap</small><br><span class="tag target">Praxisziel</span></div>
+    <div class="card stat span-3"><h3>Min Physical</h3><div class="value">1.600–2.000+</div><small>solider T96-Endgame-Bereich</small><br><span class="tag target">Zielbereich</span></div>
+    <div class="card stat span-3"><h3>Max Physical</h3><div class="value">3.100–3.500+</div><small>High-End darf deutlich höher liegen</small><br><span class="tag target">Zielbereich</span></div>
+    <div class="card stat span-3"><h3>Silkbind</h3><div class="value">sekundär</div><small>Max / Pen / DMG sinnvoll mitnehmen</small><br><span class="tag target">Priorität nach Kernstats</span></div>
+    <div class="card stat span-3"><h3>Frequent Projectile</h3><div class="value">so hoch wie sinnvoll</div><small>kein verifizierter universeller Hardcap</small><br><span class="tag confirmed">T96 Kernroll</span></div>
+  </div>
+  <div class="callout" style="margin-top:14px"><strong>Wichtig:</strong> Werte wie ~4.007 Max Physical oder ~56,3 Physical Penetration aus einzelnen Calculators sind <b>Build-Referenzen</b>, keine offiziellen Hardcaps. Genau deshalb stehen sie hier nicht als Pflichtziel.</div>
+</section>
+
+<section id="priority">
+  <div class="section-head"><div><div class="kicker">Stat-Entscheidungen</div><h2>Prioritätskette</h2></div></div>
+  <div class="grid">
+    <div class="card span-7">
+      <div class="prio">
+        <div class="prio-row"><div class="prio-rank">#1</div><div><div class="prio-name">Precision bis 98–100 %</div><div class="bar"><i style="width:100%"></i></div></div><span class="pill">Pflicht</span></div>
+        <div class="prio-row"><div class="prio-rank">#2</div><div><div class="prio-name">Crit bis ca. 72–80 %</div><div class="bar"><i style="width:94%"></i></div></div><span class="pill">Kernwert</span></div>
+        <div class="prio-row"><div class="prio-rank">#3</div><div><div class="prio-name">Max Physical Attack</div><div class="bar"><i style="width:90%"></i></div></div><span class="pill">sehr stark</span></div>
+        <div class="prio-row"><div class="prio-rank">#4</div><div><div class="prio-name">Frequent Projectile DMG</div><div class="bar"><i style="width:88%"></i></div></div><span class="pill">T96 Schlüssel</span></div>
+        <div class="prio-row"><div class="prio-rank">#5</div><div><div class="prio-name">Umbrella / Boss / All Martial DMG</div><div class="bar"><i style="width:84%"></i></div></div><span class="pill">Multiplikator</span></div>
+        <div class="prio-row"><div class="prio-rank">#6</div><div><div class="prio-name">Physical Penetration</div><div class="bar"><i style="width:76%"></i></div></div><span class="pill">Boss stark</span></div>
+        <div class="prio-row"><div class="prio-rank">#7</div><div><div class="prio-name">Affinity bis sinnvolle Schwelle</div><div class="bar"><i style="width:64%"></i></div></div><span class="pill">nicht überrollen</span></div>
+        <div class="prio-row"><div class="prio-rank">#8</div><div><div class="prio-name">Silkbind Max / Pen / DMG</div><div class="bar"><i style="width:54%"></i></div></div><span class="pill">sekundär</span></div>
+      </div>
+    </div>
+    <div class="card span-5">
+      <h3>Warum Crit + Affinity nicht blind stapeln?</h3>
+      <p>Wenn Crit und Affinity zusammen zu hoch werden, konkurrieren die Trefferarten miteinander. Für Jade ist ein kontrollierter Mix effizienter als „beide Zahlen maximal“.</p>
+      <div class="callout" style="margin-top:14px"><strong>Praxis:</strong> ca. 75–80 % Crit + 18–21 % Affinity ist in einem ausgebauten Build meist sinnvoller als 80 % Crit + 30–40 % Affinity.</div>
+    </div>
+  </div>
+</section>
+
+<section id="gear">
+  <div class="section-head"><div><div class="kicker">Tier 96</div><h2>Gear-Rolls & Attunements</h2></div></div>
+  <div class="card span-12" style="overflow:auto">
+    <table>
+      <thead><tr><th>Tier</th><th>Roll / Effekt</th><th>Bewertung</th><th>Hinweis</th></tr></thead>
+      <tbody>
+        <tr><td class="t0">T0</td><td>Frequent Projectile DMG</td><td>★★★★★</td><td>T96-Kernroll für die zentralen Projectile-Finisher.</td></tr>
+        <tr><td class="t0">T0</td><td>Max Physical Attack</td><td>★★★★★</td><td>Direkter, sehr universeller Schadensgewinn.</td></tr>
+        <tr><td class="t0">T0</td><td>Boss DMG / Vernal Umbrella DMG</td><td>★★★★★</td><td>Hochwertige Multiplikatoren im PvE.</td></tr>
+        <tr><td class="t1">T1</td><td>All Martial Arts DMG</td><td>★★★★½</td><td>Breit wirksam und deshalb sehr wertvoll.</td></tr>
+        <tr><td class="t1">T1</td><td>Physical Penetration</td><td>★★★★½</td><td>Sehr gut gegen Bosse; kein universeller Cap-Wert.</td></tr>
+        <tr><td class="t1">T1</td><td>Precision / Crit bis Zielwert</td><td>★★★★½</td><td>Nach Erreichen des Zielbereichs fällt der Wert stark ab.</td></tr>
+        <tr><td class="t2">T2</td><td>Power / Agility / Momentum</td><td>★★★★</td><td>Je nach fehlender Crit-/Affinity-Verteilung.</td></tr>
+        <tr><td class="t2">T2</td><td>Max Silkbind / Silkbind DMG / Silkbind Pen</td><td>★★★½</td><td>Gut, aber hinter den Kern-Multiplikatoren.</td></tr>
+        <tr><td class="t3">T3</td><td>Min Physical / Min Silkbind / Formless</td><td>★★–★★★</td><td>Nicht nutzlos, aber selten Grund für ein echtes BiS-Teil.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card span-6"><h3>T96 Umbrella Attunement</h3><p>Die alte Trennung <b>Special Skill DMG</b> und <b>Charged Skill DMG</b> wurde auf T96 zu <b>Frequent Projectile DMG</b> zusammengeführt.</p><span class="tag confirmed">Bestätigte Patch-Änderung</span></div>
+    <div class="card span-6"><h3>Arsenal</h3><p>Für diesen Build wird <b>Silkbind Arsenal</b> verwendet. Das passt zur Schadensart und den aktuellen Jade-Builds.</p><span class="tag target">Build-Empfehlung</span></div>
+  </div>
+</section>
+
+<section id="innerways">
+  <div class="section-head"><div><div class="kicker">Inner Ways</div><h2>Empfohlenes PvE-Setup</h2></div></div>
+  <div class="grid">
+    <div class="card span-3"><h3>Blossom Barrage</h3><p><b>T6 empfohlen.</b> Kern-Innerway für Combo-Mark, Spring Sorrow und deinen Projectile-Burst. T4 verstärkt Spring Away / Unfading Flower gegen dein markiertes Ziel, besonders im Exhausted-Fenster.</p><span class="tag confirmed">Kern-Synergie</span></div>
+    <div class="card span-3"><h3>Morale Chant</h3><p><b>T5/T6.</b> Sehr stark wegen Physical Penetration und Direct Critical Rate bei ausgebautem Tier.</p><span class="tag target">Sehr stark</span></div>
+    <div class="card span-3"><h3>Star Reacher</h3><p><b>T5/T6.</b> Physical-Attack- und Penetration-Synergie nach Airborne sowie zusätzliche Stärke im Exhausted-Fenster.</p><span class="tag target">Sehr stark</span></div>
+    <div class="card span-3"><h3>Flex-Slot</h3><p>Je nach Gruppe und Rotation: offensiver oder sustain-orientierter vierter Slot. Nicht pauschal als ein einziges „BiS“ festnageln.</p><span class="tag reference">Buildabhängig</span></div>
+  </div>
+</section>
+
+<section id="rotation">
+  <div class="section-head"><div><div class="kicker">Boss DPS</div><h2>Rotation als Prioritätensystem</h2></div></div>
+  <div class="grid">
+    <div class="card span-8">
+      <div class="step"><b>Fan-Buff vorbereiten</b><span>Inkwell-Fan-Effekte bzw. das gewünschte Buff-Fenster vor dem eigentlichen Burst aktivieren.</span></div>
+      <div class="step"><b>Combo-Mark setzen</b><span>Vernal Umbrella / Spring Sorrow nutzen und dein Ziel für Blossom-Barrage-Synergien markieren.</span></div>
+      <div class="step"><b>Blossoms / Ressourcen aufbauen</b><span>Den Burst nicht zu früh erzwingen; erst die Voraussetzungen schaffen.</span></div>
+      <div class="step"><b>Star Reacher / Morale Chant aktiv halten</b><span>Airborne-/Exhausted-Synergien sowie Penetration und Direct Crit im Burst-Fenster ausnutzen.</span></div>
+      <div class="step"><b>Exhausted Window ausnutzen</b><span>Spring Away + Unfading Flower in das stärkste Fenster legen, wenn Combo-Mark und relevante Buffs gleichzeitig aktiv sind.</span></div>
+    </div>
+    <div class="card span-4">
+      <h3>Ideal im Burst-Fenster</h3>
+      <ul class="clean">
+        <li>Combo-Mark aktiv</li>
+        <li>Morale Chant gestackt</li>
+        <li>Star Reacher aktiv</li>
+        <li>Boss Exhausted</li>
+        <li>Projectile-/Umbrella-Buffs aktiv</li>
+      </ul>
+      <div class="callout" style="margin-top:14px"><strong>Ziel:</strong> Nicht nur Skills „on cooldown“ drücken, sondern die starken Projectile-Treffer in dieselben Buff- und Exhausted-Fenster legen.</div>
+    </div>
+  </div>
+</section>
+
+<section id="check">
+  <div class="section-head"><div><div class="kicker">Loot-Entscheidung</div><h2>Behalten, rollen oder zerlegen?</h2></div></div>
+  <div class="checker">
+    <div class="keep"><h3>Behalten / genauer prüfen</h3><ul class="clean"><li>Max Physical + Boss DMG</li><li>Max Physical + Vernal Umbrella DMG</li><li>Max Physical + All Martial Arts DMG</li><li>Frequent Projectile + weitere echte DPS-Rolls</li><li>Precision/Crit, wenn du den Zielbereich noch nicht erreicht hast</li><li>Power + mindestens ein starker Multiplikator</li></ul></div>
+    <div class="scrap"><h3>Eher zerlegen / nur Übergang</h3><ul class="clean"><li>Affinity deutlich über deinem sinnvollen Zielbereich</li><li>mehrere Min-Stats ohne starke Multiplikatoren</li><li>Formless-lastige Rolls ohne Build-Synergie</li><li>Precision oder Crit weit über dem benötigten Ziel</li><li>viele „offensive“ Werte, die deinen eigentlichen Burst kaum verstärken</li></ul></div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="section-head"><div><div class="kicker">Verifikation</div><h2>Quellen & Einordnung</h2></div></div>
+  <div class="card sources">
+    <p>Die Seite trennt bewusst zwischen <b>bestätigter Mechanik</b>, <b>empfohlenem Zielbereich</b> und <b>Build-Referenz</b>. Einzelne Calculator-Werte werden nicht als Hardcaps dargestellt.</p>
+    <ul>
+      <li><a href="https://www.wherewindsmeetgame.com/news/official/CloudedRevelationPatchNotes.html" target="_blank" rel="noopener">Offizielle Global Patch Notes – Clouded Revelation / T96-Anpassungen</a></li>
+      <li><a href="https://wherewindsmeetcalculator.com/build/silkbind-jade" target="_blank" rel="noopener">Where Winds Meet Calculator – Silkbind Jade Lv100 Referenzbuild</a></li>
+      <li><a href="https://wherewindsmeetcalculator.com/wiki/damage-formula" target="_blank" rel="noopener">WWM Calculator Wiki – Damage Formula / Rate-Interaktionen</a></li>
+      <li><a href="https://wherewindsmeet.gg/inner-way/blossom-barrage" target="_blank" rel="noopener">WhereWindsMeet.gg – Blossom Barrage</a></li>
+      <li><a href="https://wherewindsmeet.gg/inner-way/morale-chant" target="_blank" rel="noopener">WhereWindsMeet.gg – Morale Chant</a></li>
+      <li><a href="https://wherewindsmeet.gg/inner-way/star-reacher" target="_blank" rel="noopener">WhereWindsMeet.gg – Star Reacher</a></li>
+    </ul>
+    <p><b>Stand:</b> 09.09.2026 · Global · Level 100 · Tier 96 Gear.</p>
+  </div>
+</section>
+</main>
+<footer class="footer"><div class="wrap">EMYPREANS · Where Winds Meet · Community Guide · Global Lv100 / T96</div></footer>
+</body>
+</html>
