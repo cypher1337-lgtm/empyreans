@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upcoming Sword Trials – Visual Onepager</title>
+  <style>
+    :root {
+      --bg-1: #05040a;
+      --bg-2: #120d1d;
+      --bg-3: #191126;
+      --panel: rgba(17, 12, 28, 0.94);
+      --panel-2: rgba(24, 17, 38, 0.95);
+      --gold: #d6b06d;
+      --gold-soft: #f7e5c4;
+      --violet: #8c51dc;
+      --violet-2: #b98bff;
+      --muted: #cdbfe2;
+      --text: #f6f1fb;
+      --line: rgba(214,176,109,0.18);
+      --line-violet: rgba(185,139,255,0.2);
+      --tank: #ffb566;
+      --heal: #69d89e;
+      --dps: #7ba8ff;
+      --danger: #ff91a4;
+      --shadow: 0 16px 46px rgba(0,0,0,0.58);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 84% 8%, rgba(140,81,220,0.28), transparent 16%),
+        radial-gradient(circle at 14% 12%, rgba(214,176,109,0.08), transparent 14%),
+        radial-gradient(circle at 50% 0%, rgba(185,139,255,0.06), transparent 34%),
+        linear-gradient(180deg, var(--bg-3) 0%, var(--bg-1) 100%);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.04));
+    }
+    .wrap {
+      width: min(1320px, calc(100% - 34px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    [data-lang] { display: none; }
+    body.lang-de [data-lang="de"], body.lang-en [data-lang="en"] { display: inline; }
+    body.lang-de [data-lang-block="de"], body.lang-en [data-lang-block="en"] { display: block; }
+    [data-lang-block] { display: none; }
+    h1,h2,h3,h4 { margin: 0 0 14px; line-height: 1.2; }
+    h1 { font-size: clamp(2.8rem,5vw,5.4rem); text-transform: uppercase; letter-spacing: .07em; color: var(--gold-soft); text-shadow: 0 0 18px rgba(185,139,255,.28), 0 0 40px rgba(214,176,109,.16); }
+    h2 { font-size: clamp(1.7rem,2.2vw,2.55rem); color: var(--gold-soft); }
+    h3 { font-size: 1.18rem; color: var(--gold-soft); }
+    p,li { color: var(--muted); }
+    a { color: var(--gold-soft); }
+    .topbar {
+      position: sticky; top: 0; z-index: 60;
+      border-bottom: 1px solid rgba(214,176,109,.12);
+      background: rgba(6,5,10,.82);
+      backdrop-filter: blur(14px);
+    }
+    .topbar-inner { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:12px 0; }
+    .brand { color: var(--gold); text-transform: uppercase; letter-spacing:.08em; font-weight:800; font-size:.92rem; }
+    .nav-links { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end; }
+    .nav-links a,.lang-btn {
+      text-decoration:none; color:var(--muted); padding:8px 12px; border-radius:999px;
+      border:1px solid transparent; background:transparent; cursor:pointer; transition:.2s ease; font-size:.95rem;
+    }
+    .nav-links a:hover,.lang-btn:hover,.lang-btn.active { color: var(--gold-soft); border-color: rgba(214,176,109,.22); background: rgba(140,81,220,.14); }
+    .hero {
+      position: relative; overflow: hidden; padding: 82px 0 46px; border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12));
+    }
+    .hero::before {
+      content:""; position:absolute; width:460px; height:460px; border-radius:50%; right:-110px; top:-70px;
+      background: radial-gradient(circle, rgba(140,81,220,.4), rgba(140,81,220,.14) 45%, rgba(140,81,220,0) 70%);
+      filter: blur(8px);
+    }
+    .hero::after {
+      content:""; position:absolute; left:0; right:0; bottom:0; height:170px;
+      background: linear-gradient(180deg, rgba(140,81,220,0) 0%, rgba(140,81,220,.09) 45%, rgba(5,4,10,1) 100%);
+    }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px; padding:9px 14px; border-radius:999px;
+      border:1px solid rgba(214,176,109,.25); background: rgba(140,81,220,.12);
+      color:var(--gold-soft); font-size:.9rem; letter-spacing:.05em; text-transform:uppercase;
+    }
+    .subtitle { max-width: 980px; font-size:1.08rem; margin:12px 0 24px; }
+    .hero-grid,.grid-2,.grid-3,.grid-4,.role-grid { display:grid; gap:18px; }
+    .hero-grid { grid-template-columns: 1.3fr .9fr; align-items: start; }
+    .grid-2 { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .grid-3 { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .grid-4 { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .role-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .hero-card,.panel,.boss-banner,.boss-card,.icon-card,.role-box {
+      position:relative; overflow:hidden; background:linear-gradient(180deg, rgba(22,16,33,.95), rgba(11,9,17,.97));
+      border:1px solid var(--line-violet); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+    }
+    .hero-card,.panel,.boss-card,.icon-card,.role-box { padding:20px 20px 18px; }
+    .boss-banner { padding:22px 22px 18px; margin-bottom:18px; }
+    .hero-card::before,.panel::before,.boss-banner::before,.boss-card::before,.icon-card::before,.role-box::before {
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background: linear-gradient(135deg, rgba(214,176,109,.06), transparent 34%, transparent 66%, rgba(185,139,255,.04));
+    }
+    .hero-card ul,.panel ul,.boss-card ul,.role-box ul { margin:8px 0 0; padding-left:20px; }
+    main { padding:30px 0 60px; }
+    section { margin-bottom:30px; scroll-margin-top: 90px; }
+    .ornament { margin:18px auto; display:flex; align-items:center; justify-content:center; gap:16px; color:var(--gold); opacity:.9; }
+    .ornament::before,.ornament::after { content:""; width:min(180px,22vw); height:1px; background: linear-gradient(90deg, transparent, rgba(214,176,109,.6), transparent); }
+    .ornament span { font-size:1.1rem; letter-spacing:.25em; }
+    .section-head {
+      padding:18px 20px; border-left:4px solid var(--violet-2); border-radius: var(--radius-md);
+      background: linear-gradient(90deg, rgba(140,81,220,.16), rgba(140,81,220,.02)); box-shadow: var(--shadow);
+    }
+    .note,.warn,.ok,.callout { border-radius:14px; padding:14px 16px; margin-top:12px; border:1px solid transparent; }
+    .note { background: rgba(214,176,109,.08); border-color: rgba(214,176,109,.18); color: var(--gold-soft); }
+    .warn { background: rgba(255,145,164,.08); border-color: rgba(255,145,164,.18); color: #ffd3db; }
+    .ok { background: rgba(105,216,158,.08); border-color: rgba(105,216,158,.18); color:#d6ffef; }
+    .callout { background: linear-gradient(90deg, rgba(140,81,220,.18), rgba(214,176,109,.08)); border-color: rgba(214,176,109,.22); border-left: 4px solid var(--gold); color: var(--text); }
+    .summary-table { width:100%; border-collapse: collapse; overflow:hidden; border-radius:18px; border:1px solid var(--line); background: rgba(13,10,18,.9); box-shadow: var(--shadow); }
+    .summary-table th,.summary-table td { padding:14px; text-align:left; vertical-align: top; border-bottom: 1px solid rgba(214,176,109,.1); }
+    .summary-table th { background: rgba(140,81,220,.18); color: var(--gold-soft); }
+    .summary-table td { color: var(--muted); }
+    .boss-banner-top { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:14px; }
+    .boss-tag { color: var(--violet-2); text-transform:uppercase; letter-spacing:.08em; font-size:.83rem; font-weight:700; margin-bottom:6px; }
+    .pill-row { display:flex; flex-wrap:wrap; gap:10px; }
+    .pill { padding:8px 12px; border-radius:999px; background: rgba(214,176,109,.08); border:1px solid rgba(214,176,109,.18); color: var(--gold-soft); font-size:.9rem; }
+    .icon-card .symbol,.boss-portrait .symbol {
+      width:72px; height:72px; border-radius:18px; display:grid; place-items:center; font-size:2rem; margin-bottom:12px;
+      background: radial-gradient(circle at 35% 35%, rgba(247,229,196,.18), rgba(140,81,220,.18) 58%, rgba(9,6,14,.7) 100%);
+      border:1px solid rgba(214,176,109,.24); box-shadow:0 0 24px rgba(140,81,220,.22);
+    }
+    .role-box { border-top:4px solid transparent; }
+    .role-box.tank { border-top-color: var(--tank); }
+    .role-box.heal { border-top-color: var(--heal); }
+    .role-box.dps { border-top-color: var(--dps); }
+    .role-title { display:flex; align-items:center; gap:10px; margin-bottom:10px; font-weight:800; }
+    .role-dot { width:12px; height:12px; border-radius:50%; }
+    .tank .role-dot { background:var(--tank); }
+    .heal .role-dot { background:var(--heal); }
+    .dps .role-dot { background:var(--dps); }
+    .boss-hero-art {
+      display:grid; grid-template-columns: 280px 1fr; gap:18px; align-items:center; margin-top:18px;
+    }
+    .boss-portrait {
+      position:relative; background: linear-gradient(180deg, rgba(20,15,30,.96), rgba(8,6,13,.98));
+      border:1px solid rgba(214,176,109,.14); border-radius: 20px; padding:16px; min-height: 250px;
+      display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+    }
+    .boss-portrait svg { width:100%; max-width:220px; height:auto; display:block; }
+    .diagram { background: radial-gradient(circle at 50% 20%, rgba(140,81,220,.08), transparent 45%), rgba(0,0,0,.18); border:1px solid rgba(214,176,109,.14); border-radius:18px; padding:18px; margin-top:12px; }
+    .flow { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    .step { min-width: 130px; flex:1 1 130px; padding:12px 10px; text-align:center; background: rgba(140,81,220,.1); border:1px solid rgba(185,139,255,.18); border-radius:14px; color: var(--gold-soft); font-size:.95rem; }
+    .arrow { color: var(--gold); font-size:1.1rem; flex:0 0 auto; }
+    .bull-diagram { display:grid; grid-template-columns: repeat(5,minmax(58px,1fr)); gap:10px; align-items:center; text-align:center; margin-top:8px; }
+    .node { padding:12px 8px; border-radius:14px; border:1px solid rgba(214,176,109,.16); background: rgba(140,81,220,.1); color: var(--gold-soft); font-weight:600; }
+    .center-node { background: rgba(214,176,109,.1); color: var(--text); }
+    .orb-meter { display:flex; gap:8px; margin-top:10px; }
+    .orb { width:32px; height:32px; border-radius:50%; background: radial-gradient(circle at 35% 35%, #ffdca1, #b96fff 55%, #5b2a8f 100%); box-shadow:0 0 16px rgba(185,139,255,.32); border:1px solid rgba(214,176,109,.3); }
+    .btn-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; padding:11px 16px; border-radius:999px; border:1px solid rgba(214,176,109,.22); background: rgba(140,81,220,.14); color: var(--gold-soft); text-decoration:none; font-weight:700; }
+    .btn:hover { background: rgba(140,81,220,.2); }
+    .footer { padding:28px 0 46px; border-top:1px solid rgba(214,176,109,.12); color:#a99ebf; font-size:.95rem; }
+    @media (max-width: 1020px) {
+      .hero-grid,.grid-2,.grid-3,.grid-4,.role-grid,.boss-hero-art { grid-template-columns:1fr; }
+      .topbar-inner { flex-direction:column; align-items:flex-start; }
+      .nav-links { justify-content:flex-start; }
+      .bull-diagram { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="lang-de">
+  <nav class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Shadow Trial Onepager</div>
+      <div class="nav-links">
+        <a href="#overview"><span data-lang="de">Übersicht</span><span data-lang="en">Overview</span></a>
+        <a href="#icons"><span data-lang="de">Symbolkarten</span><span data-lang="en">Icon Cards</span></a>
+        <a href="#bai"><span data-lang="de">Bai Shuyi</span><span data-lang="en">Bai Shuyi</span></a>
+        <a href="#qing"><span data-lang="de">Qing</span><span data-lang="en">Qing</span></a>
+        <a href="#roles"><span data-lang="de">Rollen</span><span data-lang="en">Roles</span></a>
+        <button class="lang-btn active" id="btn-de" type="button">DE</button>
+        <button class="lang-btn" id="btn-en" type="button">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span data-lang="de">Where Winds Meet • Visual Onepager • Schwarz / Violett / Gold</span>
+        <span data-lang="en">Where Winds Meet • Visual Onepager • Black / Violet / Gold</span>
+      </div>
+      <h1>Upcoming Sword Trials</h1>
+      <p class="subtitle">
+        <span data-lang="de">Ein kompletter Onepager mit direkt eingebundenen Grafiken, Symbolkarten, Boss-Illustrationen, Diagrammen, Rollenboxen und DE/EN-Umschalter – alles in einer einzigen HTML-Datei.</span>
+        <span data-lang="en">A complete onepager with directly embedded visuals, symbol cards, boss illustrations, diagrams, role boxes, and a DE/EN switcher – all inside a single HTML file.</span>
+      </p>
+      <div class="hero-grid">
+        <article class="hero-card">
+          <h2><span data-lang="de">Was jetzt enthalten ist</span><span data-lang="en">What is included now</span></h2>
+          <ul>
+            <li><span data-lang="de">Direkt eingebundene Bilder / Artworks als SVG-Illustrationen</span><span data-lang="en">Directly embedded images / artworks as SVG illustrations</span></li>
+            <li><span data-lang="de">Boss-Icons, Wuxia-Ornamente und visuelle Boss-Sektionen</span><span data-lang="en">Boss icons, Wuxia ornaments, and visual boss sections</span></li>
+            <li><span data-lang="de">Farbige Rollenboxen für Tank / Heal / DPS</span><span data-lang="en">Colored role boxes for tank / heal / DPS</span></li>
+            <li><span data-lang="de">Alle Inhalte als echter Onepager in nur einer HTML</span><span data-lang="en">All content as a true onepager in a single HTML file</span></li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn" href="#bai">Bai Shuyi</a>
+            <a class="btn" href="#qing">Qing</a>
+          </div>
+        </article>
+        <article class="hero-card">
+          <h2><span data-lang="de">Status</span><span data-lang="en">Status</span></h2>
+          <div class="ok"><strong><span data-lang="de">Bestätigt:</span><span data-lang="en">Confirmed:</span></strong> <span data-lang="de">Boss-Mechaniken, grundlegende Wipe-Checks und Gruppenlogik aus der Videoanalyse.</span><span data-lang="en">Boss mechanics, core wipe checks, and group logic from the video analysis.</span></div>
+          <div class="warn"><strong><span data-lang="de">Noch offen:</span><span data-lang="en">Still open:</span></strong> <span data-lang="de">Finale Global-Namen und exakte Talenttexte.</span><span data-lang="en">Final global names and exact talent texts.</span></div>
+          <div class="note"><strong><span data-lang="de">Einsatz:</span><span data-lang="en">Use case:</span></strong> <span data-lang="de">Optimal als Pre-Guide, Raid-Übersicht oder Guild-Informationsseite.</span><span data-lang="en">Ideal as a pre-guide, raid overview, or guild information page.</span></div>
+        </article>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="ornament"><span>✦ ❖ ✦</span></div>
+
+      <section id="overview">
+        <div class="section-head">
+          <h2><span data-lang="de">Übersicht</span><span data-lang="en">Overview</span></h2>
+          <p style="margin:0"><span data-lang="de">Die beiden Bosskämpfe wirken wie kommende Level‑100 Sword-Trials und verlangen jeweils einen anderen Schwerpunkt: Bai Shuyi ist ein Portal-/Buff-Kampf, Qing ein Puzzle-/Ressourcen-Kampf.</span><span data-lang="en">The two boss fights look like upcoming level 100 Sword Trials and each asks for a different focus: Bai Shuyi is a portal/buff fight, while Qing is a puzzle/resource fight.</span></p>
+        </div>
+        <div style="margin-top:18px; overflow:auto;">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Boss</th>
+                <th><span data-lang="de">Stil</span><span data-lang="en">Style</span></th>
+                <th><span data-lang="de">Schwerpunkt</span><span data-lang="en">Focus</span></th>
+                <th><span data-lang="de">Wipe-Risiken</span><span data-lang="en">Wipe Risks</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Bai Shuyi</strong></td>
+                <td><span data-lang="de">Portal-/Buff-Kampf</span><span data-lang="en">Portal/buff fight</span></td>
+                <td><span data-lang="de">Runner, Gate-Parry, Vines, Barrier</span><span data-lang="en">Runners, gate parry, vines, barrier</span></td>
+                <td><span data-lang="de">Vines nicht verbrannt, falsche Soaks, verspätete Portale</span><span data-lang="en">Vines not burned, wrong soaks, late portals</span></td>
+              </tr>
+              <tr>
+                <td><strong>Qing</strong></td>
+                <td><span data-lang="de">Puzzle-/Ressourcen-Kampf</span><span data-lang="en">Puzzle/resource fight</span></td>
+                <td><span data-lang="de">Orbs, Math Caller, Rescue Shots, Bulls</span><span data-lang="en">Orbs, math caller, rescue shots, Bulls</span></td>
+                <td><span data-lang="de">Mathefehler, Orb-Mangel, falsche Bulls</span><span data-lang="en">Math errors, orb shortage, wrong Bulls</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="ornament"><span>✦ ❖ ✦</span></div>
+
+      <section id="icons">
+        <div class="section-head">
+          <h2><span data-lang="de">Boss-Icons / Symbolkarten</span><span data-lang="en">Boss Icons / Symbol Cards</span></h2>
+          <p style="margin:0"><span data-lang="de">Schnelle visuelle Orientierung für die wichtigsten Themen der beiden Bosskämpfe.</span><span data-lang="en">A quick visual orientation for the most important themes of the two boss fights.</span></p>
+        </div>
+        <div class="grid-4" style="margin-top:18px;">
+          <article class="icon-card"><div class="symbol">🌸</div><h3>Bai Shuyi</h3><p><span data-lang="de">Flower Buffs, Fire/Water Portale und kontrollierte G-Mechaniken.</span><span data-lang="en">Flower buffs, Fire/Water portals, and controlled G mechanics.</span></p></article>
+          <article class="icon-card"><div class="symbol">🔥</div><h3><span data-lang="de">Portal Pressure</span><span data-lang="en">Portal Pressure</span></h3><p><span data-lang="de">Runner und Outside-Team müssen perfekt zusammenspielen.</span><span data-lang="en">Runners and the outside team must sync perfectly.</span></p></article>
+          <article class="icon-card"><div class="symbol">🧮</div><h3>Qing</h3><p><span data-lang="de">Math Puzzle, Fire Orb Economy und strenge Wipe-Checks.</span><span data-lang="en">Math puzzle, fire orb economy, and strict wipe checks.</span></p></article>
+          <article class="icon-card"><div class="symbol">🐂</div><h3><span data-lang="de">Bull Phase</span><span data-lang="en">Bull Phase</span></h3><p><span data-lang="de">Yin/Yang Bulls korrekt ausrichten und sofort töten.</span><span data-lang="en">Align Yin/Yang Bulls correctly and kill them quickly.</span></p></article>
+        </div>
+      </section>
+
+      <div class="ornament"><span>✦ ❖ ✦</span></div>
+
+      <section id="bai">
+        <div class="boss-banner">
+          <div class="boss-banner-top">
+            <div>
+              <div class="boss-tag">Boss 1</div>
+              <h2>Bai Shuyi</h2>
+            </div>
+            <div class="pill-row">
+              <span class="pill">Fire / Water</span>
+              <span class="pill">2 Fire Gates</span>
+              <span class="pill">Flower Buffs</span>
+              <span class="pill">2× G Vines</span>
+              <span class="pill">Barrier Phase</span>
+            </div>
+          </div>
+          <div class="boss-hero-art">
+            <div class="boss-portrait">
+              <div class="symbol">🌸</div>
+              <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-label="Bai Shuyi illustration">
+                <defs>
+                  <linearGradient id="b1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#d6b06d" />
+                    <stop offset="100%" stop-color="#b98bff" />
+                  </linearGradient>
+                </defs>
+                <circle cx="110" cy="60" r="28" fill="url(#b1)" opacity="0.95"/>
+                <path d="M72 180c8-42 31-66 38-72 7 8 30 30 38 72" fill="none" stroke="url(#b1)" stroke-width="16" stroke-linecap="round"/>
+                <path d="M54 136c30-10 48-8 56-6m0 0c8-2 26-4 56 6" fill="none" stroke="#f7e5c4" stroke-opacity=".9" stroke-width="8" stroke-linecap="round"/>
+                <path d="M40 112c25-20 55-31 70-33m40 33c15 2 45 13 70 33" fill="none" stroke="#8c51dc" stroke-opacity=".9" stroke-width="7" stroke-linecap="round"/>
+                <circle cx="52" cy="48" r="8" fill="#d6b06d" opacity=".9"/>
+                <circle cx="164" cy="42" r="9" fill="#b98bff" opacity=".92"/>
+                <circle cx="184" cy="76" r="6" fill="#d6b06d" opacity=".86"/>
+                <circle cx="26" cy="88" r="7" fill="#b98bff" opacity=".9"/>
+              </svg>
+              <p style="margin:10px 0 0"><span data-lang="de">Portal-/Buff-Boss</span><span data-lang="en">Portal/Buff boss</span></p>
+            </div>
+            <div>
+              <p><span data-lang="de">Bai Shuyi ist ein klar strukturierter, aber mechanikreicher Kampf. Das Team trennt sich in <strong>Realm Runner</strong> und <strong>Outside Support</strong>. Danach entscheiden <strong>Double Soaks</strong>, <strong>Vine Burn</strong> und <strong>Water Barrier</strong> über Erfolg oder Wipe.</span><span data-lang="en">Bai Shuyi is a clearly structured but mechanic-heavy fight. The team splits into <strong>realm runners</strong> and <strong>outside support</strong>. After that, <strong>double soaks</strong>, <strong>vine burn</strong>, and <strong>water barrier</strong> determine success or wipe.</span></p>
+              <div class="ok"><strong><span data-lang="de">Merksatz:</span><span data-lang="en">Rule of thumb:</span></strong> <span data-lang="de">Je klarer die Runner-Aufteilung, desto einfacher wird der ganze Kampf.</span><span data-lang="en">The clearer your runner assignments are, the easier the entire fight becomes.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="panel">
+            <h3><span data-lang="de">1. Fire Realm</span><span data-lang="en">1. Fire Realm</span></h3>
+            <ul>
+              <li><span data-lang="de">Vine Circle triggern</span><span data-lang="en">Trigger the vine circle</span></li>
+              <li><span data-lang="de">Flower Buff sichern</span><span data-lang="en">Secure the flower buff</span></li>
+              <li><span data-lang="de">Sofort durch das Fire Gate</span><span data-lang="en">Enter the Fire Gate immediately</span></li>
+              <li><span data-lang="de">Maximal 2 Spieler pro Gate</span><span data-lang="en">Maximum 2 players per gate</span></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3><span data-lang="de">2. Outside Support</span><span data-lang="en">2. Outside Support</span></h3>
+            <ul>
+              <li><span data-lang="de">Markierter Spieler parryt am Gate</span><span data-lang="en">The marked player parries at the gate</span></li>
+              <li><span data-lang="de">Beschleunigt die Realm Runner</span><span data-lang="en">Speeds up the realm runners</span></li>
+              <li><span data-lang="de">Nicht einfach nur draußen Schaden machen</span><span data-lang="en">Do not simply stay outside and deal damage</span></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3><span data-lang="de">3. Wipe Checks</span><span data-lang="en">3. Wipe Checks</span></h3>
+            <ul>
+              <li><span data-lang="de">Double Soak sauber splitten</span><span data-lang="en">Split the double soak correctly</span></li>
+              <li><span data-lang="de">2× G auf Vines</span><span data-lang="en">Use 2× G on vines</span></li>
+              <li><span data-lang="de">Barriere korrekt setzen und nutzen</span><span data-lang="en">Place and use the barrier correctly</span></li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="panel" style="margin-top:18px;">
+          <h3><span data-lang="de">Ablaufdiagramm – Bai Shuyi</span><span data-lang="en">Flow Diagram – Bai Shuyi</span></h3>
+          <div class="diagram">
+            <div class="flow">
+              <div class="step"><span data-lang="de">Flower Buff</span><span data-lang="en">Flower Buff</span></div>
+              <div class="arrow">➜</div>
+              <div class="step"><span data-lang="de">Fire Gate</span><span data-lang="en">Fire Gate</span></div>
+              <div class="arrow">➜</div>
+              <div class="step"><span data-lang="de">Clone Burst</span><span data-lang="en">Clone Burst</span></div>
+              <div class="arrow">➜</div>
+              <div class="step"><span data-lang="de">2× G Vines</span><span data-lang="en">2× G Vines</span></div>
+              <div class="arrow">➜</div>
+              <div class="step"><span data-lang="de">Water Barrier</span><span data-lang="en">Water Barrier</span></div>
+            </div>
+          </div>
+          <div class="callout"><strong><span data-lang="de">Raid Call:</span><span data-lang="en">Raid Call:</span></strong> <span data-lang="de">„Vier Runner fix – Portal sofort – Parry am Gate – zwei G auf Vines – gelbe Linie hinter Barriere.“</span><span data-lang="en">“Four runners fixed – portal immediately – parry at gate – two G on vines – yellow line behind barrier.”</span></div>
+        </article>
+      </section>
+
+      <div class="ornament"><span>✦ ❖ ✦</span></div>
+
+      <section id="qing">
+        <div class="boss-banner">
+          <div class="boss-banner-top">
+            <div>
+              <div class="boss-tag">Boss 2</div>
+              <h2>Qing</h2>
+            </div>
+            <div class="pill-row">
+              <span class="pill">3 Fire Orbs</span>
+              <span class="pill">Math Puzzle</span>
+              <span class="pill">Levitation</span>
+              <span class="pill">6 Shield Shots</span>
+              <span class="pill">Yin / Yang Bulls</span>
+            </div>
+          </div>
+          <div class="boss-hero-art">
+            <div class="boss-portrait">
+              <div class="symbol">🧮</div>
+              <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-label="Qing illustration">
+                <defs>
+                  <linearGradient id="q1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#8c51dc" />
+                    <stop offset="100%" stop-color="#d6b06d" />
+                  </linearGradient>
+                </defs>
+                <circle cx="110" cy="52" r="25" fill="url(#q1)" opacity="0.96"/>
+                <path d="M70 172c12-38 29-56 40-66 11 10 28 28 40 66" fill="none" stroke="url(#q1)" stroke-width="16" stroke-linecap="round"/>
+                <path d="M24 132c14-20 34-34 52-40m92 40c-14-20-34-34-52-40" fill="none" stroke="#f7e5c4" stroke-opacity=".9" stroke-width="7" stroke-linecap="round"/>
+                <circle cx="44" cy="70" r="13" fill="#8c51dc" opacity=".92"/>
+                <circle cx="176" cy="70" r="13" fill="#d6b06d" opacity=".92"/>
+                <circle cx="44" cy="70" r="5" fill="#f7e5c4"/>
+                <circle cx="176" cy="70" r="5" fill="#2f233f"/>
+                <path d="M96 84h28m-28 14h28m-28 14h28" stroke="#f7e5c4" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+              </svg>
+              <p style="margin:10px 0 0"><span data-lang="de">Puzzle-/Ressourcen-Boss</span><span data-lang="en">Puzzle/Resource Boss</span></p>
+            </div>
+            <div>
+              <p><span data-lang="de">Qing ist der schärfere Koordinationscheck. Die Gruppe muss <strong>Orbs sparen</strong>, einen <strong>Math Caller</strong> definieren, <strong>Rescue Shots</strong> präzise ausführen und später die <strong>Yin/Yang Bulls</strong> korrekt ausrichten.</span><span data-lang="en">Qing is the stricter coordination check. The group must <strong>save orbs</strong>, define a <strong>math caller</strong>, execute <strong>rescue shots</strong> precisely, and later align the <strong>Yin/Yang Bulls</strong> correctly.</span></p>
+              <div class="warn"><strong><span data-lang="de">Achtung:</span><span data-lang="en">Warning:</span></strong> <span data-lang="de">Nicht roher DPS, sondern Ressourcen- und Puzzlekontrolle entscheidet hier den Fight.</span><span data-lang="en">This fight is decided by resource and puzzle control, not by raw DPS.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="panel">
+            <h3><span data-lang="de">1. Orb Economy</span><span data-lang="en">1. Orb Economy</span></h3>
+            <div class="orb-meter"><div class="orb"></div><div class="orb"></div><div class="orb"></div></div>
+            <ul>
+              <li><span data-lang="de">Maximal 3 Fire Orbs pro Spieler</span><span data-lang="en">Maximum 3 Fire Orbs per player</span></li>
+              <li><span data-lang="de">Für Wipe-Phasen Orbs sparen</span><span data-lang="en">Save orbs for wipe phases</span></li>
+              <li><span data-lang="de">Volle Spieler lassen Orbs liegen</span><span data-lang="en">Players at cap leave orbs behind</span></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3><span data-lang="de">2. Math Puzzle</span><span data-lang="en">2. Math Puzzle</span></h3>
+            <ul>
+              <li><span data-lang="de">Nur ein Math Caller spricht</span><span data-lang="en">Only one math caller speaks</span></li>
+              <li><span data-lang="de">F rotiert Werte: 1 → 2 → 3 → 4 → 1</span><span data-lang="en">F rotates values: 1 → 2 → 3 → 4 → 1</span></li>
+              <li><span data-lang="de">Fehler = Wipe</span><span data-lang="en">Mistakes = wipe</span></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3><span data-lang="de">3. Späte Phasen</span><span data-lang="en">3. Late Phases</span></h3>
+            <ul>
+              <li><span data-lang="de">6 Schildschüsse in DPS Check 1</span><span data-lang="en">6 shield shots in DPS Check 1</span></li>
+              <li><span data-lang="de">Yin/Yang Bulls in DPS Check 2</span><span data-lang="en">Yin/Yang Bulls in DPS Check 2</span></li>
+              <li><span data-lang="de">Boss mittig halten, Bulls zuerst töten</span><span data-lang="en">Keep the boss centered, kill Bulls first</span></li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="panel" style="margin-top:18px;">
+          <h3><span data-lang="de">Diagramm – Bull Phase</span><span data-lang="en">Diagram – Bull Phase</span></h3>
+          <div class="diagram">
+            <div class="bull-diagram">
+              <div class="node">Bull</div>
+              <div class="node">Player</div>
+              <div class="node center-node">Qing</div>
+              <div class="node">Player</div>
+              <div class="node">Bull</div>
+            </div>
+            <p style="margin-top:12px"><span data-lang="de">Die Bulls müssen gegensätzliche Polarität besitzen. Die markierten Spieler stehen auf derselben Achse, damit beide Bulls durch die Mitte in den Boss chargen und kollidieren.</span><span data-lang="en">The Bulls must have opposite polarity. The marked players stand on the same axis so both Bulls charge through the center into the boss and collide.</span></p>
+          </div>
+          <div class="callout"><strong><span data-lang="de">Raid Call:</span><span data-lang="en">Raid Call:</span></strong> <span data-lang="de">„Orbs sparen – nur der Caller spricht – 6 Schüsse in den Schild – Bulls Yin/Yang – Boss Mitte – Bulls zuerst.“</span><span data-lang="en">“Save orbs – only the caller speaks – 6 shots into shield – Bulls Yin/Yang – boss center – Bulls first.”</span></div>
+        </article>
+      </section>
+
+      <div class="ornament"><span>✦ ❖ ✦</span></div>
+
+      <section id="roles">
+        <div class="section-head">
+          <h2><span data-lang="de">Farbige Rollenboxen</span><span data-lang="en">Colored Role Boxes</span></h2>
+          <p style="margin:0"><span data-lang="de">Schneller Überblick, worauf Tank, Heal und DPS bei diesen Trials besonders achten sollten.</span><span data-lang="en">A quick overview of what tank, heal, and DPS should especially watch in these trials.</span></p>
+        </div>
+        <div class="role-grid" style="margin-top:18px;">
+          <article class="role-box tank">
+            <div class="role-title"><span class="role-dot"></span><span>Tank</span></div>
+            <ul>
+              <li><span data-lang="de">Boss möglichst ruhig und mittig halten</span><span data-lang="en">Keep the boss calm and centered</span></li>
+              <li><span data-lang="de">Saubere Sichtlinien für Portale, Barrieren und Bulls ermöglichen</span><span data-lang="en">Provide clear lines for portals, barriers, and Bulls</span></li>
+              <li><span data-lang="de">Keine hektischen Bewegungen in entscheidenden Mechanikfenstern</span><span data-lang="en">Avoid frantic movement during key mechanic windows</span></li>
+            </ul>
+          </article>
+          <article class="role-box heal">
+            <div class="role-title"><span class="role-dot"></span><span>Heal</span></div>
+            <ul>
+              <li><span data-lang="de">Burst-Heal für Soak-Fehler und gelbe AoEs bereithalten</span><span data-lang="en">Keep burst healing ready for soak mistakes and yellow AoEs</span></li>
+              <li><span data-lang="de">Bei Qing Spread-Phasen so managen, dass Spieler in Reichweite bleiben</span><span data-lang="en">During Qing, manage spread phases while keeping players in range</span></li>
+              <li><span data-lang="de">Früh auffangen, wenn durch Orb-Fehler Schaden steigt</span><span data-lang="en">Stabilize early if damage rises because of orb mistakes</span></li>
+            </ul>
+          </article>
+          <article class="role-box dps">
+            <div class="role-title"><span class="role-dot"></span><span>DPS</span></div>
+            <ul>
+              <li><span data-lang="de">Starke DPS priorisiert für Realm Runner und Burstfenster</span><span data-lang="en">Strong DPS prioritized for realm runs and burst windows</span></li>
+              <li><span data-lang="de">Keine Gier – Mechaniken vor Schadenszahlen</span><span data-lang="en">No greed – mechanics before damage numbers</span></li>
+              <li><span data-lang="de">Gefallene Bulls und Portalziele sofort priorisieren</span><span data-lang="en">Immediately prioritize downed Bulls and portal targets</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <strong><span data-lang="de">Upcoming Sword Trials – Visual Onepager</span><span data-lang="en">Upcoming Sword Trials – Visual Onepager</span></strong><br>
+      <span data-lang="de">Eine einzige HTML-Datei mit eingebundenen Bildern, SVG-Illustrationen, Diagrammen, Rollenboxen und DE/EN-Umschalter.</span>
+      <span data-lang="en">A single HTML file with embedded visuals, SVG illustrations, diagrams, role boxes, and a DE/EN switcher.</span>
+    </div>
+  </footer>
+
+  <script>
+    const body = document.body;
+    const btnDe = document.getElementById('btn-de');
+    const btnEn = document.getElementById('btn-en');
+    function setLang(lang){
+      body.classList.remove('lang-de','lang-en');
+      body.classList.add('lang-' + lang);
+      btnDe.classList.toggle('active', lang === 'de');
+      btnEn.classList.toggle('active', lang === 'en');
+      document.documentElement.lang = lang;
+      localStorage.setItem('wwm_onepager_lang', lang);
+    }
+    btnDe.addEventListener('click', () => setLang('de'));
+    btnEn.addEventListener('click', () => setLang('en'));
+    const saved = localStorage.getItem('wwm_onepager_lang');
+    if(saved === 'en') setLang('en'); else setLang('de');
+  </script>
+</body>
+</html>
