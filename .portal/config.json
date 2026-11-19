@@ -1,0 +1,12 @@
+{
+  "siteTitle": "EMPYREANS · WUXIA ARCHIV",
+  "siteSubtitle": "Die Chroniken des Jianghu",
+  "siteIntro": "Guides, Strategien und Legenden. Alles, was unsere Gilde bewegt – gesammelt an einem Ort.",
+  "scanMarkdown": true,
+  "exclude": [
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "CONTRIBUTING.md"
+  ]
+}

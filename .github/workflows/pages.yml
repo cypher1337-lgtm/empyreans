@@ -1,0 +1,52 @@
+name: EMPYREANS · Wuxia Archiv veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Repository vollständig auschecken (Änderungsdaten)
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Python einrichten
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Abhängigkeiten installieren
+        run: python -m pip install -r requirements.txt
+
+      - name: Seiten erfassen und Katalog verschlüsseln
+        env:
+          PORTAL_PIN: ${{ secrets.PORTAL_PIN }}
+        run: python tools/build_portal.py --source . --output _site
+
+      - name: GitHub Pages einrichten
+        uses: actions/configure-pages@v5
+
+      - name: Website hochladen
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Website veröffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v4

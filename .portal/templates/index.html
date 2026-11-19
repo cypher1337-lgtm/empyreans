@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1719">
+  <meta name="description" content="EMPYREANS Wuxia Archiv – Alle Guides, Strategien und Chroniken an einem Ort.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'">
+  <link rel="icon" type="image/svg+xml" href="./_empyreans/sigil.svg">
+  <link rel="stylesheet" href="./_empyreans/portal.css">
+  <script src="./_empyreans/portal.js" defer></script>
+  <title>%%SITE_TITLE%%</title>
+</head>
+<body>
+<div class="site-shell" id="site-shell" inert>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="EMPYREANS – Startseite">
+      <img class="brand-icon" src="./_empyreans/sigil.svg" alt="">
+      <span class="brand-text"><strong>EMPYREANS</strong><small>WUXIA ARCHIV · 江湖藏经阁</small></span>
+    </a>
+    <div class="header-center"><span class="header-star">✧</span> THE JIANGHU CHRONICLES <span class="header-star">✧</span></div>
+    <nav class="header-actions" aria-label="Portal-Navigation">
+      <span class="status"><i class="status-dot"></i><span id="state-label">VERSIEGELT</span></span>
+      <button class="nav-lock" id="lock-button" type="button" hidden>Archiv sperren <span aria-hidden="true">↗</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art"></div><div class="hero-shade"></div><div class="hero-grid"></div>
+      <div class="hero-inner">
+        <div class="eyebrow"><span class="eyebrow-line"></span> %%SITE_SUBTITLE%%</div>
+        <div class="hero-vertical" aria-hidden="true">以 武 会 友 · 纵 横 江 湖</div>
+        <h1 id="hero-title">Das Wissen<br><em>der Legenden.</em></h1>
+        <p>%%SITE_INTRO%%</p>
+        <div class="hero-meta"><div><span class="meta-number" id="hero-count">—</span><span class="meta-key">WERKE IM ARCHIV</span></div><span class="meta-divider"></span><div><span class="meta-number" id="hero-categories">—</span><span class="meta-key">SAMMLUNGEN</span></div><span class="meta-divider"></span><div><span class="meta-number" id="hero-date">—</span><span class="meta-key">STAND</span></div></div>
+        <a class="hero-button" href="#archive"><span>Das Archiv erkunden</span><span class="arrow-circle">↗</span></a>
+      </div>
+      <div class="hero-foot"><span>卷 壹 · DAS ERSTE KAPITEL</span><span class="hero-foot-line"></span><span>SCROLL TO EXPLORE</span></div>
+    </section>
+
+    <div class="outer">
+      <section class="archive" id="archive" aria-labelledby="archive-title">
+        <div class="section-eyebrow"><span class="seal-icon">壹</span> DAS GESAMTE ARCHIV <span class="section-rule"></span> 01 / ARCHIVE</div>
+        <div class="archive-heading"><div><h2 id="archive-title">Die Sammlung<span class="red-dot">.</span></h2><p>Eine Welt voller Wissen – entdecke unsere Guides, Aufzeichnungen und Strategien.</p></div><div class="collection-counter" id="results-counter">— EINTRÄGE</div></div>
+        <div class="controls" id="controls" hidden>
+          <label class="search-box" for="search"><span aria-hidden="true" class="search-icon">⌕</span><input id="search" type="search" placeholder="Suche nach Guides, Builds, Strategien …" autocomplete="off"><span class="shortcut">/</span></label>
+          <label class="sort-box"><span class="sr-only">Sortierung</span><select id="sort"><option value="recent">Zuletzt aktualisiert</option><option value="title">Titel A–Z</option><option value="category">Sammlung A–Z</option></select><span aria-hidden="true">⌄</span></label>
+        </div>
+        <div class="filter-bar" id="filters" aria-label="Kategorien" hidden></div>
+        <div class="locked-note" id="locked-note"><div class="locked-ornament">封</div><h3>Das Archiv ist versiegelt</h3><p>Gib deine PIN ein, um die Chroniken zu öffnen.</p><button type="button" class="text-cta" id="open-unlock">Siegel öffnen <span>↗</span></button></div>
+        <div class="cards" id="cards" role="list"></div>
+        <div class="empty-state" id="empty-state" hidden><div class="empty-symbol">無</div><h3>Keine Chronik gefunden</h3><p>Versuche einen anderen Suchbegriff oder wähle eine andere Sammlung.</p><button type="button" id="reset-filters">Alle Einträge anzeigen</button></div>
+      </section>
+    </div>
+
+    <section class="closing"><div class="closing-inner"><span>江 湖</span><blockquote>„Die stärkste Klinge ist das Wissen,<br>das wir miteinander teilen.“</blockquote><div class="closing-caption">EMPYREANS · UNITED IN THE JIANGHU</div></div></section>
+  </main>
+  <footer class="footer"><div class="footer-brand"><img src="./_empyreans/sigil.svg" alt=""><span>EMPYREANS</span></div><span>WHERE WINDS MEET · WUXIA ARCHIV</span><span>Mit Leidenschaft gesammelt · <span id="footer-year">2026</span></span></footer>
+</div>
+
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title" aria-describedby="gate-description">
+  <div class="gate-background"></div>
+  <div class="gate-panel">
+    <div class="gate-corners" aria-hidden="true"></div>
+    <div class="gate-sigil"><img src="./_empyreans/sigil.svg" alt=""></div>
+    <div class="gate-caption">EMPYREANS · GUILD ARCHIVE</div>
+    <div class="gate-rule"><span>✦</span></div>
+    <h2 id="gate-title">Das versiegelte<br><em>Archiv</em></h2>
+    <p id="gate-description">Wissen wird bewahrt. Vertrauen öffnet die Tore. Gib deine PIN ein, um die Chroniken des Jianghu zu betreten.</p>
+    <form id="gate-form" novalidate>
+      <label for="pin">DEIN ZUGANGSSCHLÜSSEL</label>
+      <div class="pin-wrap"><span class="pin-marker" aria-hidden="true">✧</span><input id="pin" name="pin" type="password" autocomplete="off" inputmode="text" placeholder="PIN eingeben" required minlength="6"><button type="button" id="show-pin" aria-label="PIN anzeigen" aria-pressed="false">ANZEIGEN</button></div>
+      <div class="gate-error" id="gate-error" role="status" aria-live="polite"></div>
+      <button class="unlock-button" id="unlock-button" type="submit"><span>Das Siegel brechen</span><span aria-hidden="true">→</span></button>
+    </form>
+    <p class="gate-trust">◆ AES-256-GCM VERSCHLÜSSELTER KATALOG ◆</p>
+  </div>
+  <span class="gate-vertical" aria-hidden="true">風 起 雲 涌 · 天 下 無 雙</span>
+</div>
+</body></html>
